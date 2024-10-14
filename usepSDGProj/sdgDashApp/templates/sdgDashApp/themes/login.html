@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>AdminLTE 3 | Log in</title>
+
+		<!-- Google Font: Source Sans Pro -->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+		/>
+		<!-- Theme style -->
+		<link
+			rel="stylesheet"
+			href="{% static 'sdgDashApp/dist/css/adminlte.min.css' %}"
+		/>
+	</head>
+	<body class="hold-transition login-page">
+		<div class="row">
+			<div class="col-12">
+				<div class="login-box">
+					<div class="login-logo">
+						<a href="../../index2.html"><b>SDG</b> Admin</a>
+					</div>
+					<!-- /.login-logo -->
+					<div class="card">
+						<div class="card-body login-card-body">
+							<p class="login-box-msg">Sign in to start your session</p>
+							{% csrf_token %}
+							<form id="login-form" autocomplete="off">
+								<div class="input-group mb-3">
+									<input
+										name="EmployeeID"
+										type="text"
+										class="form-control"
+										placeholder="Employee Id"
+									/>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<span class="fas fa-envelope"></span>
+										</div>
+									</div>
+								</div>
+								<div class="input-group mb-3">
+									<input
+										name="Password"
+										type="password"
+										class="form-control"
+										placeholder="Password"
+									/>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<span class="fas fa-lock"></span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-8">
+										<div class="icheck-primary">
+											<input type="checkbox" id="remember" />
+											<label for="remember"> Remember Me </label>
+										</div>
+									</div>
+									<!-- /.col -->
+									<div class="col-4">
+										<button type="submit" class="btn btn-primary btn-block">
+											Sign In
+										</button>
+									</div>
+									<!-- /.col -->
+								</div>
+							</form>
+
+							<div class="social-auth-links text-center mb-3">
+								<p>- OR -</p>
+								<a href="#" class="btn btn-block btn-danger">
+									<i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+								</a>
+							</div>
+							<div class="notif">
+								<p>error</p>
+							</div>
+						</div>
+						<!-- /.login-card-body -->
+					</div>
+				</div>
+				<!-- /.login-box -->
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="{% static 'sdgDashApp/plugins/jquery/jquery.min.js' %}"></script>
+		<!-- Bootstrap 4 -->
+		<script src="{% static 'sdgDashApp/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+		<!-- AdminLTE App -->
+		<script src="{% static 'sdgDashApp//dist/js/adminlte.min.js' %}"></script>
+
+		<!-- sweetalert2 App -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<!--custom script-->
+		<script>
+			// $(document).ready(function () {
+			// 	$("#login-form").on("submit", function (e) {
+			// 		e.preventDefault();
+			// 		e.stopPropagation();
+
+			// 		var employeeID = $('input[name="EmployeeID"]').val();
+			// 		var password = $('input[name="Password"]').val();
+
+			// 		$.ajax({
+			// 			url: "{% url 'logView' %}", // Update this to match your Django URL
+			// 			type: "POST",
+			// 			dataType: "json",
+			// 			data: {
+			// 				EmployeeID: employeeID,
+			// 				Password: password,
+			// 			},
+			// 			headers: {
+			// 				"X-CSRFToken": getCookie("csrftoken"), // Add this line for CSRF protection
+			// 			},
+			// 			success: function (response) {
+			// 				if (response.status === "error") {
+			// 					Swal.fire({
+			// 						icon: "error",
+			// 						title: "Access Denied!",
+			// 						text: response.message,
+			// 						showConfirmButton: false,
+			// 						timer: 1500,
+			// 					});
+			// 				} else {
+			// 					Swal.fire({
+			// 						icon: "success",
+			// 						title: "Welcome User",
+			// 						showConfirmButton: false,
+			// 						timer: 1500,
+			// 					});
+			// 				}
+			// 				console.log(response);
+			// 			},
+			// 			error: function (xhr, status, error) {
+			// 				console.log(xhr.responseText);
+			// 				Swal.fire({
+			// 					icon: "error",
+			// 					title: "An error occurred",
+			// 					text: "Please try again later.",
+			// 					showConfirmButton: false,
+			// 					timer: 1500,
+			// 				});
+			// 			},
+			// 		});
+			// 	});
+			// });
+
+			// // Function to get CSRF token from cookies
+			// function getCookie(name) {
+			// 	var cookieValue = null;
+			// 	if (document.cookie && document.cookie !== "") {
+			// 		var cookies = document.cookie.split(";");
+			// 		for (var i = 0; i < cookies.length; i++) {
+			// 			var cookie = cookies[i].trim();
+			// 			if (cookie.substring(0, name.length + 1) === name + "=") {
+			// 				cookieValue = decodeURIComponent(
+			// 					cookie.substring(name.length + 1)
+			// 				);
+			// 				break;
+			// 			}
+			// 		}
+			// 	}
+			// 	return cookieValue;
+			// }
+
+			$(document).ready(function () {
+				$("#login-form").on("submit", function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					// Get the form data
+					var employeeID = $('input[name="EmployeeID"]').val();
+					var password = $('input[name="Password"]').val();
+
+					$.ajax({
+						headers: {
+							"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+						},
+						url: "https://hris.usep.edu.ph/api/dashboard/login",
+						type: "POST",
+						dataType: "json",
+						data: {
+							pmaps_id: employeeID,
+							password: password,
+							token: "496871859d96697ba10536775445fd8f",
+						},
+
+						success: function (response) {
+							// Error
+							if (response.Error) {
+								// if (EmployeeID == "test-Rob") {
+								// 	console.log("robson");
+								// 	$(".form-login input:text:visible:first").focus();
+								// 	$(".form-login").trigger("reset");
+								// 	AuthenticateAJAX(Url, 111);
+								// }
+								// swal("Error!", response.Error, "error").then(function () {
+								// 	$(".form-login input:text:visible:first").focus();
+								// });
+								Swal.fire({
+									icon: "error",
+									title: "Access Denied!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								console.log(response);
+							}
+							// Success
+							else {
+								// console.log(response.id);
+								// $(".form-login input:text:visible:first").focus();
+								// $(".form-login").trigger("reset");
+								// AuthenticateAJAX(Url, response.id);
+
+								Swal.fire({
+									icon: "success",
+									title: "Welcome User",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								console.log(response);
+							}
+						},
+
+						error: function (request, status, error) {
+							console.log(request);
+							console.log(status);
+							console.log(error);
+						},
+						beforeSend: function () {
+							// $.LoadingOverlay("show");
+						},
+						complete: function () {
+							// $.LoadingOverlay("hide");
+						},
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

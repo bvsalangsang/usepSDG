@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+
+<div class="content-wrapper">
+	<section class="content">
+		<!-- Page Header Start -->
+		<div
+			class="container-fluid topic-header py-6 my-5 mt-0 wow fadeIn"
+			data-wow-delay="0.1s"
+		>
+			<div class="container">
+				<h1 class="display-6 text-white animated slideInDown mb-4">
+					Education
+				</h1>
+			</div>
+		</div>
+		<!-- Page Header End -->
+
+		<!-- Related SDG Start -->
+		<div class="container-xxl py-3">
+			<div class="container">
+				<div class="row wow fadeInUp" data-wow-delay="0.5s">
+					<div class="card card-horizontal p-2 related-sdg">
+						<a href="{% url 'goal-4' %}">
+							<img
+								src="{% static 'img/E_SDG_Icons-04.jpg' %}"
+								alt="Card image"
+								class="card-img"
+							/>
+						</a>
+						<div class="card-body">
+							<h2 class="card-title">Related SDG's</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="row wow fadeInUp" data-wow-delay="0.5s">
+					<hr class="yellow-border" />
+				</div>
+			</div>
+		</div>
+		<!-- Related SDG End -->
+
+		<!--Topic Start-->
+		<div class="container-xxl py-4">
+			<div class="container">
+				<div class="row g-5 wow fadeInUp" data-wow-delay="0.5s">
+					<h1 class="display-6 m-0">College Education Behind Bars (CEBB)</h1>
+					<div class="col-lg-6">
+						<div class="topic-img">
+							<img src="{% static 'img/img-g4-1.png '%}" alt="Logo" />
+						</div>
+					</div>
+
+					<!-- <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+						<div class="global-img"></div>
+						<img src="img/sdg-circular.png" alt="Logo" />
+					</div> -->
+					<div class="col-lg-6">
+						<div class="h-100">
+							<!-- <h6 class="text-primary text-uppercase mb-2">HOME</h6> -->
+							<p>
+								The College Education Behind Bars (CEBB) program, conceived by
+								the Social Entrepreneurship Technology and Business Institute
+								(SETBI) in partnership with the University of Southeastern
+								Philippines (USeP) and the Bureau of Jail Management and
+								Penology (BJMP) XI, aims to help PDLs overcome personal,
+								economic, social, and civic deficiencies by offering a quality
+								college education. The opportunity to pursue a college
+								education, earn a degree and college diploma and become
+								market-ready while behind bars has marked a transformative
+								moment in the lives of PDLs in Davao City Jail.
+							</p>
+							<p>Location: Davao City Jail, Maa, Davao City, Philippines</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Topic End -->
+	</section>
+</div>
+
+{% include 'includes/footer.html' %} {% endblock %}

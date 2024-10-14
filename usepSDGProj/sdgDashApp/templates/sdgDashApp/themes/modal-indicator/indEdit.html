@@ -1,0 +1,101 @@
+<div class="modal fade" id="modal-indicator-edit-lg">
+	<form id="indicator-edit-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-warning">
+					<h4 class="modal-title">Edit Entry</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="edit-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="ind-id">Indicator ID</label>
+								<input
+									type="text"
+									name="indId"
+									id="id_indId"
+									class="form-control"
+									disabled
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="Target">Target</label>
+								<select
+									id="target-edit"
+									name="targetId"
+									class="form-control sdg-select"
+								>
+									<option value="" data-desc="">Select a target</option>
+									{% for target in sdgTargetList %}
+									<option
+										value="{{ target.targetId }}"
+										data-desc="{{ target.targetDesc }}"
+									>
+										{{ target.targetCode }}
+									</option>
+									{% endfor %}
+								</select>
+								<blockquote
+									id="descBlockquote-edit"
+									class="quote-secondary"
+									style="display: none"
+								>
+									<p>Description</p>
+									<small id="targetDesc-edit"></small>
+								</blockquote>
+
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="name">code</label>
+								<input
+									type="text"
+									name="indCode"
+									id="id_indCode"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="ind"> Indicator </label>
+								<textarea
+									class="form-control"
+									name="indDesc"
+									rows="10"
+									placeholder="description"
+									id="id_indDesc"
+								>
+								</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button
+							type="submit"
+							class="btn bg-gradient-warning btn-update"
+							data-url="{% url 'sdgIndicatorSaveUpdateParams' %}"
+						>
+							Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

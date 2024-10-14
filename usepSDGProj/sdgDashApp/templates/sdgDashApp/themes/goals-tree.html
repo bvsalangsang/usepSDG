@@ -1,0 +1,274 @@
+{% extends 'sdgDashApp/base.html' %}
+{% load static %}
+
+{% block body %} 
+{% include 'sdgDashApp/includes/header.html' %}
+{% include 'sdgDashApp/includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+                <div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Goal Library</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Goal Library</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+						<!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                              Program Records
+                                            </div>
+                                            <div class="card-body">
+                                                <!-- {% for msg in messages %}
+                                                <div class="alert alert-info alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                <i class="icon fas fa-check"></i>
+                                                    {{ msg }}
+                                                </div>
+                                                {% endfor %} -->
+                                                    <table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+        
+                                           </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-goal-lg">
+                                                        Add New
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                        
+                            </div>
+                            <!-- /.container-fluid -->
+                        </section>
+                        <!-- /.content -->
+
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'sdgDashApp/includes/footer.html' %}
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+    {% endblock %}
+    {% block scripts %}
+    <script>
+		$(document).ready(function() {
+			var tempData; 
+			var lvl2Data = {}; 
+			
+			$.ajax({
+					url: "/sdgTreeJsonList/",
+					method: "GET",
+					success: function(response) {
+						tempData = response.data
+						initializeDataTable(response.data); 
+					},
+					error: function(xhr, status, error) {
+						console.error('Error fetching data:', error);
+					}
+   			 });
+
+			
+		
+			function findNestedObj(entireObj, keyToFind, valToFind) {
+				let foundObjs;
+				JSON.stringify(entireObj, (_, nestedValue) => {
+					if (nestedValue && nestedValue[keyToFind] === valToFind) {
+						foundObjs = nestedValue;
+					}
+					return nestedValue;
+				});
+				return foundObjs;
+			}
+	
+			
+		    function createChild(row, rowData,keyName, rowId, level) {
+					
+					var numLevels = 2;  // Number of child levels with .details-control
+					var trData = [];
+					var table = $('<table class="display" width="100%"/>');
+					row.child(table).show();
+
+
+					if(keyName=="sdgId") {
+				    	trData  = rowData.targets.map(doc => Object(doc));
+						lvl2Data = rowData
+                        console.log(trData)
+
+
+						var usersTable = table.DataTable ({
+						dom: 'rt',
+						data : trData,
+						columns : [
+							    {
+                                    className: "dt-control",
+                                    orderable: false,
+                                    data: null,
+                                    defaultContent: "",
+                                    width: "1%"
+                                },
+                                // { data: 'sAreaId', width:"5%" },
+                                { title:"CODE", data: 'targetCode' },
+                                { title:"Description",data: 'targetDesc' },
+							
+						    ]
+						
+							});
+					}
+					else{
+                        
+                        console.log(rowId)
+						var index = lvl2Data.targets.findIndex(tgt => tgt.targetId==rowId);
+                        rawParams  = lvl2Data.targets[index].indicators
+                          
+                        var groupColumn = 0;
+						var usersTable = table.DataTable ({
+						dom: 'rt',
+						data : rawParams,
+						columns: [
+									{ title: "Code", data: 'indCode' },
+									{ title: "Indicator", data: 'indDesc' },
+								],
+
+					});
+					}
+						// Add event listener for opening and closing details
+					table.on("click", "td.dt-control", function(e) {
+						e.stopPropagation();  // Don't bubble up to parent event
+					
+						var tr = $(this).closest("tr");
+						var row = usersTable.row(tr);
+
+						if (row.child.isShown()) {
+							// This row is already open - close it
+							destroyChild(row);
+							tr.removeClass("shown");
+						} else {
+							// Open this row
+						
+							// Simulate fetching data for child table
+							var data = row.data();
+                            console.log(data)
+							var rowData = {
+							    code: data.targetCode,
+							};
+						
+							if ( level === 1 ) {
+							rowData.level2 = 'Level 2';
+							} else if ( level === 2 ) {
+							rowData.level3 = 'Level3';
+							} else {
+							rowData.other = 'Other stuff'
+							}
+						
+							keyName = Object.keys(data)[1];
+							console.log(keyName)
+							createChild(row, rowData,keyName,data.targetId, level + 1);
+							tr.addClass("shown");
+						}
+					});
+
+
+				}
+
+			// Function to destroy child DataTable
+			function destroyChild(row) {
+				// Remove and destroy the DataTable in the child row
+				var table = $("table", row.child());
+				table.detach();
+				table.DataTable().destroy();
+
+				// And then hide the row
+				row.child.hide();
+			}
+
+	
+			// Initialize DataTable for main table
+			function initializeDataTable(data) {
+				var siteTable = $("#example").DataTable({
+					data: data,
+					rowId: 'sdgId',
+					order: [1, "asc"],
+					columns: [
+						{
+                            title:"",
+							className: "dt-control",
+							orderable: false,
+							data: null,
+							defaultContent: "",
+							width: "1px"
+						},
+						{ title: "ID", data: 'sdgId', width: "5%", },
+						{ title: "Goal", data: 'sdgName' },
+						{ title: "Description", data: 'description' },
+					],
+					
+					select: {
+						style: "os",
+						selector: "td:not(:first-child)"
+					}
+				});
+				
+				// Event listener for opening and closing details in main table
+				$("#example tbody").on("click", "td.dt-control", function() {
+					var tr = $(this).closest("tr");
+					var row = siteTable.row(tr);
+		
+					if (row.child.isShown()) {
+						destroyChild(row);
+					} else {
+						var data = row.data();
+						var rowData = { 
+							sdgId: data.sdgId, 
+							sdg: data.sdgName,  
+							targets: data.targets,
+						 };
+						var keyName = Object.keys(data)[0];
+						console.log(rowData)
+						createChild(row, rowData, keyName, data.sdgId, 1);
+					}
+				});
+		
+			}
+		});
+		
+	</script>
+	{% endblock %}

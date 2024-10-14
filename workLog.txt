@@ -1,0 +1,246 @@
+================================================================================
+================================================================================
+-- System Title: Usep Dashboard Management System (usepMS)
+-- Company: University of Southeastern Philippines
+-- Address:  -.-
+-- Date Started: January 18, 2024
+================================================================================
+================================================================================
+
+'-------------------------------------------------------------------------------
+'=-Target Unit Specification ****
+'-------------------------------------------------------------------------------
+  * 2.70 Ghz Dual Core
+  * 1014mb RAM
+  * 256mb Graphics
+  * 75gb Hard Disk
+  * Windows 7
+
+'-------------------------------------------------------------------------------
+'=-Tool setup ****
+'-------------------------------------------------------------------------------
+
+1. Download visual studio code(v1.85.1)
+   - https://code.visualstudio.com/
+
+2. Download python(v3.10.4)
+   - https://www.python.org/downloads/  
+
+3. Download xampp
+   - https://www.apachefriends.org/index.html
+
+
+'-------------------------------------------------------------------------------
+'=-Project Properties Setup ****
+'-------------------------------------------------------------------------------
+* Framework: Django-5.0.1
+* Added References
+    - pip install djangorestframework(3.14.0)
+    - pip install django-cors-headers(4.3.1)
+    - pip install mysqlclient(2.2.1)
+
+'-------------------------------------------------------------------------------
+'=-MySql Database Setup ****
+'-------------------------------------------------------------------------------
+  * database: usep_dashboard
+
+================================================================================
+=- WORK LOG -= FORMAT: YYMMDD - NO. OF DAYS - VERSION * NAME OF CODER *
+================================================================================
+'-------------------------------------------------------------------------------
+'=-240925 - 0001 - Version 0.0.1 - * BOB *
+'-------------------------------------------------------------------------------
+* created virtual environment <venvSDG>
+* created django project <usepSDGProj>
+* created django app <sdgMainApp> 
+* created 'static' folder
+* created 'templates' folder
+
+=- sdgMainApp 
+   * created 'templates' folder 
+   * added 'index.html'
+
+=-views.py 
+  * added view 'index'
+
+=-urls.py 
+  * added path 'index'
+
+'-------------------------------------------------------------------------------
+'=-240926 - 0002 - Version 0.0.2 - * BOB *
+'-------------------------------------------------------------------------------
+* created django app <sdgDashApp>
+
+=-sdgDashApp
+  * added folder 'static'
+       - css folder
+       - dist folder
+       - plugins folder
+  * added folder 'templates'
+       - sdgDashApp > includes folder
+       - sdgDashApp > themes folder
+       - base.html
+
+=- views.py (sdgDashApp)
+  * added view 'dashboard'
+
+=- urls.py (sdgDashApp)
+  * added path 'dashboard'
+
+'-------------------------------------------------------------------------------
+'=-240927 - 0003 - Version 0.0.3 - * BOB *
+'-------------------------------------------------------------------------------
+=-views.py(sdgDashApp)
+  * added view 'logView'
+
+=-urls.py(sdgDashApp)
+  * added path 'logView'
+
+
+'-------------------------------------------------------------------------------
+'=-241001 - 0004 - Version 0.0.4 - * BOB *
+'-------------------------------------------------------------------------------
+=-template/themes (sdgMainApp)
+  * added html file 'commitment.html'
+  * added html file 'strategy.html'
+  * added html file 'contact.html'
+  * added html file 'sustainability-ppa.html'
+  * added html file 'goal4.html'
+  * added html file 'goal-topic'
+
+
+=-views.py (sdgMainApp)
+  * added 'commitment'
+  * added 'strategy'
+  * added 'sustainPPA'
+  * added 'contact'
+  * added 'goal4'
+  * added 'goalTopic'
+  
+=-urls.py (sdgMainApp)
+  * added path 'commitment'
+  * added path 'strategy'
+  * added path 'sdg-initiatives/sustainability-ppa'
+  * added path 'sdg-initiatives/sustainability-ppa/goal-4'
+  * added path 'sdg-initiatives/sustainability-ppa/goal-4/goal-topic'
+  * added path 'contact-us'
+  
+'-------------------------------------------------------------------------------
+'=-241002 - 0005 - Version 0.0.5 - * BOB *
+'-------------------------------------------------------------------------------
+*** MEETING FOR ePMS ***
+  
+'-------------------------------------------------------------------------------
+'=-241003 - 0005 - Version 0.0.5 - * BOB *
+'-------------------------------------------------------------------------------
+=- models.py (sdgDashApp)
+  * added model 'sdgGoals'
+
+=- sqlcommands.py (sdgDashApp) 
+  * added query 'fetchSDG'
+  * added query 'saveUpdateSDG'
+  * added query 'deleteSDG'
+
+=- urls.py(sdgDashApp)
+  * added path 'dash-admin/goals'
+  * added path 'sdgJsonList'
+  * added path 'sdgSaveUpdateParams'
+  * added path 'sdgDeleteParams/<int:id>'
+
+=-views.py 
+  * added 'sdgView'
+  * added 'sdgJsonList'
+  * added 'sdgSaveUpdateParams'
+  * added 'sdgDeleteParams'
+
+'-------------------------------------------------------------------------------
+'=-241007 - 0007 - Version 0.0.5 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes(sdgDashApp)
+  * added file 'target.html'
+  * created folder 'modal-targets'
+      * added file 'targetAdd.html'
+      * added file 'targetEdit.html'
+      * added file 'targetDelete.html'
+
+=-models.py (sdgDashApp)
+  * added model 'SDGTarget'
+  * added model 'SDGIndicator'
+
+=-forms.py (sdgDashApp)
+  * added form 'SDGTargetForms'
+  * added form 'SDGIndicatorForms'
+
+=-sqlparams.py (sdgDashApp)
+  * added params 'sgdTargetParams'
+
+=- sqlcommands.py 
+  * added query 'fetchSDGTarget'
+  * added query 'saveUpdateSDGTarget'
+  * added query 'deleteSDGTarget'
+
+=-views.py (sdgDashApp)
+  * added view 'sdgTargetView'
+  * added view 'sdgTargetJsonList'
+  * added view 'sdgTargetSaveUpdateParams'
+  * added view 'sdgTargetDeleteParams'
+
+=-urls.py (sdgDashApp)
+  * added path 'dash-admin/targets'
+  * added path 'sdgTargetJsonList/'
+  * added path 'sdgTargetSaveUpdateParams'
+  * added path 'sdgTargetDeleteParams/<int:id>'
+
+'-------------------------------------------------------------------------------
+'=-241008 - 0008 - Version 0.0.8 - * BOB *
+'-------------------------------------------------------------------------------
+** Encoded  data for TARGET's
+
+'-------------------------------------------------------------------------------
+'=-241009 - 0009 - Version 0.0.9 - * BOB *
+'-------------------------------------------------------------------------------
+=-indAdd.html (sdgDashApp)
+  * 'select' tag added  'data-desc={{ target.targetDesc }}'
+  * added 'blockquote'
+
+=-indEdit.html (sdgDashApp)
+  * 'select' tag added  'data-desc={{ target.targetDesc }}'
+  * added 'blockquote'
+
+=-indicator.html (sdgDashApp)
+  * added function 'getNextPkey()'
+  * added function '$('#target').change()'
+  * added function '$('#target-edit').change()'
+  * updated function 'addForm' on ajax added '$('#id_indCode').val('');'
+  * updated function 'addForm' on ajax added '$('#id_indDesc').val('');'
+  * added 'getNextPkey()' inside datable reload function
+
+**added indicator entry **
+
+'-------------------------------------------------------------------------------
+'=-241010 - 0010 - Version 0.0.10 - * BOB *
+'-------------------------------------------------------------------------------
+** added indicator entry **
+
+
+'-------------------------------------------------------------------------------
+'=-241011 - 0011 - Version 0.0.11 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgDashApp)
+  * added file 'goals-tree.html'
+
+=-sqlcommands.py (sdgDashApp)
+  * added query 'sdgDetailsView()'
+
+=-views.py (sdgDashApp)
+  * added view 'sdgTreeView'
+  * added view 'sdgTreeJsonList'
+
+=-urls.py (sdgDashApp)
+  * added path 'dash-admin/goals-tree'
+  * added path 'sdgTreeJsonList'
+  
+
+'-------------------------------------------------------------------------------
+'=-241014 - 0012 - Version 0.0.12 - * BOB *
+'-------------------------------------------------------------------------------

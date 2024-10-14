@@ -1,0 +1,35 @@
+from django.db import models
+
+# Create your models here.
+
+#Goals
+class SDGoals(models.Model):
+    sdgId = models.AutoField(primary_key=True, editable=True)
+    sdgName = models.CharField(max_length=100)
+    description = models.CharField(max_length=800)
+    isActive = models.CharField(max_length=1, default='Y') 
+
+    class Meta:
+        db_table = "man_sdg"
+
+
+class SDGTarget(models.Model):
+    targetId = models.AutoField(primary_key=True, editable=True)
+    sdgId = models.CharField(max_length=20,default=1)
+    targetCode = models.CharField(max_length=50)
+    targetDesc = models.CharField(max_length=800)
+    isActive = models.CharField(max_length=1,default='Y')
+
+    class Meta:
+        db_table = "man_sdg_target"
+
+
+class SDGIndicator(models.Model):
+    indId = models.AutoField(primary_key=True, editable=True)
+    targetId = models.CharField(max_length=20,default=1)
+    indCode = models.CharField(max_length=50)
+    indDesc = models.CharField(max_length=800)
+    isActive = models.CharField(max_length=1,default='Y')
+
+    class Meta:
+        db_table = "man_sdg_indicator"
