@@ -4,19 +4,28 @@
 	<section class="content">
 		<!-- Page Header Start -->
 		<div
-			class="container-fluid education-header py-6 my-4 mt-0 pb-5 wow fadeIn"
+			class="container-fluid education-header py-5-5 my-4 mt-0 pb-5 wow fadeIn"
 			data-wow-delay="0.1s"
 		>
 			<div class="container">
-				<h1 class="display-6 text-white animated slideInDown mb-4">
-					Ensure inclusive and equitable quality education and promote lifelong
-					learning opportunities for all
-				</h1>
-				<!-- <a
-					class="btn btn-outline-primary py-3 px-5"
-					href="sustainability-ppa.html"
-					>Goals</a
-				> -->
+				<div class="row">
+					<div class="col-2">
+						<img
+							src="{% static 'img/E_WEB_04.png' %}"
+							alt="Card image"
+							class="goal-img"
+						/>
+					</div>
+					<div class="col-10">
+						<h1 class="display-4 text-white animated slideInDown mb-4">
+							Goal 4: Quality Education
+						</h1>
+						<h3 class="text-white animated slideInDown mb-4">
+							Ensure inclusive and equitable quality education and promote
+							lifelong learning opportunities for all
+						</h3>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- Page Header End -->
@@ -24,62 +33,178 @@
 		<!-- Content Start -->
 		<div class="container-xxl py-3">
 			<div class="container">
-				<h1 class="display-3 mb-4 wow fadeInUp" data-wow-delay="0.5s">
-					Goal 4
-				</h1>
-				<div class="row g-5">
-					<div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
+				<!-- <div class="row g-5">
+					<div class="col-12 wow fadeInUp" data-wow-delay="0.5s">
 						<div class="h-100">
-							<!-- <h6 class="text-primary text-uppercase mb-2">About Us</h6> -->
 							<p class="fs-5 text">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-								enim ad minim veniam, quis nostrud exercitation ullamco laboris
-								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-								in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-								nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-								sunt in culpa qui officia deserunt mollit anim id est laborum.
+								Ensure inclusive and equitable quality education and promote
+								lifelong learning opportunities for all
 							</p>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="row wow fadeInUp" data-wow-delay="0.5s">
-					<hr class="yellow-border" />
+					<!-- <hr class="yellow-border" />
 					<h3 class="mb-4 wow fadeInUp" data-wow-delay="0.5s">
 						Related Topics
-					</h3>
-					<div class="col-6">
-						<div class="card card-horizontal p-2">
-							<img
-								src="{% static 'img/img-g4-1.png' %}"
-								alt="Card image"
-								class="card-img"
-							/>
-							<div class="card-body">
-								<h4 class="card-title">USeP College Education Behind Bars</h4>
+					</h3> -->
+					<div class="col-12">
+						<ul class="nav nav-tabs mt-4" role="tablist">
+							<li class="nav-item">
 								<a
-									class="btn btn-outline-primary py-3 px-5"
-									href="{% url  'goal-topic' %}"
-									>Read More</a
+									class="nav-link active"
+									data-bs-toggle="tab"
+									href="#tab1"
+									role="tab"
+									>Overview</a
 								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab"
+									>Targets and Indicators</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-bs-toggle="tab" href="#tab3" role="tab"
+									>Progress and info</a
+								>
+							</li>
+						</ul>
+
+						<!-- Tab panes -->
+						<div class="tab-content mt-3">
+							<div class="tab-pane active" id="tab1" role="tabpanel">
+								<div class="row">
+									<div class="col-12">
+										<h3 class="animated slideInDown m-4">
+											<i>
+												"To provide inclusive and equitable quality education
+												for all, ensuring that individuals have the knowledge
+												and skills needed to participate fully in society."
+											</i>
+										</h3>
+									</div>
+									<hr class="yellow-border" />
+									<div class="col-12 text-center">
+										<img
+											src="{% static 'img/E_infographics_04.png' %}"
+											alt="Card image"
+											class="ifographic-img"
+										/>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+							<div class="tab-pane" id="tab2" role="tabpanel">
+								<div class="row">
+									<div class="col-12">
+										<div class="card">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-2">
+														<div class="ind-img">
+															<img
+																src="{% static 'img/sdg-circular.png' %}"
+																alt="Card image"
+																class="ind-logo"
+															/>
+														</div>
+													</div>
+													<div class="col-10">
+														<div class="sdg-content p-2">
+															<h5 class="mb-0">Target</h5>
+															<h4 class="mb-2 display-6">4.1</h4>
+															<p class="mb-0">
+																By 2030, ensure that all girls and boys complete
+																free, equitable and quality primary and
+																secondary education leading to relevant and
+																effective learning outcomes
+															</p>
+															<button
+																class="btn btn-link btn-primary mt-2 px-5"
+																data-bs-toggle="collapse"
+																data-bs-target="#collapseCard"
+																aria-expanded="false"
+																aria-controls="collapseCard"
+															>
+																Indicator(s)
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="collapseCard" class="collapse">
+												<div class="card-footer">
+													<div class="row">
+														<div class="col-12">
+															<div class="ind-content">
+																<h6 class="ind-code">4.1.1</h6>
+																<p class="ind-desc h6">
+																	Proportion of children and young people (a) in
+																	grades 2/3; (b) at the end of primary; and (c)
+																	at the end of lower secondary achieving at
+																	least a minimum proficiency level in (i)
+																	reading and (ii) mathematics, by sex
+																</p>
+															</div>
+														</div>
+														<div class="col-12">
+															<div class="ind-content">
+																<h6 class="ind-code">4.1.2</h6>
+																<p class="ind-desc h6">
+																	Completion rate (primary education, lower
+																	secondary education, upper secondary
+																	education)
+																</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab3" role="tabpanel">
+								<div class="row">
+									<div class="col-6">
+										<div class="card card-horizontal p-2">
+											<img
+												src="{% static 'img/img-g4-1.png' %}"
+												alt="Card image"
+												class="card-img"
+											/>
+											<div class="card-body">
+												<h4 class="card-title">
+													USeP College Education Behind Bars
+												</h4>
+												<a
+													class="btn btn-outline-primary py-3 px-5"
+													href="{% url  'goal-topic' %}"
+													>Read More</a
+												>
+											</div>
+										</div>
+									</div>
 
-					<div class="col-6">
-						<div class="card card-horizontal p-2">
-							<img
-								src="https://via.placeholder.com/200x200"
-								alt="Card image"
-								class="card-img"
-							/>
-							<div class="card-body">
-								<h4 class="card-title">Educational Tour</h4>
+									<div class="col-6">
+										<div class="card card-horizontal p-2">
+											<img
+												src="https://via.placeholder.com/200x200"
+												alt="Card image"
+												class="card-img"
+											/>
+											<div class="card-body">
+												<h4 class="card-title">Educational Tour</h4>
 
-								<a class="btn btn-outline-primary py-3 px-5" href="#"
-									>Read More</a
-								>
+												<a class="btn btn-outline-primary py-3 px-5" href="#"
+													>Read More</a
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+								Tab 3 content
 							</div>
 						</div>
 					</div>
