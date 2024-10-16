@@ -4,7 +4,7 @@
 	<section class="content">
 		<!-- Page Header Start -->
 		<div
-			class="container-fluid education-header py-5-5 my-4 mt-0 pb-5 wow fadeIn"
+			class="container-fluid goal5-header py-5-5 my-4 mt-0 pb-5 wow fadeIn"
 			data-wow-delay="0.1s"
 		>
 			<div class="container">
@@ -12,7 +12,7 @@
 					<div class="col-2">
 						<a href="{% url  'sustainability-ppa' %}">
 							<img
-								src="{% static 'img/E_WEB_04.png' %}"
+								src="{% static 'img/E_WEB_05.png' %}"
 								alt="Card image"
 								class="goal-img"
 							/>
@@ -20,11 +20,11 @@
 					</div>
 					<div class="col-10">
 						<h1 class="display-4 text-white animated slideInDown mb-4">
-							Goal 4: Quality Education
+							Goal 5: Gender Equality
 						</h1>
 						<h3 class="text-white animated slideInDown mb-4">
-							Ensure inclusive and equitable quality education and promote
-							lifelong learning opportunities for all
+							Achieve gender equality and empower all women and girls by
+							eliminating discriminatioon in the university
 						</h3>
 					</div>
 				</div>
@@ -81,16 +81,17 @@
 									<div class="col-12">
 										<h3 class="animated slideInDown m-4">
 											<i>
-												"To provide inclusive and equitable quality education
-												for all, ensuring that individuals have the knowledge
-												and skills needed to participate fully in society."
+												"To achieve gender equality and empower all women and
+												girls by eliminating discrimination, ensuring equal
+												opportunities, and promoting gender-sensitive policies
+												and practices."
 											</i>
 										</h3>
 									</div>
 									<hr class="yellow-border" />
 									<div class="col-12 text-center">
 										<img
-											src="{% static 'img/E_infographics_04.png' %}"
+											src="{% static 'img/E_infographics_05.png' %}"
 											alt="Card image"
 											class="ifographic-img"
 										/>
@@ -99,72 +100,7 @@
 							</div>
 							<div class="tab-pane" id="tab2" role="tabpanel">
 								<div class="row">
-									<div class="col-12" id="targets-container">
-										<!-- <div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col-2">
-														<div class="ind-img">
-															<img
-																src="{% static 'img/sdg-circular.png' %}"
-																alt="Card image"
-																class="ind-logo"
-															/>
-														</div>
-													</div>
-													<div class="col-10">
-														<div class="sdg-content p-2">
-															<h5 class="mb-0">Target</h5>
-															<h4 class="mb-2 display-6">4.1</h4>
-															<p class="mb-0">
-																By 2030, ensure that all girls and boys complete
-																free, equitable and quality primary and
-																secondary education leading to relevant and
-																effective learning outcomes
-															</p>
-															<button
-																class="btn btn-link btn-primary mt-2 px-5"
-																data-bs-toggle="collapse"
-																data-bs-target="#collapseCard"
-																aria-expanded="false"
-																aria-controls="collapseCard"
-															>
-																Indicator(s)
-															</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div id="collapseCard" class="collapse">
-												<div class="card-footer">
-													<div class="row">
-														<div class="col-12">
-															<div class="ind-content">
-																<h6 class="ind-code">4.1.1</h6>
-																<p class="ind-desc h6">
-																	Proportion of children and young people (a) in
-																	grades 2/3; (b) at the end of primary; and (c)
-																	at the end of lower secondary achieving at
-																	least a minimum proficiency level in (i)
-																	reading and (ii) mathematics, by sex
-																</p>
-															</div>
-														</div>
-														<div class="col-12">
-															<div class="ind-content">
-																<h6 class="ind-code">4.1.2</h6>
-																<p class="ind-desc h6">
-																	Completion rate (primary education, lower
-																	secondary education, upper secondary
-																	education)
-																</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div> -->
-									</div>
+									<div class="col-12" id="targets-container"></div>
 								</div>
 							</div>
 
@@ -221,7 +157,7 @@
 {% include 'includes/footer.html' %} {% endblock %} {% block scripts %}
 <script>
 	$(document).ready(function () {
-		var sdgId = "4"; // Assuming sdgId is available as context from Django
+		var sdgId = "5"; // Assuming sdgId is available as context from Django
 		$.ajax({
 			url: "/goalJsonFetchPerId/" + sdgId, // Adjust endpoint
 			method: "GET",

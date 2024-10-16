@@ -38,7 +38,10 @@
                                         <div class="card">
                                             <div class="card-header">
                                               Program Records
+
+											  
                                             </div>
+											
                                             <div class="card-body">
                                                 <!-- {% for msg in messages %}
                                                 <div class="alert alert-info alert-dismissible">
@@ -64,6 +67,14 @@
                                                     <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-goal-lg">
                                                         Add New
                                                     </button>
+
+													 <a
+														class="d-inline-flex align-items-center btn btn bg-gradient-warning border-2 p-2 ml-3"
+															href="{% url 'sdgTreeView' %}"
+														>
+															<span class="px-3">View as Tree</span>
+													</a>
+				
                                                 </div>
                                             </div>
                                         </div>

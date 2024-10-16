@@ -106,7 +106,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<div class="navbar-nav ms-auto p-4 p-lg-0">
-						<a href="index.html" class="nav-item nav-link active">Home</a>
+						<a href="{% url  'home' %}" class="nav-item nav-link active"
+							>Home</a
+						>
 						<a href="{% url  'commitment' %}" class="nav-item nav-link"
 							>Commitment</a
 						>
@@ -143,17 +145,17 @@
 			</nav>
 			<!-- Navbar End -->
 
-			<!--Section -->
-			{% block body %} {% endblock %}
-			<!--End Section-->
 			<!-- Back to Top -->
 			<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
 				><i class="bi bi-arrow-up"></i
 			></a>
+			<!--Section -->
+			{% block body %} {% endblock %}
+			<!--End Section-->
 		</div>
 
 		<!-- Custom Javascript -->
-		<script src="{% static 'js/custom.js' %}"></script>
+		<!-- <script src="{% static 'js/custom.js' %}"></script> -->
 		<!-- JavaScript Libraries -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -164,5 +166,7 @@
 
 		<!-- Template Javascript -->
 		<script src="{% static 'js/main.js' %}"></script>
+
+		{% block scripts %} {% endblock %}
 	</body>
 </html>
