@@ -20,3 +20,15 @@ sgdIndicatorParams = {
     "indDesc":"",
     "isActive":""
 }
+
+susStratParams = {
+    "susStratId":"",
+    "susStratName":"",
+    "isActive":""
+}
+
+uiGreenParams = {
+    "greenMetId":"",
+    "greenName":"",
+    "isActive":""
+}

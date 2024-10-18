@@ -244,3 +244,59 @@
 '-------------------------------------------------------------------------------
 '=-241014 - 0012 - Version 0.0.12 - * BOB *
 '-------------------------------------------------------------------------------
+** usepSDGProj uploaded on github **
+** server preparatory setup **
+
+'-------------------------------------------------------------------------------
+'=-241015 - 0013 - Version 0.0.13 - * BOB *
+'-------------------------------------------------------------------------------
+=- themes(sdgMainApp)
+    * added goal1.html (css, html and javascript structure)
+
+'-------------------------------------------------------------------------------
+'=-241016 - 0014 - Version 0.0.14 - * BOB *
+'-------------------------------------------------------------------------------
+** added file sqlcommands.py
+** added file sqlparams.py
+
+=-sqlparams.py (sdgDashApp)
+  * added params 'sgdParams'
+
+=-sqlcommands.py (sdgDashApp)
+  * added query 'sdgDetailsViewPerId'
+
+=-themes (sdgDashApp)
+  * added files 'goal1.html' to 'goal2.html'
+
+'-------------------------------------------------------------------------------
+'=-241017 - 0015 - Version 0.0.15 - * BOB *
+'-------------------------------------------------------------------------------
+=-models.py(sdgDashApp)
+  * added model 'SDGScorecard'
+  * added model 'SDGScorecardDet'
+  * added model 'SustainStrat'
+  * added model 'UIGreenMetric'
+
+=-sqlparams.py(sdgDashApp)
+  * added params 'susStratParams'
+  * added params 'uiGreenParams'
+
+=-sqlcommands.py (sdgDashApp)
+  * added query CRUD for Sustainability Strategy
+  * added query CRUD for UI green matric
+
+=-forms.py (sdgDashApp)
+  * added form 'SustainStratForms'
+  * added form 'UIGreenForms'
+
+=-views.py (sdgDashApp)
+  * added view functions for  Sustainability Strategy
+  * added view functions for  UIGreenForms
+
+=-urls.py (sdgDashApp)
+  * added path for  Sustainability Strategy
+  * added path for  UIGreenForms
+
+'-------------------------------------------------------------------------------
+'=-241018 - 0016 - Version 0.0.16 - * BOB *
+'-------------------------------------------------------------------------------

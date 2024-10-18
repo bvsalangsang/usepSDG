@@ -130,3 +130,52 @@ def sdgDetailsView():
           """);  
 
     return sql
+
+#Sustainability Strategy
+def fetchSusStrat():
+    sql = ("SELECT * FROM man_sustian_strat WHERE isActive = 'Y'")
+    return sql 
+
+def saveUpdateSusStrat(**susStratParams):
+    sql = ("""
+            INSERT INTO man_sustian_strat
+            set susStratId = '{0}',
+            susStratName = '{1}',
+            isActive = '{2}'
+            ON DUPLICATE KEY UPDATE 
+             susStratName = '{1}',
+            isActive = '{2}'
+        """).format(susStratParams['susStratId'],
+                    susStratParams['susStratName'],
+                    susStratParams['isActive'])
+    
+    return sql 
+
+def deleteSusStrat(**susStratParams):
+    sql = ("UPDATE man_sustian_strat set isActive = 'N' WHERE susStratId = '{0}'").format(susStratParams['susStratId'])
+    return sql 
+    
+#UI green matric
+def fetchUIGreen():
+    sql = ("SELECT * FROM man_green_metric WHERE isActive = 'Y'")
+    return sql 
+
+def saveUpdateUIGreen(**uiGreenParams):
+    sql = ("""
+            INSERT INTO man_green_metric
+            set greenMetId = '{0}',
+            greenName = '{1}',
+            isActive = '{2}'
+            ON DUPLICATE KEY UPDATE 
+            greenName = '{1}',
+            isActive = '{2}'
+        """).format(uiGreenParams['greenMetId'],
+                    uiGreenParams['greenName'],
+                    uiGreenParams['isActive'])
+    
+    return sql 
+
+def deleteUIGreen(**uiGreenParams):
+    sql = ("UPDATE man_green_metric set isActive = 'N' WHERE greenMetId = '{0}'").format(uiGreenParams['greenMetId'])
+    return sql 
+    

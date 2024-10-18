@@ -31,5 +31,17 @@ urlpatterns = [
         path('dash-admin/goals-tree',views.sdgTreeView,name="sdgTreeView"),
         path('sdgTreeJsonList/',views.sdgTreeJsonList,name="sdgTreeJsonList"),
          
-          
-    ]   
+        #sustain strat
+        path('dash-admin/sustain-strat',views.susStratView,name="susStratView"),
+        path('susStratJsonList/',views.susStratJsonList,name="susStratJsonList"),
+        path('susStratSaveUpdateParams', views.susStratSaveUpdateParams, name="susStratSaveUpdateParams"),
+        path('susStratDeleteParams/<int:id>', views.susStratDeleteParams, name="susStratDeleteParams"),
+
+        #Green Metric
+        path('dash-admin/green-metric',views.uiGreenMetView,name="uiGreenMetView"),
+        path('uiGreenMetJsonList/',views.uiGreenMetJsonList,name="uiGreenMetJsonList"),
+        path('uiGreenMetSaveUpdateParams', views.uiGreenMetSaveUpdateParams, name="uiGreenMetSaveUpdateParams"),
+       path('uiGreenMetDeleteParams/<int:id>', views.uiGreenMetDeleteParams, name="uiGreenMetDeleteParams"),
+
+   
+   ]   

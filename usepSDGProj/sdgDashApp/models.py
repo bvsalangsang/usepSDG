@@ -33,3 +33,48 @@ class SDGIndicator(models.Model):
 
     class Meta:
         db_table = "man_sdg_indicator"
+
+
+#sustain strategic
+class SustainStrat(models.Model):
+    susStratId = models.AutoField(primary_key=True, editable=True)
+    susStratName = models.CharField(max_length=500)
+    isActive = models.CharField(max_length=1,default='Y')
+
+    class Meta:
+        db_table = "man_sustian_strat"
+
+#Green Metric    
+class UIGreenMetric(models.Model):
+    greenMetId = models.AutoField(primary_key=True, editable=True)
+    greenName = models.CharField(max_length=250)
+    isActive = models.CharField(max_length=1,default='Y') 
+
+    class Meta:
+        db_table = "man_green_metric"
+
+class SDGScorecard(models.Model):
+    sdgScoreId = models.AutoField(primary_key=True,editable=True)
+    susStratId = models.CharField(max_length=20)
+    greenMetId = models.CharField(max_length=20)
+    sdgInitName = models.CharField(max_length=800)  
+    sdgImpYear = models.CharField(max_length=10)
+    sdgDesc = models.CharField(max_length=1024)
+    outputs = models.CharField(max_length=500)
+    outcome = models.CharField(max_length=500)
+    personnel = models.CharField(max_length=255)
+    links = models.CharField(max_length=850)
+    isActive = models.CharField(max_length=1,default='Y') 
+
+    class Meta: 
+        db_table = "sdg_scorecard"
+
+class SDGScorecardDet(models.Model):
+    ctr = models.AutoField(primary_key=True, editable=True)
+    sdgScoreId = models.CharField(max_length=10)
+    sdgId = models.CharField(max_length=20)
+    targetId = models.CharField(max_length=20)
+    indId = models.CharField(max_length=20)
+    class Meta: 
+        db_table = "sdg_scorecard_det"
+

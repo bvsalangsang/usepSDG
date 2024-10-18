@@ -268,8 +268,6 @@ def sdgTreeJsonList(request):
     data = list(sdg.values())
     return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
 
-
-
 #login
 # def logView(request):
 
@@ -373,3 +371,122 @@ def logView(request):
 
     return JsonResponse({'csrf_token': get_token(request)})
 
+# Sustainability Strategic 
+def susStratView(request):
+    form  = SustainStratForms()
+    return render(request,'sdgDashApp/themes/sustain-strat.html', {'form':form})
+
+def susStratJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchSusStrat())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "susStratId":row[0],
+            "susStratName":row[1],
+            "isActive":row[2]
+        }
+
+        jsonResultData.append(tempRes)
+
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+def susStratSaveUpdateParams(request):
+    cursor = connection.cursor()
+    form  = SustainStratForms()
+    if (request.POST):
+        form = SustainStratForms(request.POST)
+        try:
+            if form.is_valid():
+                susStratParams['susStratId'] = request.POST['susStratId']
+                susStratParams['susStratName'] = form['susStratName'].value()
+                susStratParams['isActive'] = 'Y' 
+                form = SustainStratForms()
+                print("Debug: " + saveUpdateSusStrat(**susStratParams))
+                cursor.execute(saveUpdateSusStrat(**susStratParams))
+                return (JsonResponse({"Status": "Saved"}))
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+    else:
+        return JsonResponse({"Status":"Wrong Request"})
+
+@csrf_exempt
+def susStratDeleteParams(request, id):
+    cursor = connection.cursor()
+    try:
+        susStratParams["susStratId"] = id
+        susStratParams["isActive"] = 'N'
+        print("Debug: " + deleteSusStrat(**susStratParams))
+        cursor.execute(deleteSusStrat(**susStratParams))
+        return JsonResponse({"Status":"Deleted"})
+    except Exception as err:
+        print(f"{type(err).__name__} was raised: {err}")
+        return JsonResponse ({"Error":err}) 
+
+# UI Greenmetric
+def uiGreenMetView(request):
+    form = UIGreenForms()
+    return render(request,'sdgDashApp/themes/green-metric.html', {'form':form})
+
+def uiGreenMetJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchUIGreen())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "greenMetId":row[0],
+            "greenName":row[1],
+            "isActive":row[2]
+        }
+
+        jsonResultData.append(tempRes)
+
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+def uiGreenMetSaveUpdateParams(request):
+    cursor = connection.cursor()
+    form  = UIGreenForms()
+    if (request.POST):
+        form = UIGreenForms(request.POST)
+        try:
+            if form.is_valid():
+                uiGreenParams['greenMetId'] = request.POST['greenMetId']
+                uiGreenParams['greenName'] = form['greenName'].value()
+                uiGreenParams['isActive'] = 'Y' 
+                form = UIGreenForms()
+                print("Debug: " + saveUpdateUIGreen(**uiGreenParams))
+                cursor.execute(saveUpdateUIGreen(**uiGreenParams))
+                return (JsonResponse({"Status": "Saved"}))
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+    else:
+        return JsonResponse({"Status":"Wrong Request"})
+
+@csrf_exempt
+def uiGreenMetDeleteParams(request, id):
+    cursor = connection.cursor()
+    try:
+        uiGreenParams["greenMetId"] = id
+        uiGreenParams["isActive"] = 'N'
+        print("Debug: " + deleteUIGreen(**uiGreenParams))
+        cursor.execute(deleteUIGreen(**uiGreenParams))
+        return JsonResponse({"Status":"Deleted"})
+    except Exception as err:
+        print(f"{type(err).__name__} was raised: {err}")
+        return JsonResponse ({"Error":err}) 
