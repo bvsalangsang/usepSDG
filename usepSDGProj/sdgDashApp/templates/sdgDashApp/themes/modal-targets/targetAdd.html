@@ -30,7 +30,13 @@
 							</div>
 							<div class="form-group validate">
 								<label for="goal">Goal</label>
-								<select id="sdg" name="sdgId" class="form-control sdg-select">
+								<select
+									id="sdg"
+									name="sdgId"
+									class="form-control sdg-select"
+									name="states[]"
+									multiple="multiple"
+								>
 									{% for sdg in sdgList %}
 									<option value="{{ sdg.sdgId }}">{{ sdg.sdgName }}</option>
 									{% endfor %}

@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.db import connection
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
-
+from datetime import date
 
 from .forms import *
 from .sqlparams import * 
@@ -490,3 +490,154 @@ def uiGreenMetDeleteParams(request, id):
     except Exception as err:
         print(f"{type(err).__name__} was raised: {err}")
         return JsonResponse ({"Error":err}) 
+
+# SDG scorecard
+def sdgScorecardView(request):
+    form = SDGScorecard()
+    sdgList = SDGoals.objects.raw(fetchSDG())
+    susList = SustainStrat.objects.raw(fetchSusStrat())
+    greenList = UIGreenMetric.objects.raw(fetchUIGreen())
+    return render(request,'sdgDashApp/themes/sdg-scorecard.html', {'form':form, 'sdgList':sdgList,'susList':susList,'greenList':greenList})
+
+def sdgScorecardJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchSdgScorecard())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "sdgScoreId":row[0],
+            "susStratName":row[1],
+            "greenName":row[2],
+            "sdgInitName":row[3],
+            "sdgImpYear":row[4],
+            "sdgDesc":row[5],
+            "outputs":row[6],
+            "outcome":row[7],
+            "personnel":row[8],
+            "links":row[9],
+            "enCodedBy":row[10],
+            "enCodedDate":row[11],
+            "isActive":row[12],
+            "goal":row[13],
+            "target":row[14],
+            "indicator":row[16],
+        }
+
+        jsonResultData.append(tempRes)
+
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+def sdgSaveUpdateParams(request):
+    cursor = connection.cursor()
+    form  = UIGreenForms()
+    if (request.POST):
+        form = SDGScorecard(request.POST)
+        try:
+            if form.is_valid():
+                #SDG scorecard
+                sdgScorecard['sdgScoreId'] =  request.POST['sdgScoreId']
+                sdgScorecard['susStratId'] = request.POST['susStratId']
+                sdgScorecard['greenMetId'] = request.POST['greenMetId']
+                sdgScorecard['sdgInitName'] = form['sdgInitName'].value()
+                sdgScorecard['sdgDesc'] = form['sdgDesc'].value()
+                sdgScorecard['sdgImpYear'] = request.POST['sdgImpYear']
+                sdgScorecard['outputs'] = form['outputs'].value()
+                sdgScorecard['outcome'] = form['outcome'].value()
+                sdgScorecard['personnel'] = form['personnel'].value()
+                sdgScorecard['links'] = form['links'].value()
+                sdgScorecard['enCodedBy'] ='admin'
+                sdgScorecard['enCodedDate'] =date.today()
+                sdgScorecard['isActive'] = 'Y' 
+                form = SDGScorecard()
+                print("Debug: " + saveUpdateSdgScorecard(**sdgScorecard))
+                cursor.execute(saveUpdateSdgScorecard(**sdgScorecard))
+
+                #SDG scorecard det
+                sdgScorecardDet['sdgScoreId'] = request.POST['sdgScoreId']
+                sdgScorecardDet['sdgId'] = request.POST.get('selectedGoals', '')
+                sdgScorecardDet['targetId']  = request.POST.get('selectedTargets', '')
+                sdgScorecardDet['indId']  = request.POST.get('selectedIndicators', '')
+                sdgScorecardDet['isActive'] = 'Y' 
+                print("Debug: " + saveUpdateSdgScorecarDet(**sdgScorecardDet))
+                cursor.execute(saveUpdateSdgScorecarDet(**sdgScorecardDet))
+                return (JsonResponse({"Status": "Saved"}))
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+    else:
+        return JsonResponse({"Status":"Wrong Request"})
+
+@csrf_exempt
+def sdgDeleteParams(request, id):
+    cursor = connection.cursor()
+    try:
+        #main scorecard
+        sdgScorecard["sdgScoreId"] = id
+        sdgScorecard["isActive"] = 'N'
+        print("Debug: " + deleteScorecard(**susStratParams))
+        cursor.execute(deleteScorecard(**susStratParams))
+
+        #scorecard det
+        sdgScorecardDet["sdgScoreId"] = id
+        sdgScorecardDet["isActive"] = 'N'
+        print("Debug: " + deleteScorecardDet(**sdgScorecardDet))
+        cursor.execute(deleteScorecardDet(**sdgScorecardDet))
+
+        return JsonResponse({"Status":"Deleted"})
+    except Exception as err:
+        print(f"{type(err).__name__} was raised: {err}")
+        return JsonResponse ({"Error":err}) 
+
+
+def fetchTarget(request):
+    if request.method == 'POST':
+        selected_goals = request.POST.getlist('selectedGoals[]')  # Get array of selected goals from POST request
+
+        jsonResultData = []
+
+        with connection.cursor() as cursor:
+            for goal_id in selected_goals:
+                sgdTargetParams = {'sdgId': goal_id}
+                cursor.execute(getTargetPerGoal(**sgdTargetParams))  # Assuming getTargetPerGoal handles single goal
+                rows = cursor.fetchall()
+
+                for row in rows:
+                    tempRes = {
+                        "targetId": row[0],
+                        "targetCode": row[2]
+                    }
+                    jsonResultData.append(tempRes)
+
+        return JsonResponse({"data": jsonResultData}, safe=False)
+
+    return JsonResponse({"data": []}, safe=False)
+
+def fetchIndicator(request):
+    if request.method == 'POST':
+        selectedTarget = request.POST.getlist('selectedtarget[]')  # Get array of selected goals from POST request
+
+        jsonResultData = []
+
+        with connection.cursor() as cursor:
+            for targetId in selectedTarget:
+                sgdIndicatorParams = {'targetId': targetId}
+                cursor.execute(getIndPerTarget(**sgdIndicatorParams))  # Assuming getTargetPerGoal handles single goal
+                rows = cursor.fetchall()
+
+                for row in rows:
+                    tempRes = {
+                        "indId": row[0],
+                        "indCode": row[2]
+                    }
+                    jsonResultData.append(tempRes)
+
+        return JsonResponse({"data": jsonResultData}, safe=False)
+
+    return JsonResponse({"data": []}, safe=False)

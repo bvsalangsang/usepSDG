@@ -179,3 +179,202 @@ def deleteUIGreen(**uiGreenParams):
     sql = ("UPDATE man_green_metric set isActive = 'N' WHERE greenMetId = '{0}'").format(uiGreenParams['greenMetId'])
     return sql 
     
+#SDG scorecard
+def fetchSdgScorecard():
+    # sql = ("SELECT * FROM sdg_scorecard WHERE isActive = 'Y'")
+    # sql = ("""
+    #        SELECT sdg.sdgScoreId,
+    #        sus.susStratName,
+    #        green.greenName,
+    #        sdg.sdgInitName,
+    #        sdg.sdgImpYear,
+    #        sdg.sdgDesc,
+    #        sdg.outputs,
+    #        sdg.outcome,
+    #        sdg.personnel,
+    #        sdg.links,
+    #        sdg.enCodedBy,
+    #        sdg.enCodedDate,
+    #        sdg.isActive
+    #        FROM sdg_scorecard sdg
+    #        LEFT JOIN man_sustian_strat sus ON sus.susStratId  = sdg.susStratId
+    #        LEFT JOIN man_green_metric green ON green.greenMetId = sdg.greenMetId
+    #        WHERE sdg.isActive = 'Y'
+    #       """)
+
+    sql =  ("""
+                SELECT 
+                sdg.sdgScoreId,
+                sus.susStratName,
+                green.greenName,
+                sdg.sdgInitName,
+                sdg.sdgImpYear,
+                sdg.sdgDesc,
+                sdg.outputs,
+                sdg.outcome,
+                sdg.personnel,
+                sdg.links,
+                sdg.enCodedBy,
+                sdg.enCodedDate,
+                sdg.isActive,
+                GROUP_CONCAT(DISTINCT ms.sdgName) AS sdgName, 
+                GROUP_CONCAT(DISTINCT mst.targetCode) AS targetCode,
+                GROUP_CONCAT(DISTINCT mst.targetDesc) AS targetDesc,
+                GROUP_CONCAT(DISTINCT msi.indCode) AS indCode,
+                GROUP_CONCAT(DISTINCT msi.indDesc) AS indDesc
+                FROM sdg_scorecard sdg
+                LEFT JOIN man_sustian_strat sus ON sus.susStratId = sdg.susStratId
+                LEFT JOIN  man_green_metric green ON green.greenMetId = sdg.greenMetId
+                LEFT JOIN sdg_scorecard_det scd ON scd.sdgScoreId = sdg.sdgScoreId
+                LEFT JOIN man_sdg ms ON FIND_IN_SET(ms.sdgId, scd.sdgId) > 0
+                LEFT JOIN man_sdg_target mst ON FIND_IN_SET(mst.targetId, scd.targetId) > 0
+                LEFT JOIN man_sdg_indicator msi ON FIND_IN_SET(msi.indId, scd.indId) > 0
+                WHERE sdg.isActive = 'Y'
+                GROUP BY sdg.sdgScoreId;
+            """)
+    return sql
+
+def fetchSdgScorecardDet():
+    sql = ("""
+            SELECT 
+                scd.sdgScoreId, 
+                GROUP_CONCAT(DISTINCT ms.sdgName) AS sdgName, 
+                GROUP_CONCAT(DISTINCT mst.targetCode) AS targetCode,
+                GROUP_CONCAT(DISTINCT mst.targetDesc) AS targetDesc,
+                GROUP_CONCAT(DISTINCT msi.indCode) AS indCode,
+                GROUP_CONCAT(DISTINCT msi.indDesc) AS indDesc
+            FROM 
+                sdg_scorecard_det scd
+            LEFT JOIN 
+                man_sdg ms ON FIND_IN_SET(ms.sdgId, scd.sdgId) > 0
+            LEFT JOIN 
+                man_sdg_target mst ON FIND_IN_SET(mst.targetId, scd.targetId) > 0
+            LEFT JOIN 
+                man_sdg_indicator msi ON FIND_IN_SET(msi.indId, scd.indId) > 0
+            GROUP BY 
+                scd.sdgScoreId;
+
+                    """)
+
+    sqlTemp = ("""
+    SELECT 
+    sdg.sdgScoreId,
+    sus.susStratName,
+    green.greenName,
+    sdg.sdgInitName,
+    sdg.sdgImpYear,
+    sdg.sdgDesc,
+    sdg.outputs,
+    sdg.outcome,
+    sdg.personnel,
+    sdg.links,
+    sdg.enCodedBy,
+    sdg.enCodedDate,
+    sdg.isActive,
+    GROUP_CONCAT(DISTINCT ms.sdgName) AS sdgName, 
+    GROUP_CONCAT(DISTINCT mst.targetCode) AS targetCode,
+    GROUP_CONCAT(DISTINCT mst.targetDesc) AS targetDesc,
+    GROUP_CONCAT(DISTINCT msi.indCode) AS indCode,
+    GROUP_CONCAT(DISTINCT msi.indDesc) AS indDesc
+    FROM sdg_scorecard sdg
+    LEFT JOIN man_sustian_strat sus ON sus.susStratId = sdg.susStratId
+    LEFT JOIN  man_green_metric green ON green.greenMetId = sdg.greenMetId
+    LEFT JOIN sdg_scorecard_det scd ON scd.sdgScoreId = sdg.sdgScoreId
+    LEFT JOIN man_sdg ms ON FIND_IN_SET(ms.sdgId, scd.sdgId) > 0
+    LEFT JOIN man_sdg_target mst ON FIND_IN_SET(mst.targetId, scd.targetId) > 0
+    LEFT JOIN man_sdg_indicator msi ON FIND_IN_SET(msi.indId, scd.indId) > 0
+    WHERE sdg.isActive = 'Y'
+    GROUP BY sdg.sdgScoreId;
+    """)
+
+    return sql
+
+def saveUpdateSdgScorecard(**sdgScorecard):
+    sql = ("""
+           INSERT INTO sdg_scorecard 
+           SET sdgScoreId = '{0}',
+           susStratId = '{1}',
+           greenMetId = '{2}',
+           sdgInitName = '{3}',
+           sdgImpYear = '{4}',
+           sdgDesc = '{5}',
+           outputs = '{6}',
+           outcome = '{7}',
+           personnel = '{8}',
+           links = '{9}',
+           enCodedBy = '{10}',
+           enCodedDate = '{11}',
+           isActive = '{12}'
+           ON DUPLICATE KEY UPDATE 
+           susStratId = '{1}',
+           greenMetId = '{2}',
+           sdgInitName = '{3}',
+           sdgImpYear = '{4}',
+           sdgDesc = '{5}',
+           outputs = '{6}',
+           outcome = '{7}',
+           personnel = '{8}',
+           links = '{9}',
+           enCodedBy = '{10}',
+           enCodedDate = '{11}',
+           isActive = '{12}'
+           """).format(sdgScorecard['sdgScoreId'],
+                       sdgScorecard['susStratId'],
+                       sdgScorecard['greenMetId'],
+                       sdgScorecard['sdgInitName'],
+                       sdgScorecard['sdgImpYear'],
+                       sdgScorecard['sdgDesc'],
+                       sdgScorecard['outputs'],
+                       sdgScorecard['outcome'],
+                       sdgScorecard['personnel'],
+                       sdgScorecard['links'],
+                       sdgScorecard['enCodedBy'],
+                       sdgScorecard['enCodedDate'],
+                       sdgScorecard['isActive'],)
+    
+    return sql
+    
+def saveUpdateSdgScorecarDet(**sdgScorecardDet):
+    sql=("""
+         INSERT INTO sdg_scorecard_det 
+         SET sdgScoreId = '{0}',
+         sdgId  = '{1}',
+         targetId = '{2}',
+         indId = '{3}',
+         isActive = '{4}' 
+         ON DUPLICATE KEY UPDATE 
+         sdgId  = '{1}',
+         targetId = '{2}',
+         indId = '{3}',
+         isActive = '{4}' 
+         """).format(sdgScorecardDet['sdgScoreId'],
+                     sdgScorecardDet['sdgId'],
+                     sdgScorecardDet['targetId'],
+                     sdgScorecardDet['indId'],
+                     sdgScorecardDet['isActive'])
+
+    return sql
+
+def deleteScorecard(**sdgScorecard):
+    sql = ("UPDATE sdg_scorecard set isActive = 'N' WHERE sdgScoreId = '{0}'").format(sdgScorecard['sdgScoreId'])
+    return sql 
+
+def deleteScorecardDet(**sdgScorecardDet):
+    sql = ("UPDATE sdg_scorecard_det set isActive = 'N' WHERE sdgScoreId = '{0}'").format(sdgScorecardDet['sdgScoreId'])
+    return sql 
+
+
+
+def getTargetPerGoal(**sgdTargetParams):
+    sql = ("""
+           SELECT * FROM man_sdg_target WHERE sdgId = '{0}'
+           """).format(sgdTargetParams['sdgId'])
+    
+    return sql 
+
+def getIndPerTarget(**sgdIndicatorParams):
+    sql = ("""
+          SELECT * FROM `man_sdg_indicator` WHERE `targetId`  = '{0}'
+           """).format(sgdIndicatorParams['targetId'])
+    
+    return sql 

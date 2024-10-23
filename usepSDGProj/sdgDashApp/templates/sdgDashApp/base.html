@@ -20,21 +20,6 @@
       rel="stylesheet"
       href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
     />
-    <!-- Tempusdominus Bootstrap 4 -->
-    <!-- <link
-      rel="stylesheet"
-      href="{% static 'sdgDashApp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}"
-    /> -->
-    <!-- iCheck -->
-    <!-- <link
-      rel="stylesheet"
-      href="{% static 'sdgDashApp/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}"
-    /> -->
-    <!-- JQVMap -->
-    <!-- <link
-      rel="stylesheet"
-      href="{% static 'sdgDashApp/plugins/jqvmap/jqvmap.min.css' %}"
-    /> -->
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'sdgDashApp/dist/css/adminlte.min.css' %}" />
     <!-- overlayScrollbars -->
@@ -54,25 +39,22 @@
     />
 
       <!-- select2 -->
-      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="{% static 'sdgDashApp/plugins/select2/css/select2.min.css' %}" />
+    <link
+    rel="stylesheet"
+    href="{% static 'sdgDashApp/plugins/summernote/summernote-bs4.min.css' %}"
+  />
+ 
     <link
       rel="stylesheet"
       href="{% static 'sdgDashApp/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}"
     />
 
-   <!-- <link
-      rel="stylesheet"
-      href="{% static 'sdgDashApp/plugins/select2/css/select2.min.css' %}"
-    /> -->
-
-
-     <!-- BS Stepper -->
-     <!-- <link
-     rel="stylesheet"
-     href="{% static 'plugins/bs-stepper/css/bs-stepper.min.css' %}"
-   /> -->
-
-
+    <link
+    rel="stylesheet"
+    href="{% static 'sdgDashApp/css/style.css' %}"
+  />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.dataTables.css"/>
@@ -121,8 +103,8 @@
     <!-- overlayScrollbars -->
     <script src="{% static 'sdgDashApp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
    <!-- Select2 -->
-    <!-- <script src="{% static 'sdgDashApp/plugins/select2/js/select2.full.min.js' %}"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{% static 'sdgDashApp/plugins/select2/js/select2.full.min.js' %}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
     <!-- BS-Stepper -->
     <!-- <script src="{% static 'plugins/bs-stepper/js/bs-stepper.min.js' %}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
@@ -132,7 +114,6 @@
     
     <!-- AdminLTE App -->
     <script src="{% static 'sdgDashApp/dist/js/adminlte.js' %}"></script>
-
     <script src="{% static 'sdgDashApp/dist/js/dashboard.js' %}"></script>
 
  
@@ -140,12 +121,12 @@
     <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> -->
     <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js"></script>
    
+    <!-- Custom Js -->
+    <script src="{% static 'sdgDashApp/js/custom.js' %}"></script>
+
     {% block scripts %}
     {% endblock  %}
 

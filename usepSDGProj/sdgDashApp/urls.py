@@ -41,7 +41,18 @@ urlpatterns = [
         path('dash-admin/green-metric',views.uiGreenMetView,name="uiGreenMetView"),
         path('uiGreenMetJsonList/',views.uiGreenMetJsonList,name="uiGreenMetJsonList"),
         path('uiGreenMetSaveUpdateParams', views.uiGreenMetSaveUpdateParams, name="uiGreenMetSaveUpdateParams"),
-       path('uiGreenMetDeleteParams/<int:id>', views.uiGreenMetDeleteParams, name="uiGreenMetDeleteParams"),
+        path('uiGreenMetDeleteParams/<int:id>', views.uiGreenMetDeleteParams, name="uiGreenMetDeleteParams"),
+
+        #sdg scorecard
+        path('dash-admin/sdg-scorecard',views.sdgScorecardView,name="sdgScorecardView"),
+        path('sdgScorecardJsonList/',views.sdgScorecardJsonList,name="sdgScorecardJsonList"),
+        path('fetchTarget/', views.fetchTarget, name="fetchTarget"),
+        path('fetchIndicator/', views.fetchIndicator, name="fetchIndicator"),
+        path('sdgSaveUpdateParams/',views.sdgSaveUpdateParams,name="sdgSaveUpdateParams"),
+        path('sdgDeleteParams/<int:id>', views.sdgDeleteParams, name="sdgDeleteParams"),
+
+        
+        # path('fetchTarget/<int:id>', views.fetchTarget, name="fetchTarget"),
 
    
    ]   

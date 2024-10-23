@@ -1,0 +1,536 @@
+{% extends 'sdgDashApp/base.html' %}
+{% load static %}
+
+{% block body %} 
+{% include 'sdgDashApp/includes/header.html' %}
+{% include 'sdgDashApp/includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+                <div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">SDG Scorecard Library</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">SDG Scorecard Library</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+						<!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                              Program Records
+                                            </div>
+                                            <div class="card-body">
+                                                <!-- {% for msg in messages %}
+                                                <div class="alert alert-info alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                <i class="icon fas fa-check"></i>
+                                                    {{ msg }}
+                                                </div>
+                                                {% endfor %} -->
+                                                    <table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Name</th>
+																<th>Year</th>
+                                                                <th>Description</th>
+                                                                <th>Output</th>
+																<th>Outcome</th>
+																<th>personnel</th>
+																<th>links</th>
+																<th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+        
+                                           </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-sdg-lg">
+                                                        Add New
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                        
+                            </div>
+                            <!-- /.container-fluid -->
+                        </section>
+                        <!-- /.content -->
+                       
+						{% include 'sdgDashApp/themes/modal-sdg/sdgAdd.html' %}
+
+                        {% include 'sdgDashApp/themes/modal-sdg/sdgEdit.html' %}
+                        
+                        {% include 'sdgDashApp/themes/modal-sdg/sdgDelete.html' %}
+                      
+
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'sdgDashApp/includes/footer.html' %}
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+    {% endblock %}
+    {% block scripts %}
+    <script>
+		
+        $(document).ready(function() {
+
+
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+
+		
+
+		$('#sdgAdd, #sdgEdit').on('change', function() {
+            var selectedGoals = $(this).val();  // Get selected values from Goal select
+			var selectId = $(this).attr('id'); 
+			console.log(selectId);  // Debug to ensure correct values are selected
+			console.log(selectedGoals);  // Debug to ensure correct values are selected
+            
+            if (selectedGoals.length > 0) {
+                // Construct the fetch URL without appending goal ID (we'll send it via POST)
+                var fetchUrl = "/fetchTarget/";
+
+                $.ajax({
+                    url: fetchUrl,
+                    type: "POST",  // Use POST to send an array of goal IDs
+                    data: {
+                        'selectedGoals': selectedGoals,  // Pass the array of selected goals
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token if needed
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        // var targetSelect = $('#target');
+						var targetSelect;
+
+						// Use the captured ID to determine which target select to update
+					   if (selectId === 'sdgAdd') {
+							targetSelect = $('#targetAdd');
+						} else if (selectId === 'sdgEdit') {
+							targetSelect = $('#targetEdit');
+						}
+						targetSelect.empty();  // Clear the previous options
+
+                        // Populate the target select with new options from all selected goals
+                        $.each(response.data, function(index, target) {
+                            console.log(target);  // Debug to see returned targets
+                            targetSelect.append(
+                                $('<option></option>').val(target.targetId).text(target.targetCode)
+                            );
+                        });
+
+                        // Trigger select2 update if using select2
+                        targetSelect.trigger('change.select2');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching targets: ", error);
+                    }
+                });
+            } else {
+				if (selectId === 'sdgAdd') {
+					$('#targetAdd').empty();
+				} else if (selectId === 'sdgEdit') {
+					$('#targetEdit').empty();
+				}
+            }
+        });
+
+		
+		$('#targetAdd, #targetEdit').on('change', function() {
+            var selectedtarget = $(this).val();  // Get selected values from Goal select
+			var selectId = $(this).attr('id'); 
+			console.log(selectId);  // Debug to ensure correct values are selected
+            
+            if (selectedtarget.length > 0) {
+                // Construct the fetch URL without appending goal ID (we'll send it via POST)
+				var fetchUrl = "/fetchIndicator/";
+
+                $.ajax({
+                    url: fetchUrl,
+                    type: "POST",  // Use POST to send an array of goal IDs
+                    data: {
+                        'selectedtarget': selectedtarget,  // Pass the array of selected goals
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token if needed
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        // var indicatorSelect = $('#indicator');
+                        var indicatorSelect;
+
+						if (selectId === 'targetAdd') {
+							indicatorSelect = $('#indicatorAdd');
+						} else if (selectId === 'targetEdit') {
+							indicatorSelect = $('#indicatorEdit');
+						}
+						indicatorSelect.empty();  // Clear the previous options
+						console.log(response.data)
+                        // Populate the target select with new options from all selected goals
+                        $.each(response.data, function(index, indicator) {
+                              indicatorSelect.append(
+                                $('<option></option>').val(indicator.indId).text(indicator.indCode)
+                            );
+                        });
+
+                        // Trigger select2 update if using select2
+                        indicatorSelect.trigger('change.select2');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching targets: ", error);
+                    }
+                });
+            } else {
+				if (selectId === 'targetAdd') {
+					$('#indicatorAdd').empty();
+				} else if (selectId === 'targetEdit') {
+					$('#indicatorEdit').empty();
+				}
+            }
+        });
+
+
+		function getNextPkey(){
+			if ( !siteTable.data().any() ) {
+				$('#id_sdgScoreId').val(1) 
+			}
+			else {
+				var lastIndex = siteTable.rows().indexes().length - 1;
+				var lastRowData = siteTable.row(lastIndex).data();
+				// $('#id_targetId').val(lastRowData.targetId + 1) 
+				if (lastRowData && lastRowData.sdgScoreId) {
+					$('#id_sdgScoreId').val(lastRowData.sdgScoreId + 1);
+				} else {
+					console.error('sdgScoreId not found in lastRowData.');
+				}
+			}
+		}
+
+			
+		// $('#target').change(function() {
+		// 	var selectedDesc = $(this).find(':selected').data('desc');
+		// 	$('#targetDesc').text(selectedDesc);
+		// 	if (selectedDesc) {
+		// 			$('#descBlockquote').show();  
+		// 		} else {
+		// 			$('#descBlockquote').hide();  
+		// 		}
+		// });
+
+		// $('#target-edit').change(function() {
+		// 	var selectedDesc = $(this).find(':selected').data('desc');
+		// 	$('#targetDesc-edit').text(selectedDesc);
+		// 	if (selectedDesc) {
+		// 			$('#descBlockquote-edit').show();  
+		// 		} else {
+		// 			$('#descBlockquote-edit').hide();  
+		// 		}
+		// });
+
+
+		var modalEdit = $("#modal-sdg-edit-lg")
+		var modalDelete = $("#modal-sdg-del-lg")
+
+		var addForm = $("#sdg-add-form")
+		var addformInput = $("#sdg-add-form input")
+		var editForm = $("#sdg-edit-form");
+		var editformInput = $("#sdg-edit-form input")
+		var delForm = $("#sdg-del-form");
+			
+		var formSelector = "#sdg-edit-form";
+		var inputSelector1 = "input[name='sdgScoreId']";
+		var inputSelector2 = "input[name='sdgInitName']";
+		var inputSelector3 = "textarea[name='sdgDesc']";
+		var inputSelector4 = "input[name='outputs']";
+		var inputSelector5 = "input[name='outcome']";
+		var inputSelector6 = "input[name='personnel']";
+		var inputSelector7 = "input[name='links']";
+
+		totalVal = 0
+		perVal = 0
+		ctrlNo="";
+		analId = "";
+
+		var siteTable = $("#example").DataTable({
+		ajax: "/sdgScorecardJsonList/",
+		rowId: "sdgScoreId",
+		order: [0, "desc"],
+		columns: [
+			{ title:"ID",data: "sdgScoreId",  width: "5%" },
+			{ title: "Goal", data: "goal" },
+			{ title: "Target", data: "target" },
+			{ title: "Indicator", data: "indicator" },
+			{ title: "Strategy", data: "susStratName" },
+			{ title: "Green Metric", data: "greenName" },
+			{ title: "Name", data: "sdgInitName" },
+			{ title: "Year", data: "sdgImpYear" },
+			{ title: "Description", data: "sdgDesc" },
+			{ title: "Output", data: "outputs" },
+			{ title: "Outcome", data: "outcome" },
+			{ title: "Personnel", data: "personnel" },
+			{ title: "Links", data: "links" },
+			{
+				title: "Action",
+				data: null,
+				defaultContent:
+					'<button class="btn edit-area btn-default" > <i class="fas fa-edit"></i></button> ' +
+					'<button class="btn delete-area btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+				targets: -1,
+				width: "15%",
+			},
+		],
+		select: {
+			style: "os",
+			selector: "td:not(:first-child)",
+		},
+		});
+
+		$("#example tbody").on("click", ".edit-area", function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			let data = siteTable.row(e.target.closest("tr")).data();
+			pKey = data.sdgScoreId
+
+			console.log(data)
+			// $("#area-edit-form input[name='code']").val(data.code);
+			$(formSelector).find(inputSelector1).val(data.sdgScoreId);
+			$(formSelector).find(inputSelector2).val(data.sdgInitName);
+			$(formSelector).find(inputSelector3).val(data.sdgDesc);
+			$(formSelector).find(inputSelector4).val(data.outputs);
+			$(formSelector).find(inputSelector5).val(data.outcome);
+			$(formSelector).find(inputSelector6).val(data.personnel);
+			$(formSelector).find(inputSelector7).val(data.links);
+			modalEdit.modal("show");
+		});
+
+		$("#example tbody").on("click", ".delete-area", function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			let data = siteTable.row(e.target.closest("tr")).data();
+			pKey = data.sdgScoreId
+			const element = document.getElementById("context");
+			element.innerHTML =
+				"<h5>ID: " + pKey + "</h5>" +  "<h5>Description: " + data.sdgInitName;
+			modalDelete.modal("show");
+		});
+
+		$('#add-new').click(function() {
+			getNextPkey();
+		});
+
+		addForm.on("submit", function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var $this = $(this);
+			var valid = true;
+
+			var selectedGoals = $('#sdgAdd').val();         // Get selected SDG IDs
+			var selectedTargets = $('#targetAdd').val();    // Get selected Target IDs
+			var selectedIndicators = $('#indicatorAdd').val();  // Get selected Indicator IDs
+
+			console.log(valid);
+			if (valid) {
+				$(".btn-save").text("Saving...").attr("disabled", true);
+				// let data = $this.serialize();
+				// let data =$this.serialize() + "&sdgScoreId=" +  $('#id_sdgScoreId').val();
+				
+				let data = $this.serialize() + "&sdgScoreId=" +  $('#id_sdgScoreId').val() + 
+					"&selectedGoals=" + $('#sdgAdd').val().join(',') + 
+					"&selectedTargets=" + $('#targetAdd').val().join(',') + 
+					"&selectedIndicators=" + $('#indicatorAdd').val().join(',') + 
+					"&sdgScoreId=" + $('#id_sdgScoreId').val();  // Append sdgScoreId
+
+
+				console.log(data)
+				$.ajax({
+					url: $(".btn-save").data("url"),
+					type: "POST",
+					data:data,
+					dataType: "json",
+					success: function (data) {
+						if (data.Status == "Saved") {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Record Successfully Saved!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+
+							$(".btn-save").text("Save").attr("disabled", false);
+							// $this[0].reset();
+							$('#id_indCode').val('');  
+							$('#id_indDesc').val(''); 
+							$("#example").DataTable().ajax.reload(function() {
+								getNextPkey();
+							});
+							// $("#example").DataTable().ajax.reload();
+							// $("#modal-target-lg").modal("hide");
+						} else {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Failed to Save Record!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					},
+					error: function (data) {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Error Occured!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					},
+				});
+			}
+			return false;
+		});
+		
+		editForm.on("submit", function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var $this = $(this);
+			var valid = true;
+			
+			var selectedGoals = $('#sdgEdit').val();         // Get selected SDG IDs
+			var selectedTargets = $('#targetEdit').val();    // Get selected Target IDs
+			var selectedIndicators = $('#indicatorEdit').val();  // Get selected Indicator IDs
+		
+			if (valid) {
+				$(".btn-update").text("Saving...").attr("disabled", true);
+				// let data = $this.serialize();
+				// data = $this.serialize()  + "&indId=" +  pKey;
+				
+				let data = $this.serialize() + "&sdgScoreId=" + pKey + 
+					"&selectedGoals=" + $('#sdgEdit').val().join(',') + 
+					"&selectedTargets=" + $('#targetEdit').val().join(',') + 
+					"&selectedIndicators=" + $('#indicatorEdit').val().join(',');
+					
+
+				console.log(data)
+				var editUrl = $(".btn-update").data("url"); 
+				$.ajax({
+					url: editUrl, // editUrl.replace("0", pKey),
+					type: "POST",
+					data: data,
+					dataType: "json",
+					success: function (data) {
+						console.log(data.Status);
+						if (data.Status == "Saved") {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Record Successfully Updated!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+
+							$(".btn-update").text("update").attr("disabled", false);
+							$("#example").DataTable().ajax.reload();
+							modalEdit.modal("hide");
+						} else {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Failed to Update Record!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					},
+					error: function (data) {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Error Occured!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					},
+				});
+			}
+		});
+
+		delForm.on("submit", function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			siteTable.row($(this).parents("tr")).remove().draw();
+			var delUrl = $(".btn-delete").data("url");
+			$.ajax({
+				url: delUrl.replace("0", pKey),
+				method: "POST",
+				success: function (data) {
+					if (data.Status == "Deleted") {
+						Swal.fire({
+							position: "center",
+							icon: "success",
+							title: "Record Successfully Deleted!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+						$("#example").DataTable().ajax.reload();
+						modalDelete.modal("hide");
+					} else {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Failed to Delete Record!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					}
+				},
+				error: function (data) {
+					Swal.fire({
+						position: "center",
+						icon: "error",
+						title: "Error Occured!",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+				},
+			});
+		});
+
+		});
+
+	</script>
+	{% endblock %}

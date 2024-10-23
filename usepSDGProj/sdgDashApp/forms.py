@@ -64,3 +64,18 @@ class UIGreenForms(forms.ModelForm):
             'greenMetId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px'}),
             'greenName':forms.TextInput(attrs={'class':'form-control', 'style':'margin-bottom:10px'}),
         }
+
+class SDGScorecard(forms.ModelForm):
+    class Meta:
+        model = SDGScorecard
+        fields = ['sdgScoreId','sdgInitName','sdgDesc','outputs','outcome','personnel','links']
+        widgets = {
+            'sdgScoreId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px'}),
+            'sdgInitName':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Initiative Name' }),
+            'sdgDesc':forms.Textarea(attrs={'rows':'4', 'class':'form-control','placeholder':'Description'}),
+            'outputs':forms.TextInput(attrs={'class':'form-control','placeholder':'Output'}),
+            'outcome':forms.TextInput(attrs={'class':'form-control','placeholder':'Outcome'}),
+            'personnel':forms.TextInput(attrs={'class':'form-control','placeholder':'Personnel'}),
+            'links':forms.TextInput(attrs={'class':'form-control','placeholder':'Links'}),
+   
+        }

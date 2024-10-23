@@ -32,3 +32,27 @@ uiGreenParams = {
     "greenName":"",
     "isActive":""
 }
+
+sdgScorecard = {
+    "sdgScoreId":"",
+    "susStratId":"",
+    "greenMetId":"",
+    "sdgInitName":"",
+    "sdgImpYear":"",
+    "sdgDesc":"",
+    "outputs":"",
+    "outcome":"",
+    "personnel":"",
+    "links":"",
+    "enCodedBy":"",
+    "enCodedDate":"",
+    "isActive":"",
+}
+
+sdgScorecardDet = {
+    "sdgScoreId":"",
+    "sdgId":"",
+    "targetId":"",
+    "indId":"",
+    "isActive":""
+}

@@ -300,3 +300,35 @@
 '-------------------------------------------------------------------------------
 '=-241018 - 0016 - Version 0.0.16 - * BOB *
 '-------------------------------------------------------------------------------
+** meeting with IPD **
+
+'-------------------------------------------------------------------------------
+'=-241021 - 0017 - Version 0.0.17 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgDashApp)
+  * added sdg-scorecard.html
+  * added sdgTempAdd.html
+
+'-------------------------------------------------------------------------------
+'=-241022 - 0018 - Version 0.0.18 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgDashApp)
+  * updated script for 'sdg-scorecard.html' on '$('#sdgAdd, #sdgEdit').on('change') function'
+  * updated script for 'sdg-scorecard.html' on '$('#targetAdd, #targetEdit').on('change') function'
+
+=-sqlcommands.py (sdgDashApp)
+  * updated query on 'fetchSdgScorecard'
+  * added query 'getTargetPerGoal'
+  * added query 'getIndPerTarget'
+
+'-------------------------------------------------------------------------------
+'=-241023 - 0019 - Version 0.0.19 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgDashApp)
+  * updated script for 'sdg-scorecard.html' on '$('#sdgAdd, #sdgEdit').on('change') function'
+  * updated script for 'sdg-scorecard.html' on '$('#targetAdd, #targetEdit').on('change') function'
+
+=-sqlcommands.py 
+  * added query 'deleteScorecard' 
+  * added query 'deleteScorecardDet'
+

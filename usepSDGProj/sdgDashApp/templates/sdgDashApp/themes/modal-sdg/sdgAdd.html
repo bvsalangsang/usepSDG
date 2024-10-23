@@ -1,0 +1,219 @@
+<div class="modal fade" id="modal-sdg-lg">
+	<form id="sdg-add-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-secondary">
+					<h4 class="modal-title">Add New Entry</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						{% csrf_token %}
+						<div class="col-md-12">
+							<!-- ID Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<input
+										type="text"
+										name="sdgScoreId"
+										id="id_sdgScoreId"
+										class="form-control"
+										disabled
+										placeholder="ID"
+									/>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Goal Field -->
+							<div class="form-group select2-purple row">
+								<div class="col-sm-12">
+									<select
+										id="sdgAdd"
+										name="sdgId"
+										class="form-control select2"
+										multiple="multiple"
+										data-placeholder="Goal"
+										data-dropdown-css-class="select2-purple"
+										style="width: 100%"
+									>
+										{% for sdg in sdgList %}
+										<option value="{{ sdg.sdgId }}">{{ sdg.sdgName }}</option>
+										{% endfor %}
+									</select>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+							<!--Target Field-->
+							<div class="form-group select2-purple row">
+								<div class="col-sm-12">
+									<select
+										id="targetAdd"
+										name="targetId"
+										class="form-control select2"
+										multiple="multiple"
+										data-placeholder="Target"
+										data-dropdown-css-class="select2-purple"
+										style="width: 100%"
+									>
+										<!-- Options will be dynamically populated via AJAX -->
+									</select>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!--Indicator Field-->
+							<div class="form-group select2-purple row">
+								<div class="col-sm-12">
+									<select
+										id="indicatorAdd"
+										name="indicatorId"
+										class="form-control select2"
+										multiple="multiple"
+										data-placeholder="Indicator"
+										data-dropdown-css-class="select2-purple"
+										style="width: 100%"
+									>
+										<!-- Options will be dynamically populated via AJAX -->
+									</select>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!--Sustain and Green metric-->
+							<div class="form-group row">
+								<div class="col-sm-6">
+									<select id="sus" name="susStratId" class="form-control">
+										<option value="" selected disabled hidden>
+											Sustainability Strategy
+										</option>
+										{% for sus in susList %}
+										<option value="{{ sus.susStratId }}">
+											{{ sus.susStratName }}
+										</option>
+										{% endfor %}
+									</select>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+
+								<div class="col-sm-6">
+									<select id="green" name="greenMetId" class="form-control">
+										<option value="" selected disabled hidden>
+											Green Metric
+										</option>
+										{% for green in greenList %}
+										<option value="{{ green.greenMetId }}">
+											{{ green.greenName }}
+										</option>
+										{% endfor %}
+									</select>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- SDG Name Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.sdgInitName }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- SDG Description Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.sdgDesc }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- SDG Year -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<select id="Year" name="sdgImpYear" class="form-control">
+										<option value="" selected disabled hidden>Year</option>
+										<option value="2010">2010</option>
+										<option value="2011">2011</option>
+										<option value="2012">2012</option>
+										<option value="2013">2013</option>
+										<option value="2014">2014</option>
+										<option value="2015">2015</option>
+										<option value="2016">2016</option>
+										<option value="2017">2017</option>
+										<option value="2018">2018</option>
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+										<option value="2021">2021</option>
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
+										<option value="2024">2024</option>
+										<option value="2025">2025</option>
+										<option value="2026">2026</option>
+										<option value="2027">2027</option>
+										<option value="2028">2028</option>
+										<option value="2029">2029</option>
+										<option value="2030">2030</option>
+									</select>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+							<!-- Output Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.outputs }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Outcome Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.outcome }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Personnel Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.personnel }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Links Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.links }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close
+					</button>
+					<button
+						type="submit"
+						class="btn btn-success btn-save"
+						data-url="{% url 'sdgSaveUpdateParams' %}"
+					>
+						Save
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</form>
+</div>
+<!-- /.modal -->

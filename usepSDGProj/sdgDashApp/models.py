@@ -58,12 +58,14 @@ class SDGScorecard(models.Model):
     susStratId = models.CharField(max_length=20)
     greenMetId = models.CharField(max_length=20)
     sdgInitName = models.CharField(max_length=800)  
-    sdgImpYear = models.CharField(max_length=10)
+    sdgImpYear = models.IntegerField()
     sdgDesc = models.CharField(max_length=1024)
     outputs = models.CharField(max_length=500)
     outcome = models.CharField(max_length=500)
     personnel = models.CharField(max_length=255)
     links = models.CharField(max_length=850)
+    enCodedBy = models.CharField(max_length=10,null=True, blank=True)
+    enCodedDate = models.DateField(null=True, blank=True)
     isActive = models.CharField(max_length=1,default='Y') 
 
     class Meta: 
@@ -72,9 +74,10 @@ class SDGScorecard(models.Model):
 class SDGScorecardDet(models.Model):
     ctr = models.AutoField(primary_key=True, editable=True)
     sdgScoreId = models.CharField(max_length=10)
-    sdgId = models.CharField(max_length=20)
-    targetId = models.CharField(max_length=20)
-    indId = models.CharField(max_length=20)
+    sdgId = models.CharField(max_length=50)
+    targetId = models.CharField(max_length=100)
+    indId = models.CharField(max_length=120)
+    isActive = models.CharField(max_length=1,default='Y') 
     class Meta: 
         db_table = "sdg_scorecard_det"
 
