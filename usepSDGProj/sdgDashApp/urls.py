@@ -51,7 +51,8 @@ urlpatterns = [
         path('sdgSaveUpdateParams/',views.sdgSaveUpdateParams,name="sdgSaveUpdateParams"),
         path('sdgDeleteParams/<int:id>', views.sdgDeleteParams, name="sdgDeleteParams"),
 
-        
+        path('testpage/', views.testPage,name="testpage")
+
         # path('fetchTarget/<int:id>', views.fetchTarget, name="fetchTarget"),
 
    

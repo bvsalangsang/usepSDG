@@ -21,6 +21,10 @@ def sustainPPA(request):
 def contact(request):
     return render(request, 'themes/contact.html')
 
+def scorecard(request):
+    return render(request, 'themes/sdg-scorecard.html')
+
+
 def goal1(request):
     return render(request,'themes/goal1.html')
 
@@ -128,7 +132,7 @@ def goalJsonFetchPerId(request,id):
         data = list(sdg.values())
         return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
 
-   
+
 def test(request):
     return render(request,'themes/test.html')
 

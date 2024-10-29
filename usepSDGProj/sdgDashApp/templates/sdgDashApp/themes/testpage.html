@@ -1,0 +1,614 @@
+{% extends 'sdgDashApp/base.html' %}
+{% load static %}
+
+{% block body %} 
+{% include 'sdgDashApp/includes/header.html' %}
+{% include 'sdgDashApp/includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+                <div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Goal Library</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Goal Library</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+						<!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row">
+									<div class="col-12" style="width: 100%; max-width: 960px; margin: auto;">
+									    <canvas id="myChart"></canvas>
+									</div> 
+								</div>	
+                            </div>
+                            <!-- /.container-fluid -->
+                        </section>
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'sdgDashApp/includes/footer.html' %}
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+    {% endblock %}
+    {% block scripts %}
+    <script>
+		// setup 
+		const data = {
+			labels: ['goal 1', 'goal 2', 'goal 3', 'goal 4', 'goal 5',
+					'goal 6', 'goal 7','goal 8', 'goal 9', 'goal 10', 
+					'goal 11', 'goal 12', 'goal 13', 'goal 14', 'goal 15',
+					'goal 16', 'goal 17'  ],
+			datasets: [
+			{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0.1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39,  0.1)',
+			'rgba(238, 64, 86, 0.1)',
+			'rgba(71, 180, 226,  0.1)',
+			'rgba(252, 189, 31,  0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53,  0.1)',
+			'rgba(221, 20, 106, 1)',
+			'rgba(245, 161, 46, 1)',
+			'rgba(192, 137, 46,  0.1)',
+			'rgba(67, 140, 63,  0.1)',
+			'rgba(20, 154, 207, 1)',
+			'rgba(93, 189, 70,  0.1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114,  0.1)',
+			],
+			borderWidth: 5,  // Border width for spacing
+			borderRadius: 5  // Rounds the edges of each segment
+			
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0.1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 0.1)',
+			'rgba(238, 64, 86, 0.1)',
+			'rgba(71, 180, 226, 0.1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 0.1)',
+			'rgba(221, 20, 106, 1)',
+			'rgba(245, 161, 46, 1)',
+			'rgba(192, 137, 46, 0.1)',
+			'rgba(67, 140, 63, 1)',
+			'rgba(20, 154, 207, 1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0.1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 0.1)',
+			'rgba(238, 64, 86, 0.1)',
+			'rgba(71, 180, 226, 0.1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 0.1)',
+			'rgba(221, 20, 106, 0.1)',
+			'rgba(245, 161, 46, 1)',
+			'rgba(192, 137, 46, 0.1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0.1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 0.1)',
+			'rgba(238, 64, 86, 0.1)',
+			'rgba(71, 180, 226, 0.1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53,0.1)',
+			'rgba(221, 20, 106, 0.1)',
+			'rgba(245, 161, 46, 1)',
+			'rgba(192, 137, 46, 0.1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0.1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 0.1)',
+			'rgba(238, 64, 86, 0.1)',
+			'rgba(71, 180, 226, 0.1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 0.1)',
+			'rgba(221, 20, 106, 0.1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 0.1)',
+			'rgba(67, 140, 63, 1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154, 1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0.1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 0.1)',
+			'rgba(238, 64, 86, 0.1)',
+			'rgba(71, 180, 226, 1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 0.1)',
+			'rgba(221, 20, 106, 0.1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 0.1)',
+			'rgba(67, 140, 63, 1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 0.1)',
+			'rgba(238, 64, 86, 1)',
+			'rgba(71, 180, 226, 1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 1)',
+			'rgba(229, 103, 53, 1)',
+			'rgba(221, 20, 106, 1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 0.1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 0.1)',
+			'rgba(201, 26, 39, 1)',
+			'rgba(238, 64, 86, 1)',
+			'rgba(71, 180, 226, 1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 1)',
+			'rgba(221, 20, 106, 0.1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 0.1)',
+			'rgba(35, 71, 154, 1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 1)',
+			'rgba(252, 195, 10, 0.1)',
+			'rgba(73, 157, 73, 1)',
+			'rgba(201, 26, 39, 1)',
+			'rgba(238, 64, 86, 1)',
+			'rgba(71, 180, 226, 1)',
+			'rgba(252, 189, 31, 0.1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 1)',
+			'rgba(221, 20, 106, 1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 1)',
+			'rgba(252, 195, 10, 1)',
+			'rgba(73, 157, 73, 1)',
+			'rgba(201, 26, 39, 1)',
+			'rgba(238, 64, 86, 1)',
+			'rgba(71, 180, 226, 1)',
+			'rgba(252, 189, 31, 1)',
+			'rgba(167, 25, 72, 0.1)',
+			'rgba(229, 103, 53, 0.1)',
+			'rgba(221, 20, 106, 1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70, 1)',
+			'rgba(35, 71, 154,  0.1)',
+			'rgba(18, 68, 114, 0.1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 1)',
+			'rgba(252, 195, 10, 1)',
+			'rgba(73, 157, 73, 1)',
+			'rgba(201, 26, 39, 1)',
+			'rgba(238, 64, 86, 1)',
+			'rgba(71, 180, 226, 1)',
+			'rgba(252, 189, 31, 1)',
+			'rgba(167, 25, 72, 1)',
+			'rgba(229, 103, 53, 0.1)',
+			'rgba(221, 20, 106, 0.1)',
+			'rgba(245, 161, 46, 0.1)',
+			'rgba(192, 137, 46, 1)',
+			'rgba(67, 140, 63, 0.1)',
+			'rgba(20, 154, 207, 0.1)',
+			'rgba(93, 189, 70,  0.1)',
+			'rgba(35, 71, 154, 1)',
+			'rgba(18, 68, 114, 1)',
+			],
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5
+		},
+		{
+			label: 'Weekly Sales',
+			data: [2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2],
+			backgroundColor: [
+			'rgba(194, 25, 47, 0)',
+			'rgba(252, 195, 10, 0)',
+			'rgba(73, 157, 73, 0)',
+			'rgba(201, 26, 39, 0)',
+			'rgba(238, 64, 86, 0)',
+			'rgba(71, 180, 226, 0)',
+			'rgba(252, 189, 31, 0)',
+			'rgba(167, 25, 72, 0)',
+			'rgba(229, 103, 53, 0)',
+			'rgba(221, 20, 106, 0)',
+			'rgba(245, 161, 46, 0)',
+			'rgba(192, 137, 46, 0)',
+			'rgba(67, 140, 63, 0)',
+			'rgba(20, 154, 207, 0)',
+			'rgba(93, 189, 70, 0)',
+			'rgba(35, 71, 154, 0)',
+			'rgba(18, 68, 114, 0)',
+			],
+			
+			borderWidth:1,
+			borderWidth: 5,
+			borderRadius: 5,
+			image: ["{% static 'img/E_SDG_Icons-01.jpg' %}",
+				"{% static 'img/E_SDG_Icons-02.jpg' %}",
+				"{% static 'img/E_SDG_Icons-03.jpg' %}",
+				"{% static 'img/E_SDG_Icons-04.jpg' %}",
+				"{% static 'img/E_SDG_Icons-05.jpg' %}",
+				"{% static 'img/E_SDG_Icons-06.jpg' %}",
+				"{% static 'img/E_SDG_Icons-07.jpg' %}",
+				"{% static 'img/E_SDG_Icons-08.jpg' %}",
+				"{% static 'img/E_SDG_Icons-09.jpg' %}",
+				"{% static 'img/E_SDG_Icons-10.jpg' %}",
+				"{% static 'img/E_SDG_Icons-11.jpg' %}",
+				"{% static 'img/E_SDG_Icons-12.jpg' %}",
+				"{% static 'img/E_SDG_Icons-13.jpg' %}",
+				"{% static 'img/E_SDG_Icons-14.jpg' %}",
+				"{% static 'img/E_SDG_Icons-15.jpg' %}",
+				"{% static 'img/E_SDG_Icons-16.jpg' %}",
+				"{% static 'img/E_SDG_Icons-17.jpg' %}",
+			],
+			
+		},
+		]
+    };
+
+	const segmentImage = {
+    id: 'segmentImage',
+    afterDatasetDraw(chart, args, plugins) {
+        const { ctx, data } = chart;
+        const angle = Math.PI / 180;
+        const width = 30;
+        ctx.save();
+
+        // Access dataset-specific radii adjustments
+        const datasetIndex = 11;
+        const innerRadiusAdjustment = datasetIndex * 5;  // Example adjustment factor
+        const outerRadiusAdjustment = datasetIndex * 10;  // Example adjustment factor
+
+        // Modify the inner and outer radius for the datasetIndex
+        chart.getDatasetMeta(datasetIndex).controller.innerRadius += innerRadiusAdjustment;
+        chart.getDatasetMeta(datasetIndex).controller.outerRadius += outerRadiusAdjustment;
+
+        chart.getDatasetMeta(0).data.forEach((datapoint, index) => {
+            const image = new Image();
+            image.src = data.datasets[datasetIndex].image[index];
+            
+            const x = chart.getDatasetMeta(datasetIndex).data[index].tooltipPosition().x;
+            const y = chart.getDatasetMeta(datasetIndex).data[index].tooltipPosition().y;
+
+            // Clip to a circular path to make the image round
+            ctx.beginPath();
+            ctx.arc(x, y, width / 2, 0, angle * 360, false);
+            ctx.closePath();
+            ctx.clip();
+
+            // Draw the image in the circular clipped area
+            ctx.drawImage(image, x - (width / 2), y - (width / 2), width, width);
+
+            // Restore the clipping region
+            ctx.restore();
+            ctx.save();
+        });
+
+        ctx.restore();
+    }
+}
+
+
+	// const segmentImage = {
+	// 	id: 'segmentImage',
+	// 	afterDatasetDraw(chart,args,plugins){
+	// 		const { ctx,data } = chart;
+
+	// 		const angle = Math.PI /180
+	// 		const width = 30;
+	// 		// const image = new Image();
+	// 		// image.src =  "{% static 'img/E_SDG_Icons-01.jpg' %}"
+
+	// 		ctx.save();
+	// 		chart.getDatasetMeta(0).data.forEach((datapoint, index) => {
+				
+	// 			const image = new Image();
+	// 			image.src = data.datasets[11].image[index];
+				
+	// 			const datasetIndex = 11;
+	// 			const x = chart.getDatasetMeta(datasetIndex).data[index].tooltipPosition().x;
+	// 			const y = chart.getDatasetMeta(datasetIndex).data[index].tooltipPosition().y;
+
+			
+	// 		    ctx.beginPath();
+	// 		    ctx.arc(x,y ,width/2* 1.2,0,angle * 360,false);
+	// 			ctx.fillStyle = 'white';
+	// 			ctx.fill();
+	// 			ctx.drawImage(image, x - (width/2) ,y-(width/2) ,width, width)
+	// 		});
+	// 	}
+	// }
+	
+    // config 
+    const config = {
+      type: 'doughnut',
+      data,
+      options: {
+		cutout: '20%',  // Adjusts the inner radius of the doughnut
+   		spacing: 10,  //
+        // scales: {
+        //   y: {
+        //     beginAtZero: true
+        //   }
+        // }
+      },
+	  plugins: [segmentImage]
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    // Instantly assign Chart.js version
+    const chartVersion = document.getElementById('chartVersion');
+
+	
+
+// *** 2nd sol ****
+
+// 	const goals = [
+//   'Goal 1',
+//   'Goal 2',
+//   'Goal 3',
+//   'Goal 4',
+//   'Goal 5',
+//   'Goal 6',
+//   'Goal 7',
+//   'Goal 8',
+//   'Goal 9',
+//   'Goal 10',
+//   'Goal 11',
+//   'Goal 12',
+//   'Goal 13',
+//   'Goal 14',
+//   'Goal 15',
+//   'Goal 16',
+//   'Goal 17'
+// ];
+
+// sol 2
+// const goals = [
+// 		{ label: 'Goal 1', image: "{% static 'img/E_SDG_Icons-01.jpg' %}" },
+// 		{ label: 'Goal 2', image: "{% static 'img/E_SDG_Icons-02.jpg' %}" },
+// 		{ label: 'Goal 3', image: "{% static 'img/E_SDG_Icons-03.jpg' %}" },
+// 		{ label: 'Goal 4', image: "{% static 'img/E_SDG_Icons-04.jpg' %}" },
+// 		{ label: 'Goal 5', image: "{% static 'img/E_SDG_Icons-05.jpg' %}" },
+// 		{ label: 'Goal 6', image: "{% static 'img/E_SDG_Icons-06.jpg' %}" },
+// 		{ label: 'Goal 7', image: "{% static 'img/E_SDG_Icons-07.jpg' %}" },
+// 		{ label: 'Goal 8', image: "{% static 'img/E_SDG_Icons-08.jpg' %}" },
+// 		{ label: 'Goal 9', image: "{% static 'img/E_SDG_Icons-09.jpg' %}" },
+// 		{ label: 'Goal 10', image: "{% static 'img/E_SDG_Icons-10.jpg' %}" },
+// 		{ label: 'Goal 11', image: "{% static 'img/E_SDG_Icons-11.jpg' %}" },
+// 		{ label: 'Goal 12', image: "{% static 'img/E_SDG_Icons-12.jpg' %}" },
+// 		{ label: 'Goal 13', image: "{% static 'img/E_SDG_Icons-13.jpg' %}" },
+// 		{ label: 'Goal 14', image: "{% static 'img/E_SDG_Icons-14.jpg' %}" },
+// 		{ label: 'Goal 15', image: "{% static 'img/E_SDG_Icons-15.jpg' %}" },
+// 		{ label: 'Goal 16', image: "{% static 'img/E_SDG_Icons-16.jpg' %}" },
+// 		{ label: 'Goal 17', image: "{% static 'img/E_SDG_Icons-17.jpg' %}" },
+// 		];
+
+// const values = Array(goals.length).fill(2); // Assuming each goal has a value of 2
+// const colors = [
+//   'rgba(194, 25, 47, 1)', // Goal 1
+//   'rgba(252, 195, 10, 1)', // Goal 2
+//   'rgba(73, 157, 73, 1)', // Goal 3
+//   'rgba(201, 26, 39, 1)', // Goal 4
+//   'rgba(238, 64, 86, 1)', // Goal 5
+//   'rgba(71, 180, 226, 1)', // Goal 6
+//   'rgba(252, 189, 31, 1)', // Goal 7
+//   'rgba(167, 25, 72, 1)', // Goal 8
+//   'rgba(229, 103, 53, 1)', // Goal 9
+//   'rgba(221, 20, 106, 1)', // Goal 10
+//   'rgba(245, 161, 46, 1)', // Goal 11
+//   'rgba(192, 137, 46, 1)', // Goal 12
+//   'rgba(67, 140, 63, 1)',  // Goal 13
+//   'rgba(20, 154, 207, 1)', // Goal 14
+//   'rgba(93, 189, 70, 1)',  // Goal 15
+//   'rgba(35, 71, 154, 1)',  // Goal 16
+//   'rgba(18, 68, 114, 1)'   // Goal 17
+// ];
+
+// // Function to generate dynamic datasets
+// function createDatasets(numLayers) {
+//   const datasets = [];
+  
+//   for (let i = 0; i < numLayers; i++) {
+//     datasets.push({
+//       label: `Layer ${i + 1}`,
+//       data: values,  // Assign values dynamically
+//       backgroundColor: colors, // Use dynamic colors array
+//       borderWidth: 5,
+//       borderRadius: 5
+//     });
+//   }
+//   return datasets;
+// }
+
+// // Set up the data object with dynamic datasets
+// const data = {
+//   labels: goals,
+//   datasets: createDatasets(19)  // Adjust the number of layers here
+// };
+
+// // Config for the doughnut chart
+// const config = {
+//   type: 'doughnut',
+//   data: data,
+//   options: {
+//     cutout: '40%',  // Adjusts the inner radius of the doughnut
+//     spacing: 10,
+//     scales: {
+//       y: {
+//         beginAtZero: true
+//       }
+//     }
+//   },
+// };
+
+// // Render the chart
+// const myChart = new Chart(
+//   document.getElementById('myChart'),
+//   config
+// );
+
+// // Display Chart.js version
+// const chartVersion = document.getElementById('chartVersion');
+// chartVersion.innerText = Chart.version;
+
+
+
+	</script>
+	{% endblock %}

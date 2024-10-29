@@ -79,3 +79,7 @@ class SDGScorecard(forms.ModelForm):
             'links':forms.TextInput(attrs={'class':'form-control','placeholder':'Links'}),
    
         }
+
+
+class ImageUploadForm(forms.Form):
+    image = forms.ImageField()

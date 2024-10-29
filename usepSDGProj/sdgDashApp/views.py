@@ -595,7 +595,6 @@ def sdgDeleteParams(request, id):
         print(f"{type(err).__name__} was raised: {err}")
         return JsonResponse ({"Error":err}) 
 
-
 def fetchTarget(request):
     if request.method == 'POST':
         selected_goals = request.POST.getlist('selectedGoals[]')  # Get array of selected goals from POST request
@@ -641,3 +640,6 @@ def fetchIndicator(request):
         return JsonResponse({"data": jsonResultData}, safe=False)
 
     return JsonResponse({"data": []}, safe=False)
+
+def testPage(request):
+    return render(request, 'sdgDashApp/themes/testpage.html')

@@ -332,3 +332,32 @@
   * added query 'deleteScorecard' 
   * added query 'deleteScorecardDet'
 
+'-------------------------------------------------------------------------------
+'=-241024 - 0020 - Version 0.0.20 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgDashApp)
+  * bugs fixed on 'sdg-scorecard.html' fetch record
+
+'-------------------------------------------------------------------------------
+'=-241028 - 0021 - Version 0.0.21 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgDashApp)
+  * added 'testpage.html'
+
+=-testpage.html (sdgDashApp)
+  * added javascript 'doughnut' chart
+
+'-------------------------------------------------------------------------------
+'=-241029 - 0022 - Version 0.0.22 - * BOB *
+'-------------------------------------------------------------------------------
+-=base.html (sdgMainApp)
+  * Changed 'Contact Us' to 'Scorecard'
+  * change url 'contact' to 'scorecard'
+
+=-views.py 
+  * added view 'scorecard'
+
+=-urls.py 
+  * added path 'scorecard'
+
+  

@@ -26,7 +26,9 @@ urlpatterns = [
         path("sdg-initiatives/sustainability-ppa/goal-16",views.goal16, name="goal-16"),
         path("sdg-initiatives/sustainability-ppa/goal-17",views.goal17, name="goal-17"),
         path("sdg-initiatives/sustainability-ppa/goal-4/goal-topic",views.goalTopic, name="goal-topic"),
-        path("contact-us",views.contact,name="contact"),
+        # path("contact-us",views.contact,name="contact"),
+        path("scorecard",views.scorecard,name="scorecard"),
+        
         path("goalJsonFetchPerId/<int:id>",views.goalJsonFetchPerId,name="goalJsonFetchPerId"),
         path('sub/test',views.test,name="Home"),
     ]

@@ -90,7 +90,7 @@
 			<!-- Navbar Start -->
 			<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 				<a
-					href="{% url  'contact' %}"
+					href="{% url  'scorecard' %}"
 					class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5"
 				>
 					<div class="logo-column"></div>
@@ -134,8 +134,8 @@
 								<a href="#" class="dropdown-item">Sustainability Networks </a>
 							</div>
 						</div>
-						<a href="{% url  'contact' %}" class="nav-item nav-link"
-							>Contact us</a
+						<a href="{% url  'scorecard' %}" class="nav-item nav-link"
+							>Scorecard</a
 						>
 					</div>
 					<a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
@@ -159,6 +159,9 @@
 		<!-- JavaScript Libraries -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
 		<script src="{% static 'lib/wow/wow.min.js' %}"></script>
 		<script src="{% static 'lib/easing/easing.min.js' %}"></script>
 		<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
