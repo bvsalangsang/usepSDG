@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--69!qecf1(3f&yv=&lds3#9we23qt!(tdeff24!jue3^xnwrvi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.16.210.188', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -86,11 +86,19 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
-        "default": {
+    #     "default": {
+    #     "ENGINE": 'django.db.backends.mysql',
+    #     "NAME": 'usep_sdg',
+    #     "USER": 'dash',
+    #     "PASSWORD": 'Usepdash@101',
+    #     "HOST": 'localhost',
+    #     "PORT": '3306',
+    # }
+     "default": {
         "ENGINE": 'django.db.backends.mysql',
         "NAME": 'usep_sdg',
-        "USER": 'dash',
-        "PASSWORD": 'Usepdash@101',
+        "USER": 'sdg',
+        "PASSWORD": 'SDMD@ipd101',
         "HOST": 'localhost',
         "PORT": '3306',
     }
@@ -132,10 +140,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static'),
-   ]
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# STATICFILES_DIRS=[
+#     os.path.join(BASE_DIR,'static'),
+#    ]
 
 
 
