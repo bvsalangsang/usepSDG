@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--69!qecf1(3f&yv=&lds3#9we23qt!(tdeff24!jue3^xnwrvi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #true
 
-ALLOWED_HOSTS = ['172.16.210.188', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,7 +85,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-
+    #  FOR LOCAL
     #     "default": {
     #     "ENGINE": 'django.db.backends.mysql',
     #     "NAME": 'usep_sdg',
@@ -93,7 +93,9 @@ DATABASES = {
     #     "PASSWORD": 'Usepdash@101',
     #     "HOST": 'localhost',
     #     "PORT": '3306',
-    # }
+    # },
+
+    # FOR ubuntu
      "default": {
         "ENGINE": 'django.db.backends.mysql',
         "NAME": 'usep_sdg',
@@ -140,15 +142,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
+# on ubuntu
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# on local
 # STATICFILES_DIRS=[
-#     os.path.join(BASE_DIR,'static'),
+#     os.path.join(BASE_DIR,'static/'),
 #    ]
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
