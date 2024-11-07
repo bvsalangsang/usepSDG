@@ -119,11 +119,11 @@
 
                 $.ajax({
                     url: fetchUrl,
-                    type: "POST",  // Use POST to send an array of goal IDs
-                    data: {
-                        'selectedGoals': selectedGoals,  // Pass the array of selected goals
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token if needed
-                    },
+                    type: "POST",  
+					headers: { "X-CSRFToken": $('input[name="csrfmiddlewaretoken"]').val() }, // Get token dynamically
+					data: {
+                        'selectedGoals': selectedGoals // Pass the array of selected goals
+                       },
                     dataType: "json",
                     success: function(response) {
                         // var targetSelect = $('#target');
@@ -173,11 +173,11 @@
 
                 $.ajax({
                     url: fetchUrl,
+					headers: { "X-CSRFToken": $('input[name="csrfmiddlewaretoken"]').val() }, // Get token dynamically
                     type: "POST",  // Use POST to send an array of goal IDs
                     data: {
                         'selectedtarget': selectedtarget,  // Pass the array of selected goals
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token if needed
-                    },
+                     },
                     dataType: "json",
                     success: function(response) {
                         // var indicatorSelect = $('#indicator');
@@ -370,8 +370,10 @@
 					url: $(".btn-save").data("url"),
 					type: "POST",
 					data:data,
+					headers: { "X-CSRFToken": $('input[name="csrfmiddlewaretoken"]').val() }, // Get token dynamically
 					dataType: "json",
 					success: function (data) {
+						console.log(data)
 						if (data.Status == "Saved") {
 							Swal.fire({
 								position: "center",
@@ -405,6 +407,8 @@
 							position: "center",
 							icon: "error",
 							title: "Error Occured!",
+							text: data,  // Display the error message returned from the server
+				
 							showConfirmButton: false,
 							timer: 1500,
 						});
