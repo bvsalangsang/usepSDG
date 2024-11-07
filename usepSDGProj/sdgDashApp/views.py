@@ -43,7 +43,7 @@ def sdgJsonList(request):
         jsonResultData.append(tempRes)
 
     return JsonResponse({"data":list(jsonResultData)},safe=False)
-
+@csrf_exempt
 def sdgSaveUpdateParams(request):
     cursor = connection.cursor()
     form  = SDGForms()
@@ -595,6 +595,7 @@ def sdgDeleteParams(request, id):
         print(f"{type(err).__name__} was raised: {err}")
         return JsonResponse ({"Error":err}) 
 
+@csrf_exempt
 def fetchTarget(request):
     if request.method == 'POST':
         selected_goals = request.POST.getlist('selectedGoals[]')  # Get array of selected goals from POST request
@@ -618,6 +619,7 @@ def fetchTarget(request):
 
     return JsonResponse({"data": []}, safe=False)
 
+@csrf_exempt
 def fetchIndicator(request):
     if request.method == 'POST':
         selectedTarget = request.POST.getlist('selectedtarget[]')  # Get array of selected goals from POST request

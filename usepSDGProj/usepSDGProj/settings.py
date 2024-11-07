@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--69!qecf1(3f&yv=&lds3#9we23qt!(tdeff24!jue3^xnwrvi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #true
+DEBUG = False #true
 
 ALLOWED_HOSTS = ['*']
 
@@ -52,6 +52,28 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://sustainability.usep.edu.ph',
+    'http://sustainability.usep.edu.ph',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    'https://sustainability.usep.edu.ph',
+    'http://sustainability.usep.edu.ph',
 ]
 
 ROOT_URLCONF = 'usepSDGProj.urls'
