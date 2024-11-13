@@ -51,8 +51,32 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'sdgDashApp.middleware.DashAdminAuthMiddleware',  
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://sustainability.usep.edu.ph',
+    'http://sustainability.usep.edu.ph',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    'https://sustainability.usep.edu.ph',
+    'http://sustainability.usep.edu.ph',
+]
+
 
 ROOT_URLCONF = 'usepSDGProj.urls'
 
@@ -86,24 +110,24 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     #  FOR LOCAL
-    #     "default": {
-    #     "ENGINE": 'django.db.backends.mysql',
-    #     "NAME": 'usep_sdg',
-    #     "USER": 'dash',
-    #     "PASSWORD": 'Usepdash@101',
-    #     "HOST": 'localhost',
-    #     "PORT": '3306',
-    # },
-
-    # FOR ubuntu
-     "default": {
+        "default": {
         "ENGINE": 'django.db.backends.mysql',
         "NAME": 'usep_sdg',
-        "USER": 'sdg',
-        "PASSWORD": 'SDMD@ipd101',
+        "USER": 'dash',
+        "PASSWORD": 'Usepdash@101',
         "HOST": 'localhost',
         "PORT": '3306',
-    }
+    },
+
+    # FOR ubuntu
+    #  "default": {
+    #     "ENGINE": 'django.db.backends.mysql',
+    #     "NAME": 'usep_sdg',
+    #     "USER": 'sdg',
+    #     "PASSWORD": 'SDMD@ipd101',
+    #     "HOST": 'localhost',
+    #     "PORT": '3306',
+    # }
 
 }
 
@@ -145,12 +169,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # on ubuntu
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # on local
-# STATICFILES_DIRS=[
-#     os.path.join(BASE_DIR,'static/'),
-#    ]
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'static/'),
+   ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

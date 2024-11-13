@@ -230,6 +230,18 @@
 }
 
 /****/
+/** customs **/
+a h5 {
+	color: #F3BD00;
+    text-decoration: none
+}
+
+.dreport-1 {
+	font-size: 27px;
+
+}
+
+/*****/
 
 .py-6 {
 	padding-top: 6rem;

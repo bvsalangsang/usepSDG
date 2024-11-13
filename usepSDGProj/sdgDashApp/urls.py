@@ -5,9 +5,11 @@ from . import views
 
 urlpatterns = [
         path('logView/',views.logView, name="logView"),
-        path('login/',views.login, name="Login"),
-        path('dash-admin',views.dashboard,name="Home"),
-      
+        path('login/',views.login, name="login"),
+        path('set_session_auth/',views.set_session_auth,name="set-session-auth"),
+        path('logout/', views.session_flush, name="logout"),
+        path('dash-admin/',views.dashboard,name="Home"),
+        
 
         #SDG
         path('dash-admin/goals',views.sdgView,name="goals"),
