@@ -23,3 +23,4 @@ def sdgDetailsViewPerId(**sgdParams):
           """).format(sgdParams['sdgId']);  
 
     return sql
+

@@ -58,17 +58,17 @@
 									data-bs-toggle="tab"
 									href="#tab1"
 									role="tab"
-									>Overview</a
+									>About SDG Goal 1</a
 								>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab"
-									>Targets and Indicators</a
+									>Progress and information</a
 								>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-bs-toggle="tab" href="#tab3" role="tab"
-									>Progress and info</a
+									>Reports and Downloadable Files</a
 								>
 							</li>
 						</ul>
@@ -95,16 +95,14 @@
 											class="ifographic-img"
 										/>
 									</div>
+									<hr class="yellow-border" />
+									<h3 class="display-6 text-center">Targets and Indicators</h3>
+									<div class="col-12" id="targets-container"></div>
 								</div>
 							</div>
 							<div class="tab-pane" id="tab2" role="tabpanel">
 								<div class="row">
-									<div class="col-12" id="targets-container"></div>
-								</div>
-							</div>
-
-							<div class="tab-pane" id="tab3" role="tabpanel">
-								<div class="row">
+									<hr class="yellow-border" />
 									<div class="col-6">
 										<div class="card card-horizontal p-2">
 											<img
@@ -143,6 +141,32 @@
 									</div>
 								</div>
 								Tab 3 content
+							</div>
+							<div class="tab-pane" id="tab3" role="tabpanel">
+								<div class="row g-0 team-items">
+									<div
+										class="col-lg-2 col-md-6 wow fadeInUp"
+										data-wow-delay="0.1s"
+									>
+										<div class="team-item position-relative">
+											<div class="position-relative">
+												<img
+													class="img-fluid"
+													src="{% static 'img/sdg_report.jpg' %}"
+													alt=""
+												/>
+												<div class="team-social text-center">
+													<a
+														class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+														href="{% url 'goal-1' %}"
+													>
+														<span class="px-3">Read More</span>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
