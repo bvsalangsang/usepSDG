@@ -360,4 +360,49 @@
 =-urls.py 
   * added path 'scorecard'
 
-  
+'-------------------------------------------------------------------------------
+'=-241030 - 0023 - Version 0.0.23 - * BOB *
+'-------------------------------------------------------------------------------
+=-server ubuntu
+   * uploaded usepSDGProj on server 
+   * configuring nginx
+   * configuring gunicorn
+
+'-------------------------------------------------------------------------------
+'=-241031 - 0024 - Version 0.0.24 - * BOB *
+'-------------------------------------------------------------------------------
+=-server ubuntu 
+  * redirecting to subdomain 'sustainability.usep.edu.ph'
+
+'-------------------------------------------------------------------------------
+'=-241111 - 0025 - Version 0.0.25 - * BOB *
+'-------------------------------------------------------------------------------
+=-sdgDashApp 
+  * added 'middleware.py'
+
+=-login.html (sdgDashApp)
+  * updated javascript ajax url 'logView'
+  * added div with id '#login-alert'
+  * added property removed class on '#login-alert'
+
+=-views.py (sdgDashApp)
+  * added view 'set_session_auth'
+  * added view 'session_flush'
+  * updated 'logView' corrected API url
+
+=-urls.py (sdgDashApp)
+  * added path 'set_session_auth', 'logout/' and 'dash-admin/' 
+
+'-------------------------------------------------------------------------------
+'=-241112 - 0026 - Version 0.0.26 - * BOB *
+'-------------------------------------------------------------------------------
+=-goal1.html (sdgMainApp)
+  * renamed tab name from  'overview' to 'About SDG Goal 1'
+  * added tab 'Reports and Downloadable Files'
+
+'-------------------------------------------------------------------------------
+'=-241113 - 0027 - Version 0.0.27 - * BOB *
+'-------------------------------------------------------------------------------
+**upload files on github  "dev-241113"
+ 
+

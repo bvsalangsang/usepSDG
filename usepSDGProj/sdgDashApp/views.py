@@ -6,9 +6,14 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 
+from django.shortcuts import redirect
+from django.urls import reverse
+
+
 from .forms import *
 from .sqlparams import * 
 from .sqlcommands import *
+
 
 # Create your views here.
 def dashboard(request):
@@ -268,33 +273,109 @@ def sdgTreeJsonList(request):
     data = list(sdg.values())
     return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
 
+
+
+
+
 #login
-# def logView(request):
 
-#     if request.method=='POST':
-#         employee_id = request.POST['EmployeeID']
-#         password = request.POST['Password']
+@csrf_exempt  # Allows AJAX POST requests without a CSRF token for testing
+def set_session_auth(request):
+    if request.method == 'POST' and request.POST.get('authenticated') == 'true':
+        request.session['is_authenticated'] = True  # Set session variable
+        return JsonResponse({"status": "success"})
+    return JsonResponse({"status": "failed"}, status=400)
+
+def session_flush(request):
+    # Clear the session data
+    request.session.flush()
+    # Redirect to login page
+    return redirect(reverse('login'))
+
+def logView(request):
+
+    if request.method=='POST':
+        employee_id = request.POST['EmployeeID']
+        password = request.POST['Password']
        
-#         apiUrl = 'https://hris.usep.edu.ph/api/auth/login'  
-#         apiToken = '496871859d96697ba10536775445fd8f'  
+        apiUrl = 'https://hris.usep.edu.ph/api/dashboard/login'  
+        apiToken = '496871859d96697ba10536775445fd8f'  
 
+        apiData = {
+            'pmaps_id': employee_id,
+            'password': password,
+            'token': apiToken
+        }
+        print(apiData)
+        try:
+            # Sending POST request to the external API
+            response = requests.post(apiUrl, data=apiData)
+
+            # Debug: Print raw response content
+            print("Status code:", response.status_code)
+            # print("Headers:", response.headers)
+            print("content:",response.text)
+
+            # Check if the response is JSON
+            response_data = response.json()
+            empId =  response_data.get('id')
+        
+            print("json:", response.json())
+            print("Emp Id:" , empId)
+
+            if response.status_code == 200:
+                # Handle successful authentication
+                if response_data.get('id') != None:
+                    # Store the token or user info in the session
+                    request.session['is_authenticated'] = True  # Set session variable
+                    return JsonResponse({'status': 'success', 'message': 'Login successful'})
+                else:
+                    return JsonResponse({'status': 'fail', 'message': response_data.get('message', 'Invalid credentials')})
+            else:
+                return JsonResponse({'status': 'fail', 'message': 'Invalid response from authentication server'})
+
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({'status': 'fail', 'message': 'Authentication server error', 'error': str(e)})
+
+    return JsonResponse({'csrf_token': get_token(request)})
+    # return render(request, 'sdgDashApp/themes/login.html')  # Your login template
+
+@csrf_exempt
+# def logView(request):
+#     if request.method == 'POST':
+#         employee_id = request.POST.get('EmployeeID')
+#         password = request.POST.get('Password')
+
+#         apiUrl = 'https://hris.usep.edu.ph/api/dashboard/login'
+#         apiToken = '496871859d96697ba10536775445fd8f'
+        
 #         apiData = {
 #             'pmaps_id': employee_id,
 #             'password': password,
 #             'token': apiToken
 #         }
-#         print(apiData)
+        
+#         headers = {
+#             'Content-Type': 'application/json',
+#             'Accept': 'application/json',
+#         }
+
 #         try:
 #             # Sending POST request to the external API
-#             response = requests.post(apiUrl, data=apiData)
+#             response = requests.post(apiUrl, json=apiData, headers=headers)
 
 #             # Debug: Print raw response content
-#             print("Status code:", response.status_code)
-#             print("Headers:", response.headers)
+#             # print("Status code:", response.status_code)
+#             # print("Headers:", response.headers)
+#             # print("Response content:", response.text)
+
+#             if response.status_code == 403:
+#                 return JsonResponse({'status': 'fail', 'message': 'Access forbidden. Please check your credentials.'})
 
 #             # Check if the response is JSON
-#             if response.status_code == 200 and response.headers.get('Content-Type') == 'application/json':
+#             if response.headers.get('Content-Type', '').startswith('application/json'):
 #                 response_data = response.json()
+#                 print(response_data)
 
 #                 # Handle successful authentication
 #                 if response_data.get('status') == 'success':
@@ -314,62 +395,6 @@ def sdgTreeJsonList(request):
 #             return JsonResponse({'status': 'fail', 'message': 'Authentication server error', 'error': str(e)})
 
 #     return JsonResponse({'csrf_token': get_token(request)})
-#     # return render(request, 'sdgDashApp/themes/login.html')  # Your login template
-
-@csrf_exempt
-def logView(request):
-    if request.method == 'POST':
-        employee_id = request.POST.get('EmployeeID')
-        password = request.POST.get('Password')
-
-        apiUrl = 'https://hris.usep.edu.ph/api/auth/login'
-        apiToken = '496871859d96697ba10536775445fd8f'
-        
-        apiData = {
-            'pmaps_id': employee_id,
-            'password': password,
-            'token': apiToken
-        }
-        
-        headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-
-        try:
-            # Sending POST request to the external API
-            response = requests.post(apiUrl, json=apiData, headers=headers)
-
-            # Debug: Print raw response content
-            print("Status code:", response.status_code)
-            print("Headers:", response.headers)
-            print("Response content:", response.text)
-
-            if response.status_code == 403:
-                return JsonResponse({'status': 'fail', 'message': 'Access forbidden. Please check your credentials.'})
-
-            # Check if the response is JSON
-            if response.headers.get('Content-Type', '').startswith('application/json'):
-                response_data = response.json()
-
-                # Handle successful authentication
-                if response_data.get('status') == 'success':
-                    # Store the token or user info in the session
-                    token = response_data.get('token')  # Example: Assuming API returns a token
-                    request.session['api_token'] = token
-                    request.session['user_authenticated'] = True
-
-                    return JsonResponse({'status': 'success', 'message': 'Login successful'})
-                else:
-                    return JsonResponse({'status': 'fail', 'message': response_data.get('message', 'Invalid credentials')})
-            else:
-                return JsonResponse({'status': 'fail', 'message': 'Invalid response from authentication server'})
-
-        except requests.exceptions.RequestException as e:
-            print(e)
-            return JsonResponse({'status': 'fail', 'message': 'Authentication server error', 'error': str(e)})
-
-    return JsonResponse({'csrf_token': get_token(request)})
 
 # Sustainability Strategic 
 def susStratView(request):
