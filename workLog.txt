@@ -406,3 +406,43 @@
 **upload files on github  "dev-241113"
  
 
+'-------------------------------------------------------------------------------
+'=-241118 - 0028 - Version 0.0.28 - * BOB *
+'-------------------------------------------------------------------------------
+=-templates/themes 
+  * all goals.html changed tabbed label 'Overview' and added 'Reports and Downloadable Files'
+
+'-------------------------------------------------------------------------------
+'=-241119 - 0029 - Version 0.0.29 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgMainApp)
+  * 'goal1' to 'goal17' updated javascript on fetching scorecard details and goal details
+
+=-goal-topic.html (sdgMainApp)
+  * updated javascript to fetch and display values of scorecards based on score id
+
+
+=-views.py (sdgMainApp)
+  * added view 'getGoalListJsonList'
+  * added view  'goalJsonFetchPerId'
+  * added view 'goal' 
+  * removed 'goal1' to "goal17" updated view function and make the template call dynamically
+
+=-urls.py (sdgMainApp)
+  * added path 'goalJsonFetchPerId'
+  * added path 'getGoalListJsonList'  
+  * added path 'goal' 
+  * removed path 'goal1' to 'goal17'
+
+
+'-------------------------------------------------------------------------------
+'=-241120 - 0030 - Version 0.0.30 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes (sdgMainApp)
+  * added file 'green-campus.html'
+
+=-views.py  
+  * add view 'greenCampus'
+
+=-urls.py 
+  * added path 'greenCampus'

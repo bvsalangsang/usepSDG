@@ -33,7 +33,7 @@
 
 		<!-- Content Start -->
 		<div class="container-xxl py-3">
-			<div class="container">
+			<div id="goal-container" class="container" data-sdg-score-id="{{ goalId }}">
 				<!-- <div class="row g-5">
 					<div class="col-12 wow fadeInUp" data-wow-delay="0.5s">
 						<div class="h-100">
@@ -45,11 +45,12 @@
 					</div>
 				</div> -->
 
-				<div class="row wow fadeInUp" data-wow-delay="0.5s">
+				<div class="row wow fadeInUp" data-wow-delay="0.5s" ></div>
 					<!-- <hr class="yellow-border" />
 					<h3 class="mb-4 wow fadeInUp" data-wow-delay="0.5s">
 						Related Topics
 					</h3> -->
+
 					<div class="col-12">
 						<ul class="nav nav-tabs mt-4" role="tablist">
 							<li class="nav-item">
@@ -101,48 +102,13 @@
 								</div>
 							</div>
 							<div class="tab-pane" id="tab2" role="tabpanel">
-								<div class="row">
-									<hr class="yellow-border" />
-									<div class="col-6">
-										<div class="card card-horizontal p-2">
-											<img
-												src="{% static 'img/img-g4-1.png' %}"
-												alt="Card image"
-												class="card-img"
-											/>
-											<div class="card-body">
-												<h4 class="card-title">
-													USeP College Education Behind Bars
-												</h4>
-												<a
-													class="btn btn-outline-primary py-3 px-5"
-													href="{% url  'goal-topic' %}"
-													>Read More</a
-												>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-6">
-										<div class="card card-horizontal p-2">
-											<img
-												src="https://via.placeholder.com/200x200"
-												alt="Card image"
-												class="card-img"
-											/>
-											<div class="card-body">
-												<h4 class="card-title">Educational Tour</h4>
-
-												<a class="btn btn-outline-primary py-3 px-5" href="#"
-													>Read More</a
-												>
-											</div>
-										</div>
-									</div>
+								<hr class="yellow-border" />
+								<div id="goal-list-container" class="row">
+									<!-- Dynamic cards will be inserted here -->
 								</div>
-								Tab 3 content
 							</div>
 							<div class="tab-pane" id="tab3" role="tabpanel">
+								<hr class="yellow-border" />
 								<div class="row g-0 team-items">
 									<div
 										class="col-lg-2 col-md-6 wow fadeInUp"
@@ -158,7 +124,8 @@
 												<div class="team-social text-center">
 													<a
 														class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
-														href="{% url 'goal-1' %}"
+														href="https://drive.google.com/file/d/1LZGQjKuS4YKy2qRd0JQOpfQmwai8ER5D/view"
+														target="_blank"
 													>
 														<span class="px-3">Read More</span>
 													</a>
@@ -179,10 +146,13 @@
 
 {% include 'includes/footer.html' %} {% endblock %} {% block scripts %}
 <script>
+
 	$(document).ready(function () {
-		var sdgId = "1"; // Assuming sdgId is available as context from Django
+		
+		const goalId = document.getElementById("goal-container").getAttribute("data-sdg-score-id");
+		
 		$.ajax({
-			url: "/goalJsonFetchPerId/" + sdgId, // Adjust endpoint
+			url: "/goalJsonFetchPerId/" + goalId, 
 			method: "GET",
 			dataType: "json",
 			success: function (response) {
@@ -255,6 +225,52 @@
 				console.error("Error fetching SDG data:", error);
 			},
 		});
+
+		$.ajax({
+			url: "/getGoalListJsonList/" + goalId,
+			method: "GET",
+			dataType: "json",
+			success: function (response) {
+				console.log(response.data);
+				const container = $("#goal-list-container"); // Select a container element in your HTML to append cards to
+				container.empty(); // Clear previous content
+
+				if (!response.data.length) {
+					const errorHtml = `
+						<div class="col-12">
+							<h4 class="card-title text-center">No Article(s)Found</h4>
+						</div>
+					`;
+						container.append(errorHtml);
+				} else {
+					response.data.forEach((goal) => {
+						const goalTopicUrl = "{% url 'goal-topic' goal_id=0 sdgScoreId=0 %}".replace("0", goalId).replace("0", goal.sdgScoreId);
+
+					const cardHtml = `
+						<div class="col-6">
+							<div class="card card-horizontal p-2">
+								<img
+									src="{% static 'img/E_WEB_01.png' %}"
+									alt="Card image"
+									class="card-img"
+								/>
+								<div class="card-body">
+									<h4 class="card-title">${goal.sdgInitName}</h4>
+									<a class="btn btn-outline-primary py-3 px-5" 
+									href="${goalTopicUrl}">
+									Read More</a>
+								</div>
+							</div>
+						</div>
+					`;
+					container.append(cardHtml);
+				});
+				}
+
+			
+			},
+		});
+	
 	});
 </script>
 {% endblock %}

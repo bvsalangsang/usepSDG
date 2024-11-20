@@ -11,12 +11,12 @@
 }
 
 .logo-column {
-	background-image: url("../img/usep-logo.png");
+	background-image: url("../img/usep-seal.png");
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: left center;
-	height: 70px;
-	padding-left:80px;
+	height: 65px;
+	padding-left:75px;
 	display: flex;
 	align-items: center;
 }
@@ -41,9 +41,9 @@
 }
 
 .logo-name {
-	font-family: 'Old English Text MT';
+	font-family: 'Cinzel';
 	font-size: 20px;
-	font-weight: 300;
+	font-weight: 700;
 }
 
 .global-ranking {
@@ -446,7 +446,7 @@ a h5 {
 
 .topic-header {
 	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-	url(../img/prison-educ.png) center center no-repeat;
+	url(../img/article-header.jpg) center center no-repeat;
 background-size: cover;
 }
 
@@ -674,3 +674,21 @@ background-size: cover;
 .copyright a:hover {
 	color: var(--light);
 }
+
+
+@font-face {
+    font-family: 'Cinzel-Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Cinzel-Regular'), url('Cinzel-Regular.woff') format('woff');
+    }
+
+
+@font-face {
+	font-family: 'Cinzel-Bold';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Cinzel-Bold'), url('Cinzel-Bold.woff') format('woff');
+	}
+		
+	

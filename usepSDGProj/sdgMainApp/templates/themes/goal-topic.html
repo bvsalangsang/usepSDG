@@ -8,19 +8,19 @@
 			data-wow-delay="0.1s"
 		>
 			<div class="container">
-				<h1 class="display-6 text-white animated slideInDown mb-4">
-					Education
+				<h1 class="display-6 text-white animated slideInDown mb-4 text-center">
+					Articles
 				</h1>
 			</div>
 		</div>
 		<!-- Page Header End -->
 
 		<!-- Related SDG Start -->
-		<div class="container-xxl py-3">
+		<!-- <div class="container-xxl py-3">
 			<div class="container">
 				<div class="row wow fadeInUp" data-wow-delay="0.5s">
 					<div class="card card-horizontal p-2 related-sdg">
-						<a href="{% url 'goal-4' %}">
+						<a href="#">
 							<img
 								src="{% static 'img/E_SDG_Icons-04.jpg' %}"
 								alt="Card image"
@@ -37,42 +37,19 @@
 					<hr class="yellow-border" />
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- Related SDG End -->
 
 		<!--Topic Start-->
 		<div class="container-xxl py-4">
-			<div class="container">
-				<div class="row g-5 wow fadeInUp" data-wow-delay="0.5s">
-					<h1 class="display-6 m-0">College Education Behind Bars (CEBB)</h1>
-					<div class="col-lg-6">
-						<div class="topic-img">
-							<img src="{% static 'img/img-g4-1.png '%}" alt="Logo" />
-						</div>
-					</div>
-
-					<!-- <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="global-img"></div>
-						<img src="img/sdg-circular.png" alt="Logo" />
-					</div> -->
-					<div class="col-lg-6">
-						<div class="h-100">
-							<!-- <h6 class="text-primary text-uppercase mb-2">HOME</h6> -->
-							<p>
-								The College Education Behind Bars (CEBB) program, conceived by
-								the Social Entrepreneurship Technology and Business Institute
-								(SETBI) in partnership with the University of Southeastern
-								Philippines (USeP) and the Bureau of Jail Management and
-								Penology (BJMP) XI, aims to help PDLs overcome personal,
-								economic, social, and civic deficiencies by offering a quality
-								college education. The opportunity to pursue a college
-								education, earn a degree and college diploma and become
-								market-ready while behind bars has marked a transformative
-								moment in the lives of PDLs in Davao City Jail.
-							</p>
-							<p>Location: Davao City Jail, Maa, Davao City, Philippines</p>
-						</div>
-					</div>
+			<div
+				id="goal-container"
+				class="container"
+				data-sdg-goal-id="{{ goal_id }}"
+				data-sdg-score-id="{{ sdgScoreId }}"
+			>
+				<div id="goal-topic" class="row g-5 wow fadeInUp" data-wow-delay="0.5s">
+					<!-- diplay articles -->
 				</div>
 			</div>
 		</div>
@@ -80,4 +57,72 @@
 	</section>
 </div>
 
-{% include 'includes/footer.html' %} {% endblock %}
+{% include 'includes/footer.html' %} {% endblock %} {% block scripts %}
+
+<script>
+	$(document).ready(function () {
+		// const scoreId = document
+		// 	.getElementById("goal-container")
+		// 	.getAttribute("data-sdg-goal-id");
+
+		const goalContainer = document.getElementById("goal-container");
+		goalId = goalContainer.dataset.sdgGoalId;
+		scoreId = goalContainer.dataset.sdgScoreId;
+
+		console.log(scoreId);
+
+		$.ajax({
+			url: "/getSdgScorecardJsonList/" + scoreId,
+			method: "GET",
+			dataType: "json",
+			success: function (response) {
+				console.log(response.data);
+				const container = $("#goal-topic"); // Select a container element in your HTML to append cards to
+				container.empty(); // Clear previous content
+
+				const filteredData = response.data.filter(
+					(item) => item.sdgScoreId === scoreId
+				);
+
+				console.log(filteredData);
+
+				response.data.forEach((score) => {
+					const cardHtml = `
+						
+							<div class="col-lg-4">
+								<div class="topic-img">
+									<img src="{% static 'img/topic-img.jpg '%}" alt="Logo" />
+										<h6 class="mt-3">Related Goals</h6>
+										<p>${score.goal}</p>
+									</div>
+							</div>
+							<div  class="col-lg-8">
+									<div class="h-100">
+										<h1 class="display-6 mb-3 text-uppercase">${score.sdgInitName}</h1>
+										<p>${score.sdgDesc}</p>
+										<h6>Implementing Year</h6>
+										<p>${score.sdgImpYear}</p>
+										<h6>Strategic Name</h6>
+										<p>${score.susStratName}</p>
+										<h6>Green Name</h6>
+										<p>${score.greenName}</p>
+										<h6>Outcome</h6>
+										<p>${score.outcome}</p>
+										<h6>Output</h6>
+										<p>${score.outputs}</p>
+										<a class="btn btn-primary py-3 px-5" href="javascript:void(0);" onclick="window.history.back();">Article(s)</a>
+											
+									</div>
+									
+			
+							</div>
+								
+
+					`;
+					container.append(cardHtml);
+				});
+			},
+		});
+	});
+</script>
+{% endblock %}
