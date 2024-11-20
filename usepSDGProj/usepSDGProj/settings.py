@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--69!qecf1(3f&yv=&lds3#9we23qt!(tdeff24!jue3^xnwrvi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #true
+DEBUG = True #true
 
 ALLOWED_HOSTS = ['*']
 
@@ -109,24 +109,24 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     #  FOR LOCAL
-        "default": {
-        "ENGINE": 'django.db.backends.mysql',
-        "NAME": 'usep_sdg',
-        "USER": 'dash',
-        "PASSWORD": 'Usepdash@101',
-        "HOST": 'localhost',
-        "PORT": '3306',
-    },
-
-    # FOR ubuntu
-    #  "default": {
+    #     "default": {
     #     "ENGINE": 'django.db.backends.mysql',
     #     "NAME": 'usep_sdg',
-    #     "USER": 'sdg',
-    #     "PASSWORD": 'SDMD@ipd101',
+    #     "USER": 'dash',
+    #     "PASSWORD": 'Usepdash@101',
     #     "HOST": 'localhost',
     #     "PORT": '3306',
-    # }
+    # },
+
+    # FOR ubuntu
+     "default": {
+        "ENGINE": 'django.db.backends.mysql',
+        "NAME": 'usep_sdg',
+        "USER": 'sdg',
+        "PASSWORD": 'SDMD@ipd101',
+        "HOST": 'localhost',
+        "PORT": '3306',
+    }
 
 }
 
@@ -168,12 +168,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # on ubuntu
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # on local
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static/'),
-   ]
+# STATICFILES_DIRS=[
+#     os.path.join(BASE_DIR,'static/'),
+#    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -181,27 +181,6 @@ def deleteUIGreen(**uiGreenParams):
     
 #SDG scorecard
 def fetchSdgScorecard():
-    # sql = ("SELECT * FROM sdg_scorecard WHERE isActive = 'Y'")
-    # sql = ("""
-    #        SELECT sdg.sdgScoreId,
-    #        sus.susStratName,
-    #        green.greenName,
-    #        sdg.sdgInitName,
-    #        sdg.sdgImpYear,
-    #        sdg.sdgDesc,
-    #        sdg.outputs,
-    #        sdg.outcome,
-    #        sdg.personnel,
-    #        sdg.links,
-    #        sdg.enCodedBy,
-    #        sdg.enCodedDate,
-    #        sdg.isActive
-    #        FROM sdg_scorecard sdg
-    #        LEFT JOIN man_sustian_strat sus ON sus.susStratId  = sdg.susStratId
-    #        LEFT JOIN man_green_metric green ON green.greenMetId = sdg.greenMetId
-    #        WHERE sdg.isActive = 'Y'
-    #       """)
-
     sql =  ("""
                 SELECT 
                 sdg.sdgScoreId,
@@ -229,7 +208,7 @@ def fetchSdgScorecard():
                 LEFT JOIN man_sdg ms ON FIND_IN_SET(ms.sdgId, scd.sdgId) > 0
                 LEFT JOIN man_sdg_target mst ON FIND_IN_SET(mst.targetId, scd.targetId) > 0
                 LEFT JOIN man_sdg_indicator msi ON FIND_IN_SET(msi.indId, scd.indId) > 0
-                WHERE sdg.isActive = 'Y'
+                WHERE sdg.isActive = 'Y' 
                 GROUP BY sdg.sdgScoreId;
             """)
     return sql

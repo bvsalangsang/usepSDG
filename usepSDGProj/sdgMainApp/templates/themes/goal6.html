@@ -34,7 +34,11 @@
 
 		<!-- Content Start -->
 		<div class="container-xxl py-3">
-			<div class="container">
+			<div
+				id="goal-container"
+				class="container"
+				data-sdg-score-id="{{ goalId }}"
+			>
 				<!-- <div class="row g-5">
 					<div class="col-12 wow fadeInUp" data-wow-delay="0.5s">
 						<div class="h-100">
@@ -59,17 +63,17 @@
 									data-bs-toggle="tab"
 									href="#tab1"
 									role="tab"
-									>Overview</a
+									>About SDG Goal 6</a
 								>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab"
-									>Targets and Indicators</a
+									>Progress and information</a
 								>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-bs-toggle="tab" href="#tab3" role="tab"
-									>Progress and info</a
+									>Reports and Downloadable Files</a
 								>
 							</li>
 						</ul>
@@ -95,54 +99,44 @@
 											class="ifographic-img"
 										/>
 									</div>
-								</div>
-							</div>
-							<div class="tab-pane" id="tab2" role="tabpanel">
-								<div class="row">
+									<hr class="yellow-border" />
+									<h3 class="display-6 text-center">Targets and Indicators</h3>
 									<div class="col-12" id="targets-container"></div>
 								</div>
 							</div>
-
+							<div class="tab-pane" id="tab2" role="tabpanel">
+								<hr class="yellow-border" />
+								<div id="goal-list-container" class="row">
+									<!-- Dynamic cards will be inserted here -->
+								</div>
+							</div>
 							<div class="tab-pane" id="tab3" role="tabpanel">
-								<div class="row">
-									<div class="col-6">
-										<div class="card card-horizontal p-2">
-											<img
-												src="{% static 'img/img-g4-1.png' %}"
-												alt="Card image"
-												class="card-img"
-											/>
-											<div class="card-body">
-												<h4 class="card-title">
-													USeP College Education Behind Bars
-												</h4>
-												<a
-													class="btn btn-outline-primary py-3 px-5"
-													href="{% url  'goal-topic' %}"
-													>Read More</a
-												>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-6">
-										<div class="card card-horizontal p-2">
-											<img
-												src="https://via.placeholder.com/200x200"
-												alt="Card image"
-												class="card-img"
-											/>
-											<div class="card-body">
-												<h4 class="card-title">Educational Tour</h4>
-
-												<a class="btn btn-outline-primary py-3 px-5" href="#"
-													>Read More</a
-												>
+								<hr class="yellow-border" />
+								<div class="row g-0 team-items">
+									<div
+										class="col-lg-2 col-md-6 wow fadeInUp"
+										data-wow-delay="0.1s"
+									>
+										<div class="team-item position-relative">
+											<div class="position-relative">
+												<img
+													class="img-fluid"
+													src="{% static 'img/sdg_report.jpg' %}"
+													alt=""
+												/>
+												<div class="team-social text-center">
+													<a
+														class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+														href="https://drive.google.com/file/d/1LZGQjKuS4YKy2qRd0JQOpfQmwai8ER5D/view"
+														target="_blank"
+													>
+														<span class="px-3">Read More</span>
+													</a>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								Tab 3 content
 							</div>
 						</div>
 					</div>
@@ -156,9 +150,12 @@
 {% include 'includes/footer.html' %} {% endblock %} {% block scripts %}
 <script>
 	$(document).ready(function () {
-		var sdgId = "6"; // Assuming sdgId is available as context from Django
+		const goalId = document
+			.getElementById("goal-container")
+			.getAttribute("data-sdg-score-id");
+
 		$.ajax({
-			url: "/goalJsonFetchPerId/" + sdgId, // Adjust endpoint
+			url: "/goalJsonFetchPerId/" + goalId,
 			method: "GET",
 			dataType: "json",
 			success: function (response) {
@@ -229,6 +226,51 @@
 			},
 			error: function (xhr, status, error) {
 				console.error("Error fetching SDG data:", error);
+			},
+		});
+
+		$.ajax({
+			url: "/getGoalListJsonList/" + goalId,
+			method: "GET",
+			dataType: "json",
+			success: function (response) {
+				console.log(response.data);
+				const container = $("#goal-list-container"); // Select a container element in your HTML to append cards to
+				container.empty(); // Clear previous content
+
+				if (!response.data.length) {
+					const errorHtml = `
+						<div class="col-12">
+							<h4 class="card-title text-center">No Article(s)Found</h4>
+						</div>
+					`;
+					container.append(errorHtml);
+				} else {
+					response.data.forEach((goal) => {
+						const goalTopicUrl = "{% url 'goal-topic' goal_id=0 sdgScoreId=0 %}"
+							.replace("0", goalId)
+							.replace("0", goal.sdgScoreId);
+
+						const cardHtml = `
+						<div class="col-6">
+							<div class="card card-horizontal p-2">
+								<img
+									src="{% static 'img/E_WEB_06.png' %}"
+									alt="Card image"
+									class="card-img"
+								/>
+								<div class="card-body">
+									<h4 class="card-title">${goal.sdgInitName}</h4>
+									<a class="btn btn-outline-primary py-3 px-5" 
+									href="${goalTopicUrl}">
+									Read More</a>
+								</div>
+							</div>
+						</div>
+					`;
+						container.append(cardHtml);
+					});
+				}
 			},
 		});
 	});
