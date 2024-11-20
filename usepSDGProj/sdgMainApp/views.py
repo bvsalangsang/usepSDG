@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 
 from .sqlparams import *
 from .sqlcommands import * 
@@ -24,61 +25,17 @@ def contact(request):
 def scorecard(request):
     return render(request, 'themes/sdg-scorecard.html')
 
+def goal(request, goal_id):
+    goalId = goal_id
+    template_name = f'themes/goal{goal_id}.html'  # Dynamically construct the template path
+    return render(request, template_name,{"goalId": goalId})
 
-def goal1(request):
-    return render(request,'themes/goal1.html')
-
-def goal2(request):
-    return render(request,'themes/goal2.html')
-
-def goal3(request):
-    return render(request,'themes/goal3.html')
-
-def goal4(request):
-    return render(request,'themes/goal4.html')
+def goalTopic(request,goal_id,sdgScoreId):
+    return render(request,'themes/goal-topic.html', {"goal_id": goal_id,"sdgScoreId": sdgScoreId})
 
 
-def goal5(request):
-    return render(request,'themes/goal5.html')
-
-def goal6(request):
-    return render(request,'themes/goal6.html')
-
-def goal7(request):
-    return render(request,'themes/goal7.html')
-
-def goal8(request):
-    return render(request,'themes/goal8.html')
-
-def goal9(request):
-    return render(request,'themes/goal9.html')
-
-def goal10(request):
-    return render(request,'themes/goal10.html')
-
-def goal11(request):
-    return render(request,'themes/goal11.html')
-
-def goal12(request):
-    return render(request,'themes/goal12.html')
-
-def goal13(request):
-    return render(request,'themes/goal13.html')
-
-def goal14(request):
-    return render(request,'themes/goal14.html')
-
-def goal15(request):
-    return render(request,'themes/goal15.html')
-
-def goal16(request):
-    return render(request,'themes/goal16.html')
-
-def goal17(request):
-    return render(request,'themes/goal17.html') 
-
-def goalTopic(request):
-    return render(request,'themes/goal-topic.html')
+# def goal1(request):
+#     return render(request,'themes/goal1.html')
 
 def goalJsonFetchPerId(request,id):
     sgdParams['sdgId'] = id
@@ -132,6 +89,78 @@ def goalJsonFetchPerId(request,id):
         data = list(sdg.values())
         return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
 
+@csrf_exempt
+def getSdgScorecardJsonList(request,id):
+    sdgScorecard['sdgScoreId'] = id
+
+    with connection.cursor() as cursor:
+        cursor.execute(getSdgScorecard(**sdgScorecard))
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "sdgScoreId":row[0],
+            "susStratName":row[1],
+            "greenName":row[2],
+            "sdgInitName":row[3],
+            "sdgImpYear":row[4],
+            "sdgDesc":row[5],
+            "outputs":row[6],
+            "outcome":row[7],
+            "personnel":row[8],
+            "links":row[9],
+            "enCodedBy":row[10],
+            "enCodedDate":row[11],
+            "isActive":row[12],
+            "goal":row[13],
+            "target":row[14],
+            "indicator":row[16],
+        }
+
+        jsonResultData.append(tempRes)
+
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+
+def getGoalListJsonList(request,id):
+    sgdParams['sdgId'] = id
+
+    with connection.cursor() as cursor:
+        cursor.execute(getGoalList(**sgdParams))
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "sdgScoreId":row[0],
+            "susStratName":row[1],
+            "greenName":row[2],
+            "sdgInitName":row[3],
+            "sdgImpYear":row[4],
+            "sdgDesc":row[5],
+            "outputs":row[6],
+            "outcome":row[7],
+            "personnel":row[8],
+            "links":row[9],
+            "enCodedBy":row[10],
+            "enCodedDate":row[11],
+            "isActive":row[12],
+            "goal":row[13],
+            "target":row[14],
+            "indicator":row[16],
+        }
+
+        jsonResultData.append(tempRes)
+
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+def greenCampus(request):
+    return render(request,'themes/green-campus.html' )
 
 def test(request):
     return render(request,'themes/test.html')
