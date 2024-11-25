@@ -216,6 +216,7 @@ def fetchSdgScorecard():
 def fetchSdgScorecardDet():
     sql = ("""
             SELECT 
+                sdg.sdgScoreId,
                 scd.sdgScoreId, 
                 GROUP_CONCAT(DISTINCT ms.sdgName) AS sdgName, 
                 GROUP_CONCAT(DISTINCT mst.targetCode) AS targetCode,
@@ -224,16 +225,20 @@ def fetchSdgScorecardDet():
                 GROUP_CONCAT(DISTINCT msi.indDesc) AS indDesc
             FROM 
                 sdg_scorecard_det scd
+            LEFT JOIN  
+                sdg_scorecard sdg ON sdg.sdgScoreId = scd.sdgScoreId
             LEFT JOIN 
                 man_sdg ms ON FIND_IN_SET(ms.sdgId, scd.sdgId) > 0
             LEFT JOIN 
                 man_sdg_target mst ON FIND_IN_SET(mst.targetId, scd.targetId) > 0
             LEFT JOIN 
                 man_sdg_indicator msi ON FIND_IN_SET(msi.indId, scd.indId) > 0
+            WHERE 
+                sdg.isActive = 'Y' 
             GROUP BY 
                 scd.sdgScoreId;
-
-                    """)
+               
+             """)
 
     sqlTemp = ("""
     SELECT 
@@ -341,8 +346,6 @@ def deleteScorecard(**sdgScorecard):
 def deleteScorecardDet(**sdgScorecardDet):
     sql = ("UPDATE sdg_scorecard_det set isActive = 'N' WHERE sdgScoreId = '{0}'").format(sdgScorecardDet['sdgScoreId'])
     return sql 
-
-
 
 def getTargetPerGoal(**sgdTargetParams):
     sql = ("""

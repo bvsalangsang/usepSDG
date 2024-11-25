@@ -38,7 +38,9 @@
 						data-wow-delay="0.1s"
 						style="width: 100%; max-width: 800px; margin: auto"
 					>
-						<canvas id="myChart"></canvas>
+						<!-- <canvas id="myChart"></canvas> -->
+
+						<div id="chart"></div>
 					</div>
 
 					<div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
@@ -69,6 +71,7 @@
 
 {% include 'includes/footer.html' %} {% endblock %} {% block scripts %}
 <script>
+	/**
 	// setup
 	const data = {
 		labels: [
@@ -424,7 +427,6 @@
 			},
 		],
 	};
-
 	const segmentImage = {
 		id: "segmentImage",
 		afterDatasetDraw(chart, args, plugins) {
@@ -472,7 +474,6 @@
 			ctx.restore();
 		},
 	};
-
 	// config
 	const config = {
 		type: "doughnut",
@@ -503,13 +504,374 @@
 		},
 		plugins: [segmentImage],
 	};
-
-	// Chart.register(ChartDataLabels);
-
-	// render init block
 	const myChart = new Chart(document.getElementById("myChart"), config);
-
 	// Instantly assign Chart.js version
 	const chartVersion = document.getElementById("chartVersion");
+  **/
+
+	// Sample hierarchical data for the Sunburst chart
+	// const data = {
+	// 	name: "Root",
+	// 	children: [
+	// 		{
+	// 			name: "Goal 1",
+	// 			size: 20,
+	// 			color: "#E5243B",
+	// 		},
+	// 		{
+	// 			name: "Goal 2",
+	// 			size: 15,
+	// 			color: "#DDA63A",
+	// 			children: [
+	// 				{
+	// 					name: "Subgoal 2.1",
+	// 					size: 8,
+	// 					color: "#F9A825",
+	// 					children: [
+	// 						{
+	// 							name: "Subgoal 2.1.1",
+	// 							size: 4,
+	// 							color: "#FFC107",
+	// 							children: [
+	// 								{ name: "Subgoal 2.1.1.1", size: 2, color: "#FFD54F" },
+	// 								{ name: "Subgoal 2.1.1.2", size: 2, color: "#FFE082" },
+	// 							],
+	// 						},
+	// 						{
+	// 							name: "Subgoal 2.1.2",
+	// 							size: 4,
+	// 							color: "#FFEB3B",
+	// 						},
+	// 					],
+	// 				},
+	// 				{
+	// 					name: "Subgoal 2.2",
+	// 					size: 7,
+	// 					color: "#FDD835",
+	// 				},
+	// 			],
+	// 		},
+	// 		{
+	// 			name: "Goal 3",
+	// 			size: 25,
+	// 			color: "#4C9F38",
+	// 			children: [
+	// 				{
+	// 					name: "Subgoal 3.1",
+	// 					size: 10,
+	// 					color: "#6DA06F",
+	// 					children: [
+	// 						{ name: "Subgoal 3.1.1", size: 5, color: "#8BC34A" },
+	// 						{ name: "Subgoal 3.1.2", size: 5, color: "#AED581" },
+	// 					],
+	// 				},
+	// 			],
+	// 		},
+	// 		{
+	// 			name: "Goal 4",
+	// 			size: 30,
+	// 			color: "#C5192D",
+	// 			children: [
+	// 				{
+	// 					name: "Subgoal 4.1",
+	// 					size: 15,
+	// 					color: "#FF5733",
+	// 				},
+	// 				{
+	// 					name: "Subgoal 4.2",
+	// 					size: 15,
+	// 					color: "#FF7043",
+	// 				},
+	// 			],
+	// 		},
+	// 	],
+	// };
+
+	const data = {
+		name: "Root",
+		children: [
+			{
+				name: "Goal 1: No Poverty",
+				color: "#E5243B",
+				children: [
+					{
+						name: "Target 1.1",
+						color: "#E57373",
+						children: [
+							{
+								name: "Indicator 1.1.1",
+								color: "#FFCDD2",
+								children: [
+									{ name: "Sub-indicator 1.1.1.1", size: 5, color: "#FFEBEE" },
+									{ name: "Sub-indicator 1.1.1.2", size: 5, color: "#F8BBD0" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 2: Zero Hunger",
+				color: "#DDA63A",
+				children: [
+					{
+						name: "Target 2.1",
+						color: "#FFE082",
+						children: [
+							{
+								name: "Indicator 2.1.1",
+								color: "#FFD54F",
+								children: [
+									{ name: "Sub-indicator 2.1.1.1", size: 5, color: "#FFECB3" },
+									{ name: "Sub-indicator 2.1.1.2", size: 5, color: "#FFF8E1" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 3: Good Health and Well-being",
+				color: "#4C9F38",
+				children: [
+					{
+						name: "Target 3.1",
+						color: "#81C784",
+						children: [
+							{
+								name: "Indicator 3.1.1",
+								color: "#C8E6C9",
+								children: [
+									{ name: "Sub-indicator 3.1.1.1", size: 5, color: "#DCEDC8" },
+									{ name: "Sub-indicator 3.1.1.2", size: 5, color: "#F1F8E9" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 4: Quality Education",
+				color: "#C5192D",
+				children: [
+					{
+						name: "Target 4.1",
+						color: "#EF5350",
+						children: [
+							{
+								name: "Indicator 4.1.1",
+								color: "#FFCDD2",
+								children: [
+									{ name: "Sub-indicator 4.1.1.1", size: 5, color: "#FFEBEE" },
+									{ name: "Sub-indicator 4.1.1.2", size: 5, color: "#F8BBD0" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 5: Gender Equality",
+				color: "#FF3A21",
+				children: [
+					{
+						name: "Target 5.1",
+						color: "#E57373",
+						children: [
+							{
+								name: "Indicator 5.1.1",
+								color: "#FFCDD2",
+								children: [
+									{ name: "Sub-indicator 5.1.1.1", size: 5, color: "#FFEBEE" },
+									{ name: "Sub-indicator 5.1.1.2", size: 5, color: "#F8BBD0" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 6: Clean Water and Sanitation",
+				color: "#26BDE2",
+				children: [
+					{
+						name: "Target 6.1",
+						color: "#81D4FA",
+						children: [
+							{
+								name: "Indicator 6.1.1",
+								color: "#B3E5FC",
+								children: [
+									{ name: "Sub-indicator 6.1.1.1", size: 5, color: "#E1F5FE" },
+									{ name: "Sub-indicator 6.1.1.2", size: 5, color: "#E0F7FA" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 7: Affordable and Clean Energy",
+				color: "#FCC30B",
+				children: [
+					{
+						name: "Target 7.1",
+						color: "#FFECB3",
+						children: [
+							{
+								name: "Indicator 7.1.1",
+								color: "#FFCC80",
+								children: [
+									{ name: "Sub-indicator 7.1.1.1", size: 5, color: "#FFF8E1" },
+									{ name: "Sub-indicator 7.1.1.2", size: 5, color: "#FFEB3B" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 8: Decent Work and Economic Growth",
+				color: "#A21942",
+				children: [
+					{
+						name: "Target 8.1",
+						color: "#E57373",
+						children: [
+							{
+								name: "Indicator 8.1.1",
+								color: "#FFCDD2",
+								children: [
+									{ name: "Sub-indicator 8.1.1.1", size: 5, color: "#FFEBEE" },
+									{ name: "Sub-indicator 8.1.1.2", size: 5, color: "#F8BBD0" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 9: Industry, Innovation and Infrastructure",
+				color: "#FD6925",
+				children: [
+					{
+						name: "Target 9.1",
+						color: "#FF8A65",
+						children: [
+							{
+								name: "Indicator 9.1.1",
+								color: "#FFAB91",
+								children: [
+									{ name: "Sub-indicator 9.1.1.1", size: 5, color: "#FFCCBC" },
+									{ name: "Sub-indicator 9.1.1.2", size: 5, color: "#FFECB3" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 10: Reduced Inequalities",
+				color: "#DD1367",
+				children: [
+					{
+						name: "Target 10.1",
+						color: "#F06292",
+						children: [
+							{
+								name: "Indicator 10.1.1",
+								color: "#F8BBD0",
+								children: [
+									{ name: "Sub-indicator 10.1.1.1", size: 5, color: "#F3E5F5" },
+									{ name: "Sub-indicator 10.1.1.2", size: 5, color: "#E1F5FE" },
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				name: "Goal 11: Sustainable Cities and Communities",
+				color: "#F99D25",
+				children: [
+					{
+						name: "Target 11.1",
+						color: "#FFF59D",
+						children: [
+							{
+								name: "Indicator 11.1.1",
+								color: "#FFFFF",
+								children: [],
+							},
+						],
+					},
+				],
+			},
+		],
+	};
+
+	// Dimensions of the Sunburst chart
+	const width = 600;
+	const radius = width / 2;
+
+	// Create an SVG container
+	const svg = d3
+		.select("#chart")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", width)
+		.append("g")
+		.attr("transform", `translate(${radius}, ${radius})`);
+
+	// Create a partition layout
+	const partition = d3.partition().size([2 * Math.PI, radius]);
+
+	// Create a root node from the data
+	const root = d3
+		.hierarchy(data)
+		.sum((d) => d.size || 0)
+		.sort((a, b) => b.value - a.value);
+
+	// Partition the data
+	partition(root);
+
+	// Create an arc generator
+	const arc = d3
+		.arc()
+		.startAngle((d) => d.x0)
+		.endAngle((d) => d.x1)
+		.innerRadius((d) => d.y0)
+		.outerRadius((d) => d.y1);
+
+	// Draw the arcs
+	svg
+		.selectAll("path")
+		.data(root.descendants())
+		.join("path")
+		.attr("d", arc)
+		.attr("fill", (d) => d.data.color || "#ddd")
+		.attr("stroke", "#fff")
+		.on("mouseover", function (event, d) {
+			d3.select(this).attr("opacity", 0.8);
+		})
+		.on("mouseout", function (event, d) {
+			d3.select(this).attr("opacity", 1);
+		});
+
+	// Add text labels
+	// svg
+	// 	.selectAll("text")
+	// 	.data(root.descendants().filter((d) => d.depth))
+	// 	.join("text")
+	// 	.attr("transform", function (d) {
+	// 		const angle = ((d.x0 + d.x1) / 2) * (180 / Math.PI);
+	// 		const rotate = angle < 180 ? angle - 90 : angle + 90;
+	// 		return `translate(${arc.centroid(d)}) rotate(${rotate})`;
+	// 	})
+	// 	.attr("dy", "0.35em")
+	// 	.attr("text-anchor", "middle")
+	// 	.text((d) => d.data.name)
+	// 	.style("font-size", "10px");
 </script>
+
 {% endblock %}

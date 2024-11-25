@@ -93,3 +93,17 @@ def getSdgScorecard(**sdgScorecard):
     return sql
 
 
+def fetchSDGIds():
+    sql = ("""
+           SELECT 
+           sdg.sdgScoreId,
+           sdgdet.sdgId,
+           sdgdet.targetId,
+           sdgdet.indId 
+           FROM sdg_scorecard sdg 
+           LEFT JOIN sdg_scorecard_det sdgdet ON sdgdet.sdgScoreId = sdg.sdgScoreId 
+           WHERE sdg.isActive = 'Y'
+        """)
+    return sql
+
+

@@ -16,7 +16,13 @@ urlpatterns = [
         path("goalJsonFetchPerId/<int:id>",views.goalJsonFetchPerId,name="goalJsonFetchPerId"),
         path("getGoalListJsonList/<int:id>",views.getGoalListJsonList,name="getGoalListJsonList"),
         path("getSdgScorecardJsonList/<int:id>",views.getSdgScorecardJsonList,name="getSdgScorecardJsonList"),
+        path("getSDGJsonList",views.getSDGJsonList,name="getSDGJsonList"),
         path("green-campus",views.greenCampus,name="greenCampus"),
-            
+        path("campus-map",views.campusMap,name="campusMap"),     
+        path("campus-obrero",views.campusObrero,name="campusObrero"),     
+        path("campus-malabog",views.campusMalabog,name="campusMalabog"),     
+        path("campus-mintal",views.campusMintal,name="campusMintal"),     
+        path("campus-tagum",views.campusTagum,name="campusTagum"),     
+        path("campus-mabini",views.campusMabini,name="campusMabini"),     
         path('sub/test',views.test,name="Home"),
     ]

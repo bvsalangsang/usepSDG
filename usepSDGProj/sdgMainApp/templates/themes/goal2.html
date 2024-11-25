@@ -251,27 +251,38 @@
 							.replace("0", goalId)
 							.replace("0", goal.sdgScoreId);
 
+						let truncatedTitle = goal.sdgInitName;
+						if (truncatedTitle.length > 80) {
+							truncatedTitle = truncatedTitle.substring(0, 80) + "...";
+						}
 						const cardHtml = `
-						<div class="col-6">
+						<div class="col-6 mb-2">
 							<div class="card card-horizontal p-2">
 								<img
-							    	src="{% static 'img/E_WEB_02.png' %}"
+									src="{% static 'img/E_WEB_02.png' %}"
 									alt="Card image"
 									class="card-img"
 								/>
 								<div class="card-body">
-									<h4 class="card-title">${goal.sdgInitName}</h4>
+									<h4 class="card-title">${truncatedTitle}</h4>
 									<a class="btn btn-outline-primary py-3 px-5" 
 									href="${goalTopicUrl}">
 									Read More</a>
 								</div>
 							</div>
 						</div>
-					`;
+						`;
 						container.append(cardHtml);
 					});
 				}
 			},
+		});
+
+		$(".card-title").each(function () {
+			var text = $(this).text();
+			if (text.length > 75) {
+				$(this).text(text.substring(0, 72) + "...");
+			}
 		});
 	});
 </script>

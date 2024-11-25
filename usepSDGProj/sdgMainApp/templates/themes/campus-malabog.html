@@ -1,0 +1,124 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+
+<div class="content-wrapper">
+	<section class="content">
+		<!-- Page Header Start -->
+		<div
+			class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn"
+			data-wow-delay="0.1s"
+		>
+			<div class="container text-center">
+				<h1 class="display-4 text-white animated slideInDown mb-4">
+					Malabog Campus
+				</h1>
+				<nav aria-label="breadcrumb animated slideInDown">
+					<ol class="breadcrumb justify-content-center mb-0">
+						<li class="breadcrumb-item">
+							<a class="text-white" href="#">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a class="text-white" href="#">Pages</a>
+						</li>
+						<li class="breadcrumb-item text-primary active" aria-current="page">
+							Malabog Campus
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<!-- Page Header End -->
+
+		<!-- Sustainability Start -->
+		<div class="container-xxl py-3">
+			<div class="container">
+				<div class="row g-0 team-items">
+					<h2 class="text-center">	Malabog Extension Campus (campus site): 30,000 sqm</h2>
+					<div class="col-lg-6 col-md-6">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-map-holder"
+									src="{% static 'img/map-malabog-01.png' %}"
+									alt="map"
+								/>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="https://drive.google.com/file/d/1xU89JsGhbhJNV7tWWp9NBmVwEDhpAFBC/view"
+										target="_blank"
+									>
+										<span class="px-3">View</span>
+									</a>
+								</div>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5>MAP</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-map-holder"
+									src="{% static 'img/sdp-malabog-01.png' %}"
+									alt="sdp"
+								/>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="https://drive.google.com/file/d/1AHV_q9wgbkxWLE904kTJmaHuJl4AeSCr/view"
+										target="_blank"
+									>
+										<span class="px-3">View</span>
+									</a>
+								</div>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5>SDP</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-0 team-items mt-5">
+					<h2 class="text-center">Malabog Extension Campus Laboratory Site: 400,000 sqm
+					</h2>
+					<div class="col-lg-6 col-md-6">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-map-holder"
+									src="{% static 'img/blank-map.jpg' %}"
+									alt="map"
+								/>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5>No Existing MAP</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-map-holder"
+									src="{% static 'img/blank-map.jpg' %}"
+									alt="sdp"
+								/>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5>No Existing MAP</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<a class="btn btn-primary py-3 px-5 m-3" href="{% url 'campusMap'%}">Back</a>
+					</div>
+				</div>
+
+		<!-- Sustainability End -->
+	</section>
+</div>
+
+{% include 'includes/footer.html' %} {% endblock %}
