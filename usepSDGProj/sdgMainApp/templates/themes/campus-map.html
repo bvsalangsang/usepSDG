@@ -1,0 +1,108 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+
+<div class="content-wrapper">
+	<section class="content">
+		<!-- Page Header Start -->
+		<div
+			class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn"
+			data-wow-delay="0.1s"
+		>
+			<div class="container text-center">
+				<h1 class="display-4 text-white animated slideInDown mb-4">
+					Green Campus
+				</h1>
+				<nav aria-label="breadcrumb animated slideInDown">
+					<ol class="breadcrumb justify-content-center mb-0">
+						<li class="breadcrumb-item">
+							<a class="text-white" href="#">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a class="text-white" href="#">Pages</a>
+						</li>
+						<li class="breadcrumb-item text-primary active" aria-current="page">
+							Green Campus
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<!-- Page Header End -->
+
+		<!-- Green Details -->
+		<div class="container-xxl">
+			<div class="container">
+				<div class="row g-5">
+					<div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="h-100">
+							<!-- <h6 class="text-primary text-uppercase mb-2">About Us</h6> -->
+							<p class="fs-5 text-center int-click">
+								Click the image to view the campus map
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Green Details-->
+
+		<!-- Sustainability Start -->
+		<div class="container-xxl py-3">
+			<div class="container">
+				<div class="row g-0">
+					<div class="col-lg-12 col-md-12">
+						<div id="map" class="map-holder">
+							<img
+								class="img-map-usep"
+								src="{% static 'img/usep-white-map.jpg' %}"
+								alt="map"
+								usemap="#usep-map"
+							/>
+
+							<map id="usep-map" name="usep-map">
+								<!--malabog-->
+								<area
+									shape="rect"
+									coords="188,175,397,370"
+									alt="malabog"
+									href="{% url 'campusMalabog' %}"
+								/>
+								<!--Tagum-->
+								<area
+									shape="rect"
+									coords="979,302,1172,482"
+									alt="tagum"
+									href="{% url 'campusTagum' %}"
+								/>
+								<!--Mintal-->
+								<area
+									shape="rect"
+									coords="100,395,289,606"
+									alt="mintal"
+									href="{% url 'campusMintal' %}"
+								/>
+								<!--Obrero-->
+								<area
+									shape="rect"
+									coords="366,667,558,864"
+									alt="obrero"
+									href="{% url 'campusObrero' %}"
+								/>
+								<!--Mabini-->
+								<area
+									shape="rect"
+									coords="869,608,1061,806"
+									alt="mabini"
+									href="{% url 'campusMabini' %}"
+								/>
+							</map>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Sustainability End -->
+	</section>
+</div>
+
+{% include 'includes/footer.html' %} {% endblock %}
