@@ -446,3 +446,47 @@
 
 =-urls.py 
   * added path 'greenCampus'
+
+***upload files on github  "dev-241113a"***
+
+'-------------------------------------------------------------------------------
+'=-241121 - 0031 - Version 0.0.31 - * BOB *
+'-------------------------------------------------------------------------------
+=-style.css (templates global) 
+  * added style in 'nav' for scale '150'
+
+=-base.html (sdgMainApp)
+  * added javascript for 'pixel ratio' 150
+
+=-sqlcommands.py  (sdgMainApp)
+  * added query 'fetchSDGIds'
+
+=-views.py  (sdgMainApp)
+  * added view 'getSDGJsonList'
+
+=-urls.py getSDGJsonList
+  * added path 'getSDGJsonList'
+
+'-------------------------------------------------------------------------------
+'=-241125 - 0032 - Version 0.0.32 - * BOB *
+'-------------------------------------------------------------------------------
+=-goal1.html to goal17.html 
+  * 'cardHtml' in div class added 'mb-2'
+  
+=-goal-topic.html 
+  * 'cardHtml' in h4 class removed 'display-6', changed h1 to h4
+								
+=-green-campus.html 
+  * change card images using original upload images in gdrive
+
+=-themes (sdgMainApp)
+  * added html file 'campus'
+  * added html file 'campus-map'
+
+=-views.py (sdgMainApp)
+  * added view 'campus'
+  * added view 'campus-map'
+
+=-urls.py (sdgMainApp)
+  * added path 'campus'
+  * added path 'campus-map'

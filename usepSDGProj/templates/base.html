@@ -129,7 +129,7 @@
 								>SDG Initiatives</a
 							>
 							<div class="dropdown-menu bg-light m-0">
-								<a href="{% url  'greenCampus' %}" class="dropdown-item"
+								<a href="{% url  'campusMap' %}" class="dropdown-item"
 									>Green Campus</a
 								>
 								<a href="{% url  'sustainability-ppa' %}" class="dropdown-item"
@@ -170,6 +170,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+
 		<script src="{% static 'lib/wow/wow.min.js' %}"></script>
 		<script src="{% static 'lib/easing/easing.min.js' %}"></script>
 		<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
@@ -177,6 +179,15 @@
 
 		<!-- Template Javascript -->
 		<script src="{% static 'js/main.js' %}"></script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				if (window.devicePixelRatio === 1.5) {
+					// 150% scale
+					document.body.classList.add("scale-150");
+				}
+			});
+		</script>
 
 		{% block scripts %} {% endblock %}
 	</body>

@@ -124,6 +124,25 @@ def getSdgScorecardJsonList(request,id):
 
     return JsonResponse({"data":list(jsonResultData)},safe=False)
 
+def getSDGJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchSDGIds())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "sdgScoreId":row[0],
+            "sdgId":row[1],
+            "targetId":row[2],
+            "indId":row[3]
+        }
+
+        jsonResultData.append(tempRes)
+
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
 
 def getGoalListJsonList(request,id):
     sgdParams['sdgId'] = id
@@ -161,6 +180,26 @@ def getGoalListJsonList(request,id):
 
 def greenCampus(request):
     return render(request,'themes/green-campus.html' )
+
+def campusMap(request):
+    return render(request,'themes/campus-map.html')
+
+def campusObrero(request):
+    return render(request,'themes/campus-obrero.html')
+
+def campusMalabog(request):
+    return render(request,'themes/campus-malabog.html')
+
+def campusMintal(request):
+    return render(request,'themes/campus-mintal.html')
+
+def campusTagum(request):
+    return render(request,'themes/campus-tagum.html')
+
+
+def campusMabini(request):
+    return render(request,'themes/campus-mabini.html')
+
 
 def test(request):
     return render(request,'themes/test.html')
