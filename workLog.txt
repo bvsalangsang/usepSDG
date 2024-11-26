@@ -490,3 +490,13 @@
 =-urls.py (sdgMainApp)
   * added path 'campus'
   * added path 'campus-map'
+
+  ***upload files on github  "dev-241125"***
+
+'-------------------------------------------------------------------------------
+'=-241126 - 0032 - Version 0.0.32 - * BOB *
+'-------------------------------------------------------------------------------
+  =-settings.py
+    * changed STATIC_ROOT for ubuntu 
+    * changed DATABASES for ubuntu 
+  ***upload files on github  "dev-241126"***
