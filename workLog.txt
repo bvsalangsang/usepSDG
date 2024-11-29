@@ -500,3 +500,82 @@
     * changed STATIC_ROOT for ubuntu 
     * changed DATABASES for ubuntu 
   ***upload files on github  "dev-241126"***
+
+'-------------------------------------------------------------------------------
+'=-241127 - 0033 - Version 0.0.33 - * BOB *
+'-------------------------------------------------------------------------------
+=-sidebar.html 
+  * removed 'strategic' and 'gad' Menu
+  * rename 'test page'  to 'scorecard' Menu
+  * added 'map' Menu
+
+=-sqlparams.py (sdgDashApp) 
+  * added param 'vegMap'
+
+=-models.py (sdgDashApp)
+  * added model 'VegetationMap'
+
+** continue on forms.py
+
+'-------------------------------------------------------------------------------
+'=-241128 - 0034 - Version 0.0.34 - * BOB *
+'-------------------------------------------------------------------------------
+=-forms.py (sdgDashApp)
+  * added form 'vegetationMap'
+
+=-sqlcommands.py (sdgDashApp)
+  * added query 'fetchVegMap'
+  * added query 'saveUpdateVegMap'
+
+=-views.py (sdgDashApp)
+  * added view 'vegMapView'
+  * added view 'vegMapJsonList'
+
+=-urls.py (sdgDashApp)
+  * added path 'vegMapView'
+  * added path 'vegMapJsonList'
+
+=-themes (sdgDashApp)
+  * added file 'vegetation-map.html'  
+  * added folder 'modal-veg-map'
+      * vegMapAdd.html
+      * vegMapEdit.html
+      * vegMapDelete.html
+
+'-------------------------------------------------------------------------------
+'=-241129 - 0035 - Version 0.0.35 - * BOB *
+'-------------------------------------------------------------------------------
+=- campus-mabini.html (sdgMainApp)
+  * added tag for vegetation map and detail
+
+=- campus-malabog.html (sdgMainApp)
+  * added tag for vegetation map and detail
+
+=- campus-mintal.html (sdgMainApp)
+  * added tag for vegetation map and detail
+
+=- campus-obrero.html (sdgMainApp)
+  * added tag for vegetation map and detail
+
+=- campus-tagum.html (sdgMainApp)
+  * added tag for vegetation map and detail
+
+=-goal1.html to goal17.html 
+  * added navigation to next and previous goals
+  * added javascript function to limit card-title characters
+
+=-goal-topic.html 
+  * added fetch links
+  
+=-sdg-scorecard.html  
+  * changed to old doughnut graph instead of sunburst 
+  * doughnut graph values are now based on the goals inserted
+
+=-base.html
+  * button 'get Start' changed to 'SDG'
+
+=-strategy.html 
+  * added content for sustainability energy
+  * removed image list for sustainability
+
+  ***upload files on github  "dev-241129"***

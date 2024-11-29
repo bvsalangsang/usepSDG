@@ -45,6 +45,11 @@
 	font-size: 20px;
 	font-weight: 700;
 }
+.ind-usep-logo {
+	width: 200px;
+	height: 200px;
+}
+
 
 .global-ranking {
 	min-height: 50vh;
@@ -366,35 +371,7 @@ a h5 {
 	margin-left: 8px;
 }
 
-@media (max-width: 991.98px) {
-	.navbar .navbar-nav .nav-link {
-		margin-right: 0;
-		padding: 10px 0;
-	}
 
-	.navbar .navbar-nav {
-		border-top: 1px solid #eeeeee;
-	}
-}
-
-@media (min-width: 992px) {
-	.navbar .nav-item .dropdown-menu {
-		display: block;
-		border: none;
-		margin-top: 0;
-		top: 150%;
-		opacity: 0;
-		visibility: hidden;
-		transition: 0.5s;
-	}
-
-	.navbar .nav-item:hover .dropdown-menu {
-		top: 100%;
-		visibility: visible;
-		transition: 0.5s;
-		opacity: 1;
-	}
-}
 
 /*** Header ***/
 .carousel-caption {
@@ -512,12 +489,27 @@ background-size: cover;
 .goal17-header {
 	background-color: #13496b;
 }
- 
- 
+
+a.btn-goal {
+    /* background-color: #59ba48; */
+    padding: 20px;
+    margin: 5px;
+    color: #59ba48;
+    border: 2px solid #59ba48;
+}
+
+a.btn-goal:hover {
+    background-color: #59ba48;
+    color: #ffffff;
+}
+
+
+
+
+ /******/
 .breadcrumb-item + .breadcrumb-item::before {
 	color: #999999;
 }
-
 
 /*** Campuses ***/
 
@@ -538,6 +530,21 @@ background-size: cover;
 
 }
 
+table.tbl-veg-map th {
+    border-bottom: 3px solid;
+	padding: 10px 0px 10px 0px;
+}
+
+table.tbl-veg-map td {
+    padding: 10px;
+	border: 1px solid;
+	text-align: center;
+}
+
+.veg-title {
+	text-align: center;
+	padding: 15px;
+}
 
 /****************/
 
@@ -745,4 +752,44 @@ background-size: cover;
 }
 
 	
+@media (max-width: 991.98px) {
+	.navbar .navbar-nav .nav-link {
+		margin-right: 0;
+		padding: 10px 0;
+	}
 
+	.navbar .navbar-nav {
+		border-top: 1px solid #eeeeee;
+	}
+}
+
+@media (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu {
+		display: block;
+		border: none;
+		margin-top: 0;
+		top: 150%;
+		opacity: 0;
+		visibility: hidden;
+		transition: 0.5s;
+	}
+
+	.navbar .nav-item:hover .dropdown-menu {
+		top: 100%;
+		visibility: visible;
+		transition: 0.5s;
+		opacity: 1;
+	}
+	
+}
+
+@media only screen and (max-width: 767px) { 
+
+	h2.m-0.logo-name {
+		display: none;
+	}
+	.ind-usep-logo {
+		width: 150px;
+		height: 150px;
+	}
+}

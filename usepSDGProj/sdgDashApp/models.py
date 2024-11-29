@@ -78,6 +78,27 @@ class SDGScorecardDet(models.Model):
     targetId = models.CharField(max_length=100)
     indId = models.CharField(max_length=120)
     isActive = models.CharField(max_length=1,default='Y') 
+    
     class Meta: 
         db_table = "sdg_scorecard_det"
 
+
+#Vegetation Map 
+class VegetationMap(models.Model):
+    vegId = models.AutoField(primary_key=True, editable=True)
+    campus = models.CharField(max_length=50)
+    campAreaSqm  = models.CharField(max_length=30)
+    campAreaHas  = models.CharField(max_length=30)
+    forestVegSqm  = models.CharField(max_length=30)
+    forestVegHas  = models.CharField(max_length=30)
+    forestVegPctTotArea  = models.CharField(max_length=30)   
+    plantVegSqm  = models.CharField(max_length=30)
+    plantVegHas  = models.CharField(max_length=30)
+    plantVegPctTotArea  = models.CharField(max_length=30)    
+    waterAbsSqm  = models.CharField(max_length=30)
+    waterAbsHas  = models.CharField(max_length=30)
+    waterAbsPctTotArea  = models.CharField(max_length=30)   
+    isActive = models.CharField(max_length=1,default='Y') 
+
+    class Meta: 
+        db_table = "man_vegetation_map"
