@@ -142,6 +142,19 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="row wow fadeInUp" data-wow-delay="0.5s">
+						<div class="col-6">
+							<a class="btn btn-goal d-block" href="{% url 'goal' goal_id=10 %}"
+								>Goal 10</a
+							>
+						</div>
+						<div class="col-6 text-end">
+							<a class="btn btn-goal d-block" href="{% url 'goal' goal_id=12 %}"
+								>Goal 12</a
+							>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -253,6 +266,10 @@
 							.replace("0", goalId)
 							.replace("0", goal.sdgScoreId);
 
+						let truncatedTitle = goal.sdgInitName;
+						if (truncatedTitle.length > 80) {
+							truncatedTitle = truncatedTitle.substring(0, 80) + "...";
+						}
 						const cardHtml = `
 						<div class="col-6 mb-2">
 							<div class="card card-horizontal p-2">
@@ -262,7 +279,7 @@
 									class="card-img"
 								/>
 								<div class="card-body">
-									<h4 class="card-title">${goal.sdgInitName}</h4>
+									<h4 class="card-title">${truncatedTitle}</h4>
 									<a class="btn btn-outline-primary py-3 px-5" 
 									href="${goalTopicUrl}">
 									Read More</a>

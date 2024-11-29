@@ -360,3 +360,71 @@ def getIndPerTarget(**sgdIndicatorParams):
            """).format(sgdIndicatorParams['targetId'])
     
     return sql 
+
+#Vegetation Map
+def fetchVegMap():
+    sql = ("""SELECT 
+           vegId,
+           campus,
+           campAreaSqm,
+           campAreaHas,
+           forestVegSqm,
+           forestVegHas,
+           forestVegPctTotArea,
+           plantVegSqm,
+           plantVegHas,
+           plantVegPctTotArea,
+           waterAbsSqm,
+           waterAbsHas,
+           waterAbsPctTotArea,
+           isActive 
+           FROM man_vegetation_map 
+           WHERE isActive  = 'Y'
+           """)
+    return sql
+
+def saveUpdateVegMap(**vegMap):
+    sql = ("""
+            INSERT INTO man_vegetation_map
+            SET vegId = '{0}',
+            campus = '{1}',
+            campAreaSqm = '{2}',
+            campAreaHas = '{3}',
+            forestVegSqm = '{4}',
+            forestVegHas = '{5}',
+            forestVegPctTotArea = '{6}',
+            plantVegSqm = '{7}',
+            plantVegHas = '{8}',
+            plantVegPctTotArea = '{9}',
+            waterAbsSqm = '{10}',
+            waterAbsHas = '{11}',
+            waterAbsPctTotArea = '{12}',
+            isActive = '{13}'  
+            ON DUPLICATE KEY UPDATE 
+            campus = '{1}',
+            campAreaSqm = '{2}',
+            campAreaHas = '{3}',
+            forestVegSqm = '{4}',
+            forestVegHas = '{5}',
+            forestVegPctTotArea = '{6}',
+            plantVegSqm = '{7}',
+            plantVegHas = '{8}',
+            plantVegPctTotArea = '{9}',
+            waterAbsSqm = '{10}',
+            waterAbsHas = '{11}',
+            waterAbsPctTotArea = '{12}',
+            isActive = '{13}'  
+        """).format(vegMap['vegId'],
+                    vegMap['campus'],
+                    vegMap['campAreaSqm'],
+                    vegMap['campAreaHas'],
+                    vegMap['forestVegSqm'],
+                    vegMap['forestVegHas'],
+                    vegMap['forestVegPctTotArea'],
+                    vegMap['plantVegSqm'],
+                    vegMap['plantVegHas'],
+                    vegMap['plantVegPctTotArea'],
+                    vegMap['waterAbsSqm'],
+                    vegMap['waterAbsHas'],
+                    vegMap['waterAbsPctTotArea'],
+                    vegMap['isActive'])

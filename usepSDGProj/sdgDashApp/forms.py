@@ -81,5 +81,27 @@ class SDGScorecard(forms.ModelForm):
         }
 
 
-class ImageUploadForm(forms.Form):
-    image = forms.ImageField()
+class vegetationMap(forms.ModelForm):
+    class Meta:
+        model = VegetationMap
+        fields = ['vegId','campus','campAreaSqm','campAreaHas', 'forestVegSqm','forestVegHas', 
+                  'forestVegPctTotArea', 'plantVegSqm', 'plantVegHas', 'plantVegPctTotArea', 'waterAbsSqm',
+                  'waterAbsHas', 'waterAbsPctTotArea']
+        
+        widgets = {
+            'vegId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px'}),
+            'campus':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Campus' }),
+            'campAreaSqm':forms.TextInput(attrs={'class':'form-control','placeholder':'Campus Area (Sqm)'}),
+            'campAreaHas':forms.TextInput(attrs={'class':'form-control','placeholder':'Campus Area (Has)'}),
+            'forestVegSqm':forms.TextInput(attrs={'class':'form-control','placeholder':'Forest Veg. (Sqm)'}),
+            'forestVegHas':forms.TextInput(attrs={'class':'form-control','placeholder':'Forest Veg. (Has)'}),
+            'forestVegPctTotArea':forms.TextInput(attrs={'class':'form-control','placeholder':'Forest Veg Pct'}),
+            'plantVegSqm':forms.TextInput(attrs={'class':'form-control','placeholder':'Plant Veg. (Sqm)'}),
+            'plantVegHas':forms.TextInput(attrs={'class':'form-control','placeholder':'Plant Veg. (Has)'}),
+            'plantVegPctTotArea':forms.TextInput(attrs={'class':'form-control','placeholder':'Plant Veg Pct'}),
+            'waterAbsSqm':forms.TextInput(attrs={'class':'form-control','placeholder':'Water Abs (Sqm)'}),
+            'waterAbsHas':forms.TextInput(attrs={'class':'form-control','placeholder':'Water Abs (Has)'}),
+            'waterAbsPctTotArea':forms.TextInput(attrs={'class':'form-control','placeholder':'Water Abs Pct'}),
+        }
+
+
