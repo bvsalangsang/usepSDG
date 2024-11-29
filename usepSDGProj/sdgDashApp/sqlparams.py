@@ -56,3 +56,20 @@ sdgScorecardDet = {
     "indId":"",
     "isActive":""
 }
+
+vegMap = {
+    "vegId":"",
+    "campus":"",
+    "campAreaSqm":"",
+    "campAreaHas":"",
+    "forestVegSqm":"",
+    "forestVegHas":"",
+    "forestVegPctTotArea":"",
+    "plantVegSqm":"",
+    "plantVegHas":"",
+    "plantVegPctTotArea":"",
+    "waterAbsSqm":"",
+    "waterAbsHas":"",
+    "waterAbsPctTotArea":"",
+    "isActive":""
+}

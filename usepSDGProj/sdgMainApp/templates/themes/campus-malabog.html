@@ -28,7 +28,7 @@
 		</div>
 		<!-- Page Header End -->
 
-		<!-- Sustainability Start -->
+		<!-- Map Start -->
 		<div class="container-xxl py-3">
 			<div class="container">
 				<div class="row g-0 team-items">
@@ -52,10 +52,11 @@
 								</div>
 							</div>
 							<div class="bg-light text-center p-4">
-								<h5>MAP</h5>
+								<h5>Campus Land Use Map</h5>
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6 col-md-6">
 						<div class="team-item position-relative">
 							<div class="position-relative">
@@ -75,49 +76,104 @@
 								</div>
 							</div>
 							<div class="bg-light text-center p-4">
-								<h5>SDP</h5>
+								<h5>Campus Site Development Plan</h5>
 							</div>
 						</div>
 					</div>
+
 				</div>
 
-				<div class="row g-0 team-items mt-5">
-					<h2 class="text-center">Malabog Extension Campus Laboratory Site: 400,000 sqm
-					</h2>
+				<div class="row py-4">
+					<hr class="yellow-border" />
+					<h5 class="veg-title">
+						Campus Vegetation Cover and Water Absorption Areas Map
+					</h5>
+
 					<div class="col-lg-6 col-md-6">
 						<div class="team-item position-relative">
 							<div class="position-relative">
 								<img
 									class="img-fluid img-map-holder"
-									src="{% static 'img/blank-map.jpg' %}"
+									src="{% static 'img/malabog-veg-map.png' %}"
 									alt="map"
 								/>
-							</div>
-							<div class="bg-light text-center p-4">
-								<h5>No Existing MAP</h5>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="https://drive.google.com/file/d/1kuMYAOPs_9PtRy8h9klpMntrP6MRaocC/view"
+										target="_blank"
+									>
+										<span class="px-3">View</span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6 col-md-6">
-						<div class="team-item position-relative">
-							<div class="position-relative">
-								<img
-									class="img-fluid img-map-holder"
-									src="{% static 'img/blank-map.jpg' %}"
-									alt="sdp"
-								/>
-							</div>
-							<div class="bg-light text-center p-4">
-								<h5>No Existing MAP</h5>
-							</div>
+						<div class="h-100">
+							<table class="tbl-veg-map">
+								<tr>
+									<th colspan="2">Area</th>
+								</tr>
+								<tr>
+									<td>Sqm</td>
+									<td>Has</td>
+								</tr>
+								<tr>
+									<td>30471.486</td>
+									<td>3.0471486</td>
+								</tr>
+								<tr>
+									<th colspan="3">Forested Vegetation</th>
+								</tr>
+								<tr>
+									<td>Area</td>
+									<td>Hectares</td>
+									<td>Percent Total Area</td>
+								</tr>
+								<tr>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+								</tr>
+
+								<tr>
+									<th colspan="3">Planted Vegetation</th>
+								</tr>
+								<tr>
+									<td>Area</td>
+									<td>Hectares</td>
+									<td>Percent of Total Area</td>
+								</tr>
+								<tr>
+									<td>3358.758503</td>
+									<td>0.3358758503</td>
+									<td>11.02262785</td>
+								</tr>
+								<tr>
+									<th colspan="3">Water Absorbing Areas</th>
+								</tr>
+								<tr>
+									<td>Area</td>
+									<td>Hectares</td>
+									<td>Percent of Total Area</td>
+								</tr>
+								<tr>
+									<td>4182.488333</td>
+									<td>0.4182488333</td>
+									<td>13.72590865</td>
+								</tr>
+							</table>
 						</div>
-					</div>
-					<div class="col-lg-12">
-						<a class="btn btn-primary py-3 px-5 m-3" href="{% url 'campusMap'%}">Back</a>
 					</div>
 				</div>
-
-		<!-- Sustainability End -->
+				<div class="col-lg-12">
+					<a class="btn btn-primary py-3 px-5 m-3" href="{% url 'campusMap'%}"
+						>Back</a
+					>
+				</div>
+		<!-- Map End -->
 	</section>
 </div>
 

@@ -24,5 +24,8 @@ urlpatterns = [
         path("campus-mintal",views.campusMintal,name="campusMintal"),     
         path("campus-tagum",views.campusTagum,name="campusTagum"),     
         path("campus-mabini",views.campusMabini,name="campusMabini"),     
+        path("campus-mabini",views.campusMabini,name="campusMabini"),     
+    
+
         path('sub/test',views.test,name="Home"),
     ]

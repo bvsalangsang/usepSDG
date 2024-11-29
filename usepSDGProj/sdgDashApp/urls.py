@@ -53,6 +53,9 @@ urlpatterns = [
         path('sdgSaveUpdateParams/',views.sdgSaveUpdateParams,name="sdgSaveUpdateParams"),
         path('sdgDeleteParams/<int:id>', views.sdgDeleteParams, name="sdgDeleteParams"),
 
+        #Vegetation Map
+        path('dash-admin/vegetation-map',views.vegMapView,name="vegMapView"),
+        path('vegMapJsonList/',views.vegMapJsonList,name="vegMapJsonList"),
         path('testpage/', views.testPage,name="testpage")
 
         # path('fetchTarget/<int:id>', views.fetchTarget, name="fetchTarget"),

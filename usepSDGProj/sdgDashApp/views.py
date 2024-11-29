@@ -273,12 +273,7 @@ def sdgTreeJsonList(request):
     data = list(sdg.values())
     return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
 
-
-
-
-
 #login
-
 @csrf_exempt  # Allows AJAX POST requests without a CSRF token for testing
 def set_session_auth(request):
     if request.method == 'POST' and request.POST.get('authenticated') == 'true':
@@ -341,60 +336,6 @@ def logView(request):
     # return render(request, 'sdgDashApp/themes/login.html')  # Your login template
 
 @csrf_exempt
-# def logView(request):
-#     if request.method == 'POST':
-#         employee_id = request.POST.get('EmployeeID')
-#         password = request.POST.get('Password')
-
-#         apiUrl = 'https://hris.usep.edu.ph/api/dashboard/login'
-#         apiToken = '496871859d96697ba10536775445fd8f'
-        
-#         apiData = {
-#             'pmaps_id': employee_id,
-#             'password': password,
-#             'token': apiToken
-#         }
-        
-#         headers = {
-#             'Content-Type': 'application/json',
-#             'Accept': 'application/json',
-#         }
-
-#         try:
-#             # Sending POST request to the external API
-#             response = requests.post(apiUrl, json=apiData, headers=headers)
-
-#             # Debug: Print raw response content
-#             # print("Status code:", response.status_code)
-#             # print("Headers:", response.headers)
-#             # print("Response content:", response.text)
-
-#             if response.status_code == 403:
-#                 return JsonResponse({'status': 'fail', 'message': 'Access forbidden. Please check your credentials.'})
-
-#             # Check if the response is JSON
-#             if response.headers.get('Content-Type', '').startswith('application/json'):
-#                 response_data = response.json()
-#                 print(response_data)
-
-#                 # Handle successful authentication
-#                 if response_data.get('status') == 'success':
-#                     # Store the token or user info in the session
-#                     token = response_data.get('token')  # Example: Assuming API returns a token
-#                     request.session['api_token'] = token
-#                     request.session['user_authenticated'] = True
-
-#                     return JsonResponse({'status': 'success', 'message': 'Login successful'})
-#                 else:
-#                     return JsonResponse({'status': 'fail', 'message': response_data.get('message', 'Invalid credentials')})
-#             else:
-#                 return JsonResponse({'status': 'fail', 'message': 'Invalid response from authentication server'})
-
-#         except requests.exceptions.RequestException as e:
-#             print(e)
-#             return JsonResponse({'status': 'fail', 'message': 'Authentication server error', 'error': str(e)})
-
-#     return JsonResponse({'csrf_token': get_token(request)})
 
 # Sustainability Strategic 
 def susStratView(request):
@@ -667,6 +608,44 @@ def fetchIndicator(request):
         return JsonResponse({"data": jsonResultData}, safe=False)
 
     return JsonResponse({"data": []}, safe=False)
+
+
+#Vegetation Map
+def vegMapView(request):
+    form = vegetationMap()
+    return render(request, 'sdgDashApp/themes/vegetation-map.html', {'form':form})
+
+def vegMapJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchVegMap())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "vegId":row[0],
+            "campus":row[1],
+            "campAreaSqm":row[2],
+            "campAreaHas":row[3],
+            "forestVegSqm":row[4],
+            "forestVegHas":row[5],
+            "forestVegPctTolArea":row[6],
+            "plantVegSqm":row[7],
+            "plantVegHas":row[8],
+            "plantVegPctTolArea":row[9],
+            "waterAbsSqm":row[10],
+            "waterAbsHas":row[11],
+            "waterAbsPctTolArea":row[12],
+            "isActive":row[13]
+        }
+        jsonResultData.append(tempRes)
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+
+
+
 
 def testPage(request):
     return render(request, 'sdgDashApp/themes/testpage.html')
