@@ -579,3 +579,18 @@
   * removed image list for sustainability
 
   ***upload files on github  "dev-241129"***
+
+'-------------------------------------------------------------------------------
+'=-241204 - 0036 - Version 0.0.36 - * BOB *
+'-------------------------------------------------------------------------------
+=-goal1.html to goal17.html (sdgMainApp)
+  * removed infographics on 'about sdg goalx'
+
+-=index.html (sdgMainApp)
+  * added link on 'The Lazy Person’s Guide to Saving the World'
+  * added link on '170 Actions to Transform Our World'
+  * added link on 'Board Game “Go Goals!”'
+  * added hyperlink 'UNDP SDG'
+  * hide 'global rankings'
+
+  ***upload files on github  "dev-241204"***
