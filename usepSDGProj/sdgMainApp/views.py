@@ -33,10 +33,6 @@ def goal(request, goal_id):
 def goalTopic(request,goal_id,sdgScoreId):
     return render(request,'themes/goal-topic.html', {"goal_id": goal_id,"sdgScoreId": sdgScoreId})
 
-
-# def goal1(request):
-#     return render(request,'themes/goal1.html')
-
 def goalJsonFetchPerId(request,id):
     sgdParams['sdgId'] = id
     with connection.cursor() as cursor:
@@ -196,10 +192,11 @@ def campusMintal(request):
 def campusTagum(request):
     return render(request,'themes/campus-tagum.html')
 
-
 def campusMabini(request):
     return render(request,'themes/campus-mabini.html')
 
+def sdgPolicies(request):
+    return render(request, 'themes/policies.html' )
 
 def test(request):
     return render(request,'themes/test.html')
