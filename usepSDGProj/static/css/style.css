@@ -548,7 +548,13 @@ table.tbl-veg-map td {
 
 /****************/
 
+/*** Campuses ***/
+.policy-title {
+	color:#0C2B4B;
 
+}
+
+/****************/
 /*** Facts ***/
 @media (min-width: 991.98px) {
 	.facts {
