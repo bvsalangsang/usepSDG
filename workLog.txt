@@ -594,3 +594,19 @@
   * hide 'global rankings'
 
   ***upload files on github  "dev-241204a"***
+
+'-------------------------------------------------------------------------------
+'=-241205 - 0037 - Version 0.0.37 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes(sdgMainApp)
+  * added html file 'policies.html'
+
+=-views.py 
+  * added view 'sdgPolicies'
+
+=-urls.py 
+  * added path 'policies'
+
+**make the policies dynamic. create backend 
+
+***upload files on github  "dev-241205"***
