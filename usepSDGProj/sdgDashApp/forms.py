@@ -81,12 +81,12 @@ class SDGScorecard(forms.ModelForm):
         }
 
 
-class vegetationMap(forms.ModelForm):
+class vegetationMapForm(forms.ModelForm):
     class Meta:
         model = VegetationMap
         fields = ['vegId','campus','campAreaSqm','campAreaHas', 'forestVegSqm','forestVegHas', 
                   'forestVegPctTotArea', 'plantVegSqm', 'plantVegHas', 'plantVegPctTotArea', 'waterAbsSqm',
-                  'waterAbsHas', 'waterAbsPctTotArea']
+                  'waterAbsHas', 'waterAbsPctTotArea', 'linkPath']
         
         widgets = {
             'vegId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px'}),
@@ -102,6 +102,19 @@ class vegetationMap(forms.ModelForm):
             'waterAbsSqm':forms.TextInput(attrs={'class':'form-control','placeholder':'Water Abs (Sqm)'}),
             'waterAbsHas':forms.TextInput(attrs={'class':'form-control','placeholder':'Water Abs (Has)'}),
             'waterAbsPctTotArea':forms.TextInput(attrs={'class':'form-control','placeholder':'Water Abs Pct'}),
+            'linkPath':forms.TextInput(attrs={'class':'form-control','placeholder':'Link'}),
         }
 
+
+class sdgPolicyForm(forms.ModelForm):
+    class Meta:
+        model = sdgPolicies
+        fields = ['sdgPolId', 'title', 'description', 'imgPath', 'linkPath' ]
+        widgets = {
+            'sdgPolId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px','placeholder':'Campus' }),
+            'title':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px', 'placeholder':'Title' }),
+            'description':forms.Textarea(attrs={'rows':'4', 'class':'form-control', 'style':'margin-bottom:10px'}),
+            'imgPath': forms.ClearableFileInput(attrs={'class': 'form-control', 'style': 'margin-bottom:10px'}),
+            'linkPath':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px','placeholder':'Link' }),
+    }
 

@@ -73,3 +73,13 @@ vegMap = {
     "waterAbsPctTotArea":"",
     "isActive":""
 }
+
+sdgPolicy = {
+    "sdgPolId":"",
+    "title":"",
+    "description":"",
+    "imgPath":"",
+    "linkPath":"",
+    "isActive":""
+}
+

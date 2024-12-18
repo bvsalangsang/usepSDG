@@ -24,7 +24,6 @@ def sdgDetailsViewPerId(**sgdParams):
 
     return sql
 
-
 def getGoalList(**sgdParams):
     sql =  ("""
                 SELECT 
@@ -57,7 +56,6 @@ def getGoalList(**sgdParams):
                 GROUP BY sdg.sdgScoreId;
             """).format(sgdParams['sdgId'])
     return sql
-
 
 def getSdgScorecard(**sdgScorecard):
     sql =  ("""
@@ -92,7 +90,6 @@ def getSdgScorecard(**sdgScorecard):
             """).format(sdgScorecard['sdgScoreId'])
     return sql
 
-
 def fetchSDGIds():
     sql = ("""
            SELECT 
@@ -105,5 +102,4 @@ def fetchSDGIds():
            WHERE sdg.isActive = 'Y'
         """)
     return sql
-
 
