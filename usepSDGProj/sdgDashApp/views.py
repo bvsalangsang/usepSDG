@@ -1,4 +1,5 @@
 import requests
+import os
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import connection
@@ -8,7 +9,8 @@ from datetime import date
 
 from django.shortcuts import redirect
 from django.urls import reverse
-
+from django.utils.text import slugify
+from django.conf import settings
 
 from .forms import *
 from .sqlparams import * 
@@ -612,7 +614,7 @@ def fetchIndicator(request):
 
 #Vegetation Map
 def vegMapView(request):
-    form = vegetationMap()
+    form = vegetationMapForm()
     return render(request, 'sdgDashApp/themes/vegetation-map.html', {'form':form})
 
 def vegMapJsonList(request):
@@ -643,8 +645,147 @@ def vegMapJsonList(request):
         jsonResultData.append(tempRes)
     return JsonResponse({"data":list(jsonResultData)},safe=False)
 
+def vegSaveUpdateParams(request):
+    cursor = connection.cursor()
+    form  = vegetationMapForm()
+    if (request.POST):
+        form = vegetationMapForm(request.POST)
+        try:
+            if form.is_valid():
+                #Vegetation
+                vegMap['vegId'] = form['vegetationMap'].value()
+                vegMap['campus']
+                vegMap['campAreaSqm']
+                vegMap['campAreaHas']
+                vegMap['forestVegSqm']
+                vegMap['forestVegHas']
+                vegMap['forestVegPctTotArea']
+                vegMap['plantVegSqm']
+                vegMap['plantVegHas']
+                vegMap['plantVegPctTotArea']
+                vegMap['waterAbsSqm']
+                vegMap['waterAbsHas']
+                vegMap['waterAbsPctTotArea']
+                vegMap['isActive']
+
+               
+                form = SDGScorecard()
+                print("Debug: " + saveUpdateSdgScorecard(**sdgScorecard))
+                cursor.execute(saveUpdateSdgScorecard(**sdgScorecard))
+
+                #SDG scorecard det
+                sdgScorecardDet['sdgScoreId'] = request.POST['sdgScoreId']
+                sdgScorecardDet['sdgId'] = request.POST.get('selectedGoals', '')
+                sdgScorecardDet['targetId']  = request.POST.get('selectedTargets', '')
+                sdgScorecardDet['indId']  = request.POST.get('selectedIndicators', '')
+                sdgScorecardDet['isActive'] = 'Y' 
+                print("Debug: " + saveUpdateSdgScorecarDet(**sdgScorecardDet))
+                cursor.execute(saveUpdateSdgScorecarDet(**sdgScorecardDet))
+                return (JsonResponse({"Status": "Saved"}))
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+    else:
+        return JsonResponse({"Status":"Wrong Request"})
+
+#policy 
+def sdgPolicyView(request):
+    policyList = sdgPolicies.objects.raw(fetchSDGPolicy())
+    form = sdgPolicyForm()
+    return render (request,  'sdgDashApp/themes/sdg-policy.html', {'form':form, 'policyList':policyList})
 
 
+def sdgPolicyJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchSDGPolicy())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "sdgPolId":row[0],
+            "title":row[1],
+            "description":row[2],
+            "imgPath":row[3],
+            "linkPath":row[4],
+            "isActive":row[5]
+           }
+        jsonResultData.append(tempRes)
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+
+def sdgPolicySaveUpdateParams(request):
+    cursor = connection.cursor()
+    form  = sdgPolicyForm()
+    if (request.POST):
+        form = sdgPolicyForm(request.POST)  # Include request.FILES for handling file uploads
+        try:
+            if form.is_valid():
+                #SDG scorecard
+                sdgPolicy['sdgPolId'] = request.POST['sdgPolId']
+                sdgPolicy['title'] = form['title'].value()
+                sdgPolicy['description']  = form['description'].value()
+                sdgPolicy['linkPath']  = form['linkPath'].value()
+                sdgPolicy['isActive'] = 'Y' 
+                img_file = request.FILES.get('imgPath')
+
+                if img_file:
+                # Save using default storage
+                    name, extension = os.path.splitext(img_file.name)  # Splits 'image.png' into ('image', '.png')
+                    filename = f"{slugify(name)}{extension}"
+                    save_path = os.path.join(settings.MEDIA_ROOT, 'images', filename)
+                
+                # Ensure the 'images' directory exists
+                    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+                # Save the file to the media directory
+                    with open(save_path, 'wb+') as destination:
+                        for chunk in img_file.chunks():
+                            destination.write(chunk)
+
+                    # Path to store in the database (relative to MEDIA_URL)
+                    img_path = f'images/{filename}'
+                    
+
+                sdgPolicy['imgPath']  = img_path
+                # form  = sdgPolicyForm()
+                print("Debug: " + str(saveUpdateSdgPolicy(**sdgPolicy)))
+                cursor.execute(saveUpdateSdgPolicy(**sdgPolicy))
+            
+            
+                
+                return JsonResponse({"Status":"Saved"})
+        
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+
+
+def sdgPolicySaveUpdateParamsOld(request):
+    form  = sdgPolicyForm()
+    if (request.POST):
+        form = sdgPolicyForm(request.POST, request.FILES)  # Include request.FILES for handling file uploads
+        
+        try:
+            if form.is_valid():
+                #SDG scorecard
+                form.save()
+                return JsonResponse({"Status":"Saved"})
+        
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
 
 
 def testPage(request):

@@ -1,0 +1,386 @@
+{% extends 'sdgDashApp/base.html' %}
+{% load static %}
+
+{% block body %} 
+{% include 'sdgDashApp/includes/header.html' %}
+{% include 'sdgDashApp/includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+                <div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Sustainability Networks</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Sustainability Networks</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+						<!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                              Program Records
+                                            </div>
+											
+                                            <div class="card-body">
+                                                    <table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>title</th>
+                                                                <th>description</th>
+																<th>Link</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+        
+                                           </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-sdg-pol-lg">
+                                                        Add New
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+												
+                            </div>
+                            <!-- /.container-fluid -->
+
+							
+                        </section>
+
+
+                        <!-- /.content -->
+                        {% include 'sdgDashApp/themes/modal-sdg-policy/sdgPolAdd.html' %}
+                  
+                        {% include 'sdgDashApp/themes/modal-sdg-policy/sdgPolEdit.html' %}
+                        
+                        {% include 'sdgDashApp/themes/modal-sdg-policy/sdgPolDelete.html' %}
+			
+			
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'sdgDashApp/includes/footer.html' %}
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+    {% endblock %}
+    {% block scripts %}
+    <script>
+
+$(document).ready(function() {
+			
+            $(".select2add").select2({
+				theme: "bootstrap4",
+			});
+			
+			var modalEdit = $("#modal-sdg-pol-edit-lg")
+			var modalDelete = $("#modal-green-del-lg")
+
+			var addForm = $("#sdg-pol-add-form")
+			var addformInput = $("#sdg-pol-add-form input")
+			var editForm = $("#green-edit-form");
+			var editformInput = $("#green-edit-form input")
+			var delForm = $("#green-del-form");
+			 
+			var formSelector = "#sdg-pol-edit-form";
+			var inputSelector1 = "input[name='sdgPolId']";
+			var inputSelector2 = "input[name='title']";
+			var inputSelector3 = "textarea[name='description']";
+			var inputSelector4 = "input[name='linkPath']";
+
+			totalVal = 0
+			perVal = 0
+			ctrlNo="";
+			analId = "";
+
+			var siteTable = $("#example").DataTable({
+			ajax: "/sdgPolicyJsonList/",
+			rowId: "sdgPolId",
+			order: [0, "desc"],
+			columns: [
+				{ title:"ID",data: "sdgPolId",  width: "5%" },
+				{ title: "Title", data: "title" },
+				{ title: "Description", data: "description" },
+				{ title: "Link", data: "linkPath" },
+				{
+                    title: "Action",
+					data: null,
+					defaultContent:
+						'<button class="btn edit-area btn-default" > <i class="fas fa-edit"></i></button> ' +
+						'<button class="btn delete-area btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+					targets: -1,
+					width: "15%",
+				},
+			],
+			select: {
+				style: "os",
+				selector: "td:not(:first-child)",
+			},
+			});
+		
+			$("#example tbody").on("click", ".edit-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				pKey = data.sdgPolId
+
+                console.log(data)
+                // $("#area-edit-form input[name='code']").val(data.code);
+                $(formSelector).find(inputSelector1).val(data.sdgPolId);
+                $(formSelector).find(inputSelector2).val(data.title);
+				$(formSelector).find(inputSelector3).val(data.description);
+				$(formSelector).find(inputSelector4).val(data.linkPath);
+				modalEdit.modal("show");
+	
+			});
+
+			$("#example tbody").on("click", ".delete-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				pKey = data.greenMetId
+				const element = document.getElementById("context");
+				element.innerHTML =
+					"<h5>ID: " + pKey + "</h5>" +  "<h5>Name: " + data.greenName;
+				modalDelete.modal("show");
+			});
+
+			$('#add-new').click(function() {
+				if ( !siteTable.data().any() ) {
+					$('#id_sdgPolId').val(1) 
+				}
+				else {
+					var lastIndex = siteTable.rows().indexes().length - 1;
+					var lastRowData = siteTable.row(lastIndex).data();
+					$('#id_sdgPolId').val(lastRowData.sdgPolId + 1) 
+				}
+			 	
+			});
+
+
+			addForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $this = $(this);
+				var valid = true;
+
+				addformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+				console.log(valid);
+				if (valid) {
+					$(".btn-save").text("Saving...").attr("disabled", true);
+					var $this = $(this);
+					var formData = new FormData(this);  // Use FormData to handle file upload
+
+					// Add additional fields to FormData (e.g., sdgPolId)
+					formData.append("sdgPolId", $('#id_sdgPolId').val());
+					console.log(formData)
+					$.ajax({
+						url: $(".btn-save").data("url"),
+						type: "POST",
+						data:formData,
+						processData: false,  // Don't process the data
+						contentType: false,  // Let jQuery set the content type
+						dataType: "json",
+						success: function (data) {
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Saved!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-save").text("Save").attr("disabled", false);
+
+								$this[0].reset();
+
+								$("#example").DataTable().ajax.reload();
+								$("#modal-sdg-pol-lg").modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Save Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				 }
+				return false;
+			});
+			
+			editForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var $this = $(this);
+				var valid = true;
+
+			editformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+
+				if (valid) {
+					$(".btn-update").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					data = $this.serialize()  + "&greenMetId=" +  pKey;
+					console.log(data)
+					var editUrl = $(".btn-update").data("url"); 
+					$.ajax({
+					    url: editUrl, // editUrl.replace("0", pKey),
+						type: "POST",
+						data: data,
+						dataType: "json",
+						success: function (data) {
+							console.log(data.Status);
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Updated!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-update").text("update").attr("disabled", false);
+								$("#example").DataTable().ajax.reload();
+								modalEdit.modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Update Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				}
+			});
+
+			delForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				siteTable.row($(this).parents("tr")).remove().draw();
+				var delUrl = $(".btn-delete").data("url");
+				$.ajax({
+					url: delUrl.replace("0", pKey),
+					method: "POST",
+					success: function (data) {
+						if (data.Status == "Deleted") {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Record Successfully Deleted!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+							$("#example").DataTable().ajax.reload();
+							modalDelete.modal("hide");
+						} else {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Failed to Delete Record!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					},
+					error: function (data) {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Error Occured!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					},
+				});
+			});
+
+		});
+
+	</script>
+	{% endblock %}
