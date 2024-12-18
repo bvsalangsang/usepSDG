@@ -45,4 +45,7 @@ ul.nav.nav-treeview li {
 	padding: 5px 10px;
 }
 
-/**SDG WHEEL**/
+/*** SDG POLICY ***/
+hr.pol-lines {
+	border: 1px solid !important;
+}

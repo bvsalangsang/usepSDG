@@ -40,7 +40,7 @@
                                               Program Records
                                             </div>
                                             <div class="card-body">
-                                                    <table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+                                                    <table id="example" class="table-bordered table-striped dataTable dtr-inline" style="width:100%">
                                                         <thead>
                                                             <tr>
                                                                 <th>ID</th>
@@ -64,7 +64,7 @@
                                            </div>
                                             <div class="card-footer">
                                                 <div class="row">
-                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-target-lg">
+                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-veg-lg">
                                                         Add New
                                                     </button>
                                                 </div>
@@ -106,14 +106,14 @@
 
 			function getNextPkey(){
 					if ( !siteTable.data().any() ) {
-						$('#id_targetId').val(1) 
+						$('#id_vegId').val(1) 
 					}
 					else {
 						var lastIndex = siteTable.rows().indexes().length - 1;
 						var lastRowData = siteTable.row(lastIndex).data();
 						// $('#id_targetId').val(lastRowData.targetId + 1) 
 						if (lastRowData && lastRowData.targetId) {
-							$('#id_targetId').val(lastRowData.targetId + 1);
+							$('#id_vegId').val(lastRowData.targetId + 1);
 						} else {
 							console.error('targetId not found in lastRowData.');
 						}
@@ -127,7 +127,7 @@
 			var modalEdit = $("#modal-target-edit-lg")
 			var modalDelete = $("#modal-target-del-lg")
 
-			var addForm = $("#target-add-form")
+			var addForm = $("#veg-add-form")
 			var addformInput = $("#target-add-form input")
 			var editForm = $("#target-edit-form");
 			var editformInput = $("#target-edit-form input")
@@ -203,14 +203,6 @@
 			});
 
 			$('#add-new').click(function() {
-				// if ( !siteTable.data().any() ) {
-				// 	$('#id_targetId').val(1) 
-				// }
-				// else {
-				// 	var lastIndex = siteTable.rows().indexes().length - 1;
-				// 	var lastRowData = siteTable.row(lastIndex).data();
-				// 	$('#id_targetId').val(lastRowData.targetId + 1) 
-				// }
 				getNextPkey();
 			});
 
@@ -242,7 +234,7 @@
 				if (valid) {
 					$(".btn-save").text("Saving...").attr("disabled", true);
 					// let data = $this.serialize();
-					let data =$this.serialize() + "&targetId=" +  $('#id_targetId').val();
+					let data =$this.serialize() + "&vegId=" +  $('#id_vegId').val();
 					
 					console.log(data)
 					$.ajax({

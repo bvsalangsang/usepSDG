@@ -610,3 +610,68 @@
 **make the policies dynamic. create backend 
 
 ***upload files on github  "dev-241205"***
+
+'-------------------------------------------------------------------------------
+'=-241206 - 0038 - Version 0.0.38 - * BOB *
+'-------------------------------------------------------------------------------
+=-models.py(sdgDashApp) 
+  * added model 'sdgPolicies'
+  * added 'linkPath' charfield on 'VegetationMap'  
+
+'-------------------------------------------------------------------------------
+'=-241209 - 0039 - Version 0.0.39 - * BOB *
+'-------------------------------------------------------------------------------
+*** PIPS 
+  * added package 'Pillow-11.0.0'
+
+=-settings.py 
+  * added 'MEDIA_URL' and 'MEDIA_ROOT'
+
+=-models.py (sdgMainApp)
+  * added model 'sdgPolicies'
+  * 'sdgPolicies' 'imgPath' change property from 'models.CharField' to 'models.ImageField'
+
+=-views.py (sdgMainApp)
+  * added view 'sdgPolicyView'
+  * added view 'sdgPolicyJsonList'
+  * added view 'sdgPolicySaveUpdateParams'
+
+=-urls.py (sdgDashApp)
+  * added path 'sdgPolicyView'
+  * added path 'sdgPolicyJsonList'
+  * added path 'sdgPolicySaveUpdateParams'
+
+'-------------------------------------------------------------------------------
+'=-241210 - 0040 - Version 0.0.40 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes 
+  * added folder 'modal-sdg-policy'
+        * added file 'sdgPolAdd.html'
+        * added file 'sdgPolEdit.html'
+        * added file 'sdgPolDelete.html'
+
+
+=-views.py (sdgDashApp)
+  * 'sdgPolicySaveUpdateParams' updated code to save image
+
+=-policies.html (sdgMainApp)
+  * added tags to fetch sdg Policies
+
+=-urls.py 
+  * added path 'policies'
+
+'-------------------------------------------------------------------------------
+'=-241218 - 0041 - Version 0.0.41 - * BOB *
+'-------------------------------------------------------------------------------
+=-themes 
+  * added file 'sdg-network.html' 
+
+=-views.py 
+  * added view 'sdgNetwork'
+
+=-urls.py 
+  * added path 'sdgNetwork'
+
+***upload files on github  "dev-241218"***
+
+

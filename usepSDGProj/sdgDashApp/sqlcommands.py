@@ -428,3 +428,42 @@ def saveUpdateVegMap(**vegMap):
                     vegMap['waterAbsHas'],
                     vegMap['waterAbsPctTotArea'],
                     vegMap['isActive'])
+
+
+#sdg policy
+def fetchSDGPolicy():
+    sql = ("""
+            SELECT 
+            sdgPolId,
+            title, 
+            description,
+            imgPath,
+            linkPath,
+            isActive 
+            FROM man_sdg_policy
+            WHERE isActive = 'Y'  
+          """)
+    return sql
+
+def saveUpdateSdgPolicy(**sdgPolicy):
+    sql = ("""
+           INSERT INTO man_sdg_policy
+           SET sdgPolId = '{0}',
+           title = '{1}',
+           description = '{2}',
+           imgPath = '{3}',
+           linkPath = '{4}',
+           isActive = '{5}'
+           ON DUPLICATE KEY UPDATE
+           title = '{1}',
+           description = '{2}',
+           imgPath = '{3}',
+           linkPath = '{4}',
+           isActive = '{5}'
+          """).format(sdgPolicy['sdgPolId'],
+                      sdgPolicy['title'],
+                      sdgPolicy['description'],
+                      sdgPolicy['imgPath'],
+                      sdgPolicy['linkPath'],
+                      sdgPolicy['isActive'])
+    return sql 

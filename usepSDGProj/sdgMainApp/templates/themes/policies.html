@@ -9,7 +9,7 @@
 		>
 			<div class="container text-center">
 				<h1 class="display-4 text-white animated slideInDown mb-4">Policy</h1>
-				<nav aria-label="breadcrumb animated slideInDown">
+				<!-- <nav aria-label="breadcrumb animated slideInDown">
 					<ol class="breadcrumb justify-content-center mb-0">
 						<li class="breadcrumb-item">
 							<a class="text-white" href="#">Home</a>
@@ -21,13 +21,13 @@
 							Policy
 						</li>
 					</ol>
-				</nav>
+				</nav> -->
 			</div>
 		</div>
 		<!-- Page Header End -->
 
 		<!-- Strategy Start -->
-		<div class="container-xxl py-3">
+		<!-- <div class="container-xxl py-3">
 			<div class="container">
 				<div class="row">
 					<h1 class="display-6 text-center mb-3">SUSTAINABILITY POLICIES</h1>
@@ -153,8 +153,49 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- Strategy End -->
+
+		<div class="container-xxl py-3">
+			<div class="container wow fadeIn" data-wow-delay="0.1s">
+				<div class="row py-3">
+					<div class="col-12">
+						<h1 class="display-6 text-center">SUSTAINABILITY POLICIES</h1>
+						<hr class="yellow-border" />
+					</div>
+				</div>
+
+				{% if policyList %} {% for policy in policyList %}
+				<div class="row">
+					<div class="col-lg-3 col-sm-3">
+						<div class="topic-img">
+							{% if policy.imgPath %}
+							<img src="{{ policy.imgPath.url }}" alt="{{ policy.title }}" />
+							{% else %}
+							<p>No image available.</p>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-lg-9 col-sm-9">
+						<div class="h-100">
+							<h4 class="mb-3 text-uppercase">{{ policy.title }}</h4>
+							<p>{{ policy.description }}</p>
+							<a href="{{ policy.linkPath }}" target="_blank">
+								<p>Read More</p>
+							</a>
+						</div>
+					</div>
+					<hr class="yellow-border" />
+				</div>
+				{% endfor %} {% else %}
+				<div class="row">
+					<div class="col-lg-12 col-sm-12">
+						<h2 class="text-center">Policy not found.</h2>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
 	</section>
 </div>
 

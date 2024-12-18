@@ -98,7 +98,22 @@ class VegetationMap(models.Model):
     waterAbsSqm  = models.CharField(max_length=30)
     waterAbsHas  = models.CharField(max_length=30)
     waterAbsPctTotArea  = models.CharField(max_length=30)   
+    linkPath = models.CharField(max_length=500,null=True)
     isActive = models.CharField(max_length=1,default='Y') 
 
     class Meta: 
         db_table = "man_vegetation_map"
+
+#policy 
+class sdgPolicies(models.Model):
+    sdgPolId = models.AutoField(primary_key=True, editable=True)
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=300)
+    imgPath = models.ImageField(default='def-article-img.jpg', blank=True)
+    linkPath = models.CharField(max_length=500,null=True) 
+    isActive = models.CharField(max_length=1, default='Y')
+
+    class Meta:
+        db_table = "man_sdg_policy"
+
+

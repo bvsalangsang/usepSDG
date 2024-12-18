@@ -1,8 +1,9 @@
-<div class="modal fade" id="modal-target-lg">
-	<form id="target-add-form" autocomplete="off">
+<div class="modal fade" id="modal-veg-lg">
+	<form id="veg-add-form" autocomplete="off">
+		{% csrf_token %}
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header bg-gradient-success">
+				<div class="modal-header bg-gradient-secondary">
 					<h4 class="modal-title">Add New Entry</h4>
 					<button
 						type="button"
@@ -15,33 +16,99 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-12">
-							{% csrf_token %}
-							<div class="form-group validate">
-								<label for="veg-id">Vegetation ID</label>
-								<input
-									type="text"
-									name="code"
-									id="id_vegId"
-									class="form-control"
-									disabled
-								/>
-								<small class="text-red text-muted mySpan"></small>
+						<div class="col-md-12">
+							<!-- ID Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<input
+										type="text"
+										name="vegId"
+										id="id_vegId"
+										class="form-control"
+										disabled
+										placeholder="ID"
+									/>
+									<small class="text-red text-muted mySpan"></small>
+								</div>
 							</div>
-							<div class="form-group validate">
-								<label for="campus"> Campus</label>
-								{{ form.campus }}
-								<small class="text-red text-muted mySpan"></small>
+
+							<!-- campus Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.campus }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
 							</div>
-							<div class="form-group validate">
-								<label for="desc"> Area Sqm</label>
-								{{ form.campAreaSqm }}
-								<small class="text-red text-muted mySpan"></small>
+
+							<!-- campus Field -->
+							<div class="form-group row">
+								<div class="col-sm-6">
+									{{ form.campAreaSqm }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+								<div class="col-sm-6">
+									{{ form.campAreaHas }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
 							</div>
-							<div class="form-group validate">
-								<label for="desc"> Area Has</label>
-								{{ form.campAreaHas }}
-								<small class="text-red text-muted mySpan"></small>
+
+							<!-- Forest Vegetation Field -->
+							<div class="form-group row">
+								<div class="col-sm-4">
+									{{ form.forestVegSqm }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+								<div class="col-sm-4">
+									{{ form.forestVegHas }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+
+								<div class="col-sm-4">
+									{{ form.forestVegPctTotArea }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Plant Field -->
+							<div class="form-group row">
+								<div class="col-sm-4">
+									{{ form.plantVegSqm }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+								<div class="col-sm-4">
+									{{ form.plantVegHas }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+
+								<div class="col-sm-4">
+									{{ form.plantVegPctTotArea }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Water Field -->
+							<div class="form-group row">
+								<div class="col-sm-4">
+									{{ form.waterAbsSqm }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+								<div class="col-sm-4">
+									{{ form.waterAbsHas }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+
+								<div class="col-sm-4">
+									{{ form.waterAbsPctTotArea }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
+							</div>
+
+							<!-- Link Field -->
+							<div class="form-group row">
+								<div class="col-sm-12">
+									{{ form.linkPath }}
+									<small class="text-red text-muted mySpan"></small>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -53,14 +120,15 @@
 					<button
 						type="submit"
 						class="btn btn-success btn-save"
-						data-url="{% url 'sdgTargetSaveUpdateParams' %}"
+						data-url="{% url 'sdgSaveUpdateParams' %}"
 					>
 						Save
 					</button>
 				</div>
 			</div>
+			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
 	</form>
 </div>
-<!-- /.modal-dialog -->
+<!-- /.modal -->

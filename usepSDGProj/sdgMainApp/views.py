@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .sqlparams import *
 from .sqlcommands import * 
+from sdgDashApp.sqlcommands import *
+from sdgDashApp.models import sdgPolicies
 
 # Create your views here.
 def index(request):
@@ -195,8 +197,35 @@ def campusTagum(request):
 def campusMabini(request):
     return render(request,'themes/campus-mabini.html')
 
-def sdgPolicies(request):
-    return render(request, 'themes/policies.html' )
+
+def sdgPoliciesView(request):
+    policyList = sdgPolicies.objects.raw(fetchSDGPolicy())
+    return render(request, 'themes/policies.html', {'policyList':policyList} )
+
+def getSdgPoliciesJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchSDGPolicy())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "sdgPolId":row[0],
+            "title":row[1],
+            "description":row[2],
+            "imgPath":row[3],
+            "linkPath":row[4],
+            "isActive":row[5]
+           }
+        jsonResultData.append(tempRes)
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+
+def sdgNetwork(request):
+    return render(request,'themes/sdg-network.html')
+
 
 def test(request):
     return render(request,'themes/test.html')

@@ -56,6 +56,12 @@ urlpatterns = [
         #Vegetation Map
         path('dash-admin/vegetation-map',views.vegMapView,name="vegMapView"),
         path('vegMapJsonList/',views.vegMapJsonList,name="vegMapJsonList"),
+
+        #policy 
+        path('dash-admin/sdg-policy',views.sdgPolicyView,name="sdgPolicyView"),
+        path('sdgPolicyJsonList/',views.sdgPolicyJsonList,name="sdgPolicyJsonList"),
+        path('sdgPolicySaveUpdateParams/',views.sdgPolicySaveUpdateParams,name="sdgPolicySaveUpdateParams"),
+
         path('testpage/', views.testPage,name="testpage")
 
         # path('fetchTarget/<int:id>', views.fetchTarget, name="fetchTarget"),

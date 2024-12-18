@@ -1,7 +1,10 @@
 
 from django.contrib import admin
 from django.urls import path
+from sdgDashApp import views as dash_view
+
 from . import views
+
 
 
 urlpatterns = [
@@ -25,6 +28,8 @@ urlpatterns = [
         path("campus-tagum",views.campusTagum,name="campusTagum"),     
         path("campus-mabini",views.campusMabini,name="campusMabini"),     
         path("campus-mabini",views.campusMabini,name="campusMabini"),     
-        path("policies", views.sdgPolicies, name="policies"),
+        path("policies", views.sdgPoliciesView, name="policies"),
+        path("sdg-network", views.sdgNetwork, name="sdgNetwork"),
+        path("sdgPolicyJsonList", dash_view.sdgPolicyJsonList, name="sdgPolicyJsonList"),
         path('sub/test',views.test,name="Home"),
     ]
