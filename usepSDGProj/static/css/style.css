@@ -247,14 +247,25 @@
 a h5 {
 	color: #F3BD00;
     text-decoration: none
+
 }
 
 .dreport-1 {
-	font-size: 27px;
 
+	font-size: 27px;
+	color: #F3BD00;
+    text-decoration: none
 }
 
 /*****/
+
+/**** sdg-green-metric ****/ 
+img.green-custom-height {
+    max-width: 85%;
+    width: 75%;
+}
+
+/********/
 
 .py-6 {
 	padding-top: 6rem;
@@ -563,6 +574,11 @@ table.tbl-veg-map td {
 }
 
 /****************/
+
+/*** SCORECARD  ***/
+
+/******************/
+
 /*** Facts ***/
 @media (min-width: 991.98px) {
 	.facts {

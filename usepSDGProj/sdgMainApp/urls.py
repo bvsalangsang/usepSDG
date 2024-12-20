@@ -30,6 +30,7 @@ urlpatterns = [
         path("campus-mabini",views.campusMabini,name="campusMabini"),     
         path("policies", views.sdgPoliciesView, name="policies"),
         path("sdg-network", views.sdgNetwork, name="sdgNetwork"),
+        path("green-ui-scorecard", views.sdgGreenScoreCard, name="sdgGreenScoreCard"),
         path("sdgPolicyJsonList", dash_view.sdgPolicyJsonList, name="sdgPolicyJsonList"),
         path('sub/test',views.test,name="Home"),
     ]

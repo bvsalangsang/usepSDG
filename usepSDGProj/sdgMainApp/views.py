@@ -226,6 +226,11 @@ def getSdgPoliciesJsonList(request):
 def sdgNetwork(request):
     return render(request,'themes/sdg-network.html')
 
+def sdgGreenScoreCard(request):
+    return render(request,'themes/sdg-green-scorecard.html')
+
+
+
 
 def test(request):
     return render(request,'themes/test.html')
