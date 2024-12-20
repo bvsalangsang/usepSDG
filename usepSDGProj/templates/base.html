@@ -45,6 +45,15 @@
 		<!-- Customized Bootstrap Stylesheet -->
 		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 
+		<!-- Flipbook StyleSheets -->
+		<link href="{% static 'dflip/css/dflip.min.css' %}" rel="stylesheet" />
+
+		<!-- themify-icons.min.css -->
+		<link
+			href="{% static '/dflip/css/themify-icons.min.css' %}"
+			rel="stylesheet"
+		/>
+
 		<!-- Template Stylesheet -->
 		<link href="{% static 'css/style.css' %}" rel="stylesheet" />
 	</head>
@@ -185,6 +194,12 @@
 
 		<!-- Template Javascript -->
 		<script src="{% static 'js/main.js' %}"></script>
+
+		<!-- <script src="http://www.yoursite.com/dflip/js/libs/jquery.min.js" type="text/javascript"></script> -->
+		<script
+			src="{% static  'dflip/js/dflip.min.js' %}"
+			type="text/javascript"
+		></script>
 
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {

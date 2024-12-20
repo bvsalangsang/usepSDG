@@ -44,24 +44,26 @@
 					</div>
 
 					<div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-						<h4 class="display-6 text-center">Progress Reports</h4>
+						<div class="score-report py-4">
+							<h4 class="text-center">Progress Reports</h4>
 
-						<a
-							href="https://drive.google.com/file/d/1LZGQjKuS4YKy2qRd0JQOpfQmwai8ER5D/view"
-							target="_blank"
-						>
-							<h5 class="dreport-1 text-center">FY 2023 SDG</h5></a
-						>
-					</div>
-				</div>
+							<a
+								href="https://drive.google.com/file/d/1LZGQjKuS4YKy2qRd0JQOpfQmwai8ER5D/view"
+								target="_blank"
+							>
+								<h5 class="dreport-1 text-center">FY 2023 SDG</h4></a
+							>
+						</div>
 
-				<div class="row g-5">
-					<div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
-						<img
-							class="w-100 custom-height"
-							src="{% static 'img/usep-ui-green-ranking.png' %}"
-							alt="Image"
-						/>
+						<div class="score-report">
+							<h4 class="text-center">UI GreenMetric Scorecard</h4>
+
+							<a
+								href="{% url  'sdgGreenScoreCard' %}"
+							>
+								<h4 class="dreport-1 text-center">FY 2024 Rankings</h4></a
+							>
+						</div>
 					</div>
 				</div>
 			</div>

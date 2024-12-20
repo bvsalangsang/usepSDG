@@ -674,4 +674,23 @@
 
 ***upload files on github  "dev-241218"***
 
+'-------------------------------------------------------------------------------
+'=-241220 - 0042 - Version 0.0.42 - * BOB *
+'-------------------------------------------------------------------------------
+=-sdg-scorecard.html 
+  * removed 'green scorecard'
+
+=-views.py (sdgDashApp)
+  * added view 'sdgGreenScoreCard'
+
+=-urls.py (sdgDashApp)
+  * added path 'sdgGreenScoreCard'
+
+=-style.css  
+  * added style  'img.custom-height'
+
+=-files 
+  * added 'dflip' files for PDF blockquote
+
+***upload files on github  "dev-241220"***
 
