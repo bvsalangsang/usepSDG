@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+
+<div class="content-wrapper">
+	<section class="content">
+		<!-- Page Header Start -->
+		<div
+			class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn"
+			data-wow-delay="0.1s"
+		>
+			<div class="container text-center">
+				<h1 class="display-4 text-white animated slideInDown mb-4">
+					News Timeline
+				</h1>
+			</div>
+		</div>
+		<!-- Page Header End -->
+
+		<div class="container-xxl py-2">
+			<div class="container wow fadeIn" data-wow-delay="0.1s">
+				<div class="row py-3">
+					<div class="col-12">
+						<h1 class="display-4 text-center">Topics</h1>
+						<hr class="yellow-border" />
+					</div>
+				</div>
+
+				{% if newsList %} {% for news in newsList %}
+				<div class="row">
+					<div class="col-lg-3 col-sm-3">
+						<div class="topic-img">
+							{% if news.imgPath %}
+							<img src="{{ news.imgPath.url }}" alt="{{ news.title }}" />
+							{% else %}
+							<p>No image available.</p>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-lg-9 col-sm-9">
+						<div class="h-100">
+							<h4 class="mb-3 text-uppercase">{{ news.title }}</h4>
+							<p>Published on: {{ news.datePublished }}</p>
+							<p>{{ news.content }}</p>
+							<p>Author: {{ news.author }}</p>
+							<a href="{{ news.linkPath }}" target="_blank">
+								<p>Read More</p>
+							</a>
+						</div>
+					</div>
+					<hr class="yellow-border" />
+				</div>
+				{% endfor %} {% else %}
+				<div class="row">
+					<div class="col-lg-12 col-sm-12">
+						<h2 class="text-center">Policy not found.</h2>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+</div>
+
+{% include 'includes/footer.html' %} {% endblock %}

@@ -118,3 +118,22 @@ class sdgPolicyForm(forms.ModelForm):
             'linkPath':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px','placeholder':'Link' }),
     }
 
+
+
+class sdgNewsForm(forms.ModelForm):
+    class Meta:
+        model = sdgNews
+        fields = ['newsId', 'title', 'content', 'excerpt', 'datePublished', 'author',
+                  'imgPath', 'linkPath' ]
+        widgets = {
+            'newsId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px','placeholder':'Campus' }),
+            'title':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px', 'placeholder':'Title' }),
+            'content':forms.Textarea(attrs={'rows':'4', 'class':'form-control', 'style':'margin-bottom:10px' , 'placeholder':'Content'}),
+            'excerpt':forms.Textarea(attrs={'rows':'4', 'class':'form-control', 'style':'margin-bottom:10px', 'placeholder':'Excerpt'}),
+            'datePublished':forms.DateInput(attrs={'type': 'date'}),
+            'author':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px', 'placeholder':'Author' }),
+            'imgPath': forms.ClearableFileInput(attrs={'class': 'form-control', 'style': 'margin-bottom:10px'}),
+            'linkPath':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px','placeholder':'Http://' }),
+    }
+
+
