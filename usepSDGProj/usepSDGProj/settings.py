@@ -109,24 +109,24 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     #  FOR LOCAL
-        "default": {
-        "ENGINE": 'django.db.backends.mysql',
-        "NAME": 'usep_sdg',
-        "USER": 'dash',
-        "PASSWORD": 'Usepdash@101',
-        "HOST": 'localhost',
-        "PORT": '3306',
-    },
-
-    # FOR ubuntu
-    #  "default": {
+    #     "default": {
     #     "ENGINE": 'django.db.backends.mysql',
     #     "NAME": 'usep_sdg',
-    #     "USER": 'sdg',
-    #     "PASSWORD": 'SDMD@ipd101',
+    #     "USER": 'dash',
+    #     "PASSWORD": 'Usepdash@101',
     #     "HOST": 'localhost',
     #     "PORT": '3306',
-    # }
+    # },
+
+    # FOR ubuntu
+     "default": {
+        "ENGINE": 'django.db.backends.mysql',
+        "NAME": 'usep_sdg',
+        "USER": 'sdg',
+        "PASSWORD": 'SDMD@ipd101',
+        "HOST": 'localhost',
+        "PORT": '3306',
+    }
 
 }
 
@@ -168,12 +168,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # on ubuntu
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # on local
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static/'),
-   ]
+# STATICFILES_DIRS=[
+#     os.path.join(BASE_DIR,'static/'),
+#    ]
 
 MEDIA_URL = '/media/'
 
