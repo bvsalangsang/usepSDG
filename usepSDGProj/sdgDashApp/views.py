@@ -697,7 +697,6 @@ def sdgPolicyView(request):
     form = sdgPolicyForm()
     return render (request,  'sdgDashApp/themes/sdg-policy.html', {'form':form, 'policyList':policyList})
 
-
 def sdgPolicyJsonList(request):
     with connection.cursor() as cursor:
         cursor.execute(fetchSDGPolicy())
@@ -717,7 +716,6 @@ def sdgPolicyJsonList(request):
            }
         jsonResultData.append(tempRes)
     return JsonResponse({"data":list(jsonResultData)},safe=False)
-
 
 def sdgPolicySaveUpdateParams(request):
     cursor = connection.cursor()
@@ -768,7 +766,6 @@ def sdgPolicySaveUpdateParams(request):
             print(f"{type(err).__name__} was raised: {err}")
             return JsonResponse ({"err":err})
 
-
 def sdgPolicySaveUpdateParamsOld(request):
     form  = sdgPolicyForm()
     if (request.POST):
@@ -778,6 +775,92 @@ def sdgPolicySaveUpdateParamsOld(request):
             if form.is_valid():
                 #SDG scorecard
                 form.save()
+                return JsonResponse({"Status":"Saved"})
+        
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+
+#news 
+def sdgNewsView(request):
+    form = sdgNewsForm()
+    return render (request,  'sdgDashApp/themes/sdg-news.html', {'form':form})
+ 
+
+def sdgNewsJsonList(request):
+    with connection.cursor() as cursor:
+        cursor.execute(fetchNews())
+        rows = cursor.fetchall()
+
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            "newsId":row[0],
+            "sdgId":row[1],
+            "title":row[2],
+            "content":row[3],
+            "excerpt":row[4],
+            "datePublished":row[5],
+            "author":row[6],
+            "imgPath":row[7],
+            "linkPath":row[8],
+            "createdDate":row[9],
+            "isActive":row[10]
+           }
+        jsonResultData.append(tempRes)
+    return JsonResponse({"data":list(jsonResultData)},safe=False)
+
+
+def sdgNewsSaveUpdate(request):
+    cursor = connection.cursor()
+    form  = sdgNewsForm()
+    if (request.POST):
+        form = sdgNewsForm(request.POST)  # Include request.FILES for handling file uploads
+        try:
+            if form.is_valid():
+                #SDG scorecard
+                
+                sdgNewsParam['newsId'] = request.POST['newsId']
+                sdgNewsParam['sdgId'] = '1'
+                sdgNewsParam['title'] = form['title'].value()
+                sdgNewsParam['content']  = form['content'].value()
+                sdgNewsParam['excerpt'] = form['excerpt'].value()
+                sdgNewsParam['datePublished']  = form['datePublished'].value()
+                sdgNewsParam['author'] = form['author'].value()
+                sdgNewsParam['linkPath']  = form['linkPath'].value()
+                sdgNewsParam['isActive'] = 'Y' 
+                img_file = request.FILES.get('imgPath')
+
+                if img_file:
+                # Save using default storage
+                    name, extension = os.path.splitext(img_file.name)  # Splits 'image.png' into ('image', '.png')
+                    filename = f"{slugify(name)}{extension}"
+                    save_path = os.path.join(settings.MEDIA_ROOT, 'images', filename)
+                
+                # Ensure the 'images' directory exists
+                    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+                # Save the file to the media directory
+                    with open(save_path, 'wb+') as destination:
+                        for chunk in img_file.chunks():
+                            destination.write(chunk)
+
+                    # Path to store in the database (relative to MEDIA_URL)
+                    img_path = f'images/{filename}'
+                    
+
+                sdgNewsParam    ['imgPath']  = img_path
+                # form  = sdgPolicyForm()
+                print("Debug: " + str(saveUpdateSdgNews(**sdgNewsParam)))
+                cursor.execute(saveUpdateSdgNews(**sdgNewsParam))
+            
+            
+                
                 return JsonResponse({"Status":"Saved"})
         
             else:

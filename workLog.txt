@@ -694,3 +694,34 @@
 
 ***upload files on github  "dev-241220"***
 
+'-------------------------------------------------------------------------------
+'=-250106 - 0042 - Version 0.0.42 - * BOB *
+'-------------------------------------------------------------------------------
+*** cont dev on SDG NEWS 
+  * added models already
+
+-------------------------------------------------------------------------------
+'=-250121 - 0043 - Version 0.0.43 - * BOB *
+-------------------------------------------------------------------------------
+=-forms.py (sdgDashApp)
+  * added form 'sdgNews'
+
+=-sqlparams.py (sdgDashApp)
+  * added param 'sdgNews'
+
+=-sqlcommands.py (sdgDashApp)
+  * added query 'fetchNews'
+
+=-views.py  
+  * added view 'sdgNewsView'
+  * added view 'sdgNewsJsonList'
+
+-------------------------------------------------------------------------------
+'=-250326 - 0044 - Version 0.0.44 - * BOB *
+-------------------------------------------------------------------------------
+=-themes  (sdgMainApp)
+  * renamed 'news-list.html' to 'news-list-old.html'
+  * added html file and named 'news-list.html'
+
+   
+***upload files on github  "dev-250326"***

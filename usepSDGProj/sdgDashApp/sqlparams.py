@@ -83,3 +83,18 @@ sdgPolicy = {
     "isActive":""
 }
 
+sdgNewsParam = {
+    "newsId":"",
+    "sdgId":"",
+    "title":"",
+    "content":"",
+    "excerpt":"",
+    "datePublished":"",
+    "author":"",
+    "imgPath":"",
+    "linkPath":"",
+    "isActive":""
+}
+
+
+

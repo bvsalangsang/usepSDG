@@ -62,6 +62,12 @@ urlpatterns = [
         path('sdgPolicyJsonList/',views.sdgPolicyJsonList,name="sdgPolicyJsonList"),
         path('sdgPolicySaveUpdateParams/',views.sdgPolicySaveUpdateParams,name="sdgPolicySaveUpdateParams"),
 
+        #news 
+        path('dash-admin/sdg-news',views.sdgNewsView,name="sdgNewsView"),
+        path('sdgNewsJsonList/',views.sdgNewsJsonList,name="sdgNewsJsonList"),
+        path('sdgNewsSaveUpdate/',views.sdgNewsSaveUpdate,name="sdgNewsSaveUpdate"),
+
+      
         path('testpage/', views.testPage,name="testpage")
 
         # path('fetchTarget/<int:id>', views.fetchTarget, name="fetchTarget"),

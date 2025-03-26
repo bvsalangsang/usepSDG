@@ -55,7 +55,7 @@
                                            </div>
                                             <div class="card-footer">
                                                 <div class="row">
-                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-sdg-pol-lg">
+                                                    <button type="button" id="add-new"  class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-sdg-news-lg">
                                                         Add New
                                                     </button>
                                                 </div>
@@ -73,11 +73,11 @@
 
 
                         <!-- /.content -->
-                        {% include 'sdgDashApp/themes/modal-sdg-policy/sdgPolAdd.html' %}
+                        {% include 'sdgDashApp/themes/modal-sdg-news/sdgNewsAdd.html' %}
                   
-                        {% include 'sdgDashApp/themes/modal-sdg-policy/sdgPolEdit.html' %}
+                        {% include 'sdgDashApp/themes/modal-sdg-news/sdgNewsEdit.html' %}
                         
-                        {% include 'sdgDashApp/themes/modal-sdg-policy/sdgPolDelete.html' %}
+                        {% include 'sdgDashApp/themes/modal-sdg-news/sdgNewsDelete.html' %}
 			
 			
 			</div>
@@ -101,20 +101,22 @@ $(document).ready(function() {
 				theme: "bootstrap4",
 			});
 			
-			var modalEdit = $("#modal-sdg-pol-edit-lg")
+			var modalEdit = $("#modal-sdg-news-edit-lg")
 			var modalDelete = $("#modal-green-del-lg")
 
-			var addForm = $("#sdg-pol-add-form")
-			var addformInput = $("#sdg-pol-add-form input")
-			var editForm = $("#green-edit-form");
-			var editformInput = $("#green-edit-form input")
+			var addForm = $("#sdg-news-add-form")
+			var addformInput = $("#sdg-news-add-form input")
+			var editForm = $("#sdg-news-edit-form");
+			var editformInput = $("#sdg-news-edit-form input")
 			var delForm = $("#green-del-form");
 			 
-			var formSelector = "#sdg-pol-edit-form";
-			var inputSelector1 = "input[name='sdgPolId']";
+			var formSelector = "#sdg-news-edit-form";
+			var inputSelector1 = "input[name='newsId']";
 			var inputSelector2 = "input[name='title']";
-			var inputSelector3 = "textarea[name='description']";
-			var inputSelector4 = "input[name='linkPath']";
+			var inputSelector3 = "textarea[name='content']";
+			var inputSelector4 = "textarea[name='excerpt']";
+			var inputSelector5 = "input[name='linkPath']";
+			var inputSelector6 = "input[name='imgPath']";
 
 			totalVal = 0
 			perVal = 0
@@ -122,15 +124,19 @@ $(document).ready(function() {
 			analId = "";
 
 			var siteTable = $("#example").DataTable({
-			ajax: "/sdgPolicyJsonList/",
+			ajax: "/sdgNewsJsonList/",
 			rowId: "sdgPolId",
 			order: [0, "desc"],
 			columns: [
-				{ title:"ID",data: "sdgPolId",  width: "5%" },
+				{ title:"ID",data: "newsId",  width: "5%" },
+				{ title: "SDG", data: "sdgId" },
 				{ title: "Title", data: "title" },
-				{ title: "Description", data: "description" },
+				{ title: "Content", data: "content" },
+				{ title: "Excerpt", data: "excerpt" },
+				{ title: "Published", data: "datePublished" },
+				{ title: "Author", data: "author" },
+				{ title: "Image", data: "imgPath" },
 				{ title: "Link", data: "linkPath" },
-				{ title: "Link", data: "imgPath" },
 				{
                     title: "Action",
 					data: null,
@@ -155,12 +161,14 @@ $(document).ready(function() {
 
                 console.log(data)
                 // $("#area-edit-form input[name='code']").val(data.code);
-                $(formSelector).find(inputSelector1).val(data.sdgPolId);
+                $(formSelector).find(inputSelector1).val(data.newsId);
                 $(formSelector).find(inputSelector2).val(data.title);
-				$(formSelector).find(inputSelector3).val(data.description);
-				$(formSelector).find(inputSelector4).val(data.linkPath);
+				$(formSelector).find(inputSelector3).val(data.content);
+				$(formSelector).find(inputSelector4).val(data.excerpt);
+				$(formSelector).find(inputSelector5).val(data.linkPath);
+				// $(formSelector).find(inputSelector6).val(data.imgPath);
+				
 				modalEdit.modal("show");
-	
 			});
 
 			$("#example tbody").on("click", ".delete-area", function(e) {
@@ -176,12 +184,12 @@ $(document).ready(function() {
 
 			$('#add-new').click(function() {
 				if ( !siteTable.data().any() ) {
-					$('#id_sdgPolId').val(1) 
+					$('#id_newsId').val(1) 
 				}
 				else {
 					var lastIndex = siteTable.rows().indexes().length - 1;
 					var lastRowData = siteTable.row(lastIndex).data();
-					$('#id_sdgPolId').val(lastRowData.sdgPolId + 1) 
+					$('#id_newsId').val(lastRowData.newsId + 1) 
 				}
 			 	
 			});
@@ -217,7 +225,7 @@ $(document).ready(function() {
 					var formData = new FormData(this);  // Use FormData to handle file upload
 
 					// Add additional fields to FormData (e.g., sdgPolId)
-					formData.append("sdgPolId", $('#id_sdgPolId').val());
+					formData.append("newsId", $('#id_newsId').val());
 					console.log(formData)
 					$.ajax({
 						url: $(".btn-save").data("url"),

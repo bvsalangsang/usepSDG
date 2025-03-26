@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .sqlparams import *
 from .sqlcommands import * 
 from sdgDashApp.sqlcommands import *
-from sdgDashApp.models import sdgPolicies
+from sdgDashApp.models import sdgPolicies,sdgNews
 
 # Create your views here.
 def index(request):
@@ -229,8 +229,14 @@ def sdgNetwork(request):
 def sdgGreenScoreCard(request):
     return render(request,'themes/sdg-green-scorecard.html')
 
+def newsListView(request):
+    newsList = sdgNews.objects.raw(fetchNews())
+    print(newsList)
+    return render(request, 'themes/news-list.html',{'newsList':newsList})
 
 
+def newsTopic(request):
+    return render(request, 'themes/news-topic.html')
 
 def test(request):
     return render(request,'themes/test.html')

@@ -31,6 +31,9 @@ urlpatterns = [
         path("policies", views.sdgPoliciesView, name="policies"),
         path("sdg-network", views.sdgNetwork, name="sdgNetwork"),
         path("green-ui-scorecard", views.sdgGreenScoreCard, name="sdgGreenScoreCard"),
+        path("news-list", views.newsListView, name="newsListView"),
+        path("news/topic", views.newsTopic, name="newsTopic"),
+        
         path("sdgPolicyJsonList", dash_view.sdgPolicyJsonList, name="sdgPolicyJsonList"),
         path('sub/test',views.test,name="Home"),
     ]
