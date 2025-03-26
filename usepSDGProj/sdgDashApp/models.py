@@ -116,4 +116,19 @@ class sdgPolicies(models.Model):
     class Meta:
         db_table = "man_sdg_policy"
 
-
+#news 
+class sdgNews(models.Model):
+    newsId = models.AutoField(primary_key=True, editable=True)
+    sdgId = models.CharField(max_length=20)
+    title = models.CharField(max_length=50)
+    content = models.CharField(max_length=850)
+    excerpt  = models.CharField(max_length=230)
+    datePublished = models.DateField(null=True, blank=True)
+    author = models.CharField(max_length=100)
+    imgPath = models.ImageField(blank=True)
+    linkPath = models.CharField(max_length=500,null=True) 
+    createdDate =  models.DateField(null=True, blank=True)
+    isActive = models.CharField(max_length=1, default='Y')
+    
+    class Meta:
+        db_table = "man_sdg_news"

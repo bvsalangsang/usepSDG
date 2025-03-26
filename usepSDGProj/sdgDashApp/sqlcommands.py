@@ -467,3 +467,61 @@ def saveUpdateSdgPolicy(**sdgPolicy):
                       sdgPolicy['linkPath'],
                       sdgPolicy['isActive'])
     return sql 
+
+#SDG News 
+def fetchNews():
+    sql = ("""
+           SELECT  
+           newsId,
+           sdgId,
+           title,
+           content,
+           excerpt,
+           DATE_FORMAT(datePublished, "%%M %%d %%Y"),
+           author,
+           imgPath,
+           linkPath,
+           createdDate,
+           isActive 
+           FROM man_sdg_news
+           WHERE isActive = 'Y'
+            """)
+    return sql
+
+def saveUpdateSdgNews(**sdgNewsParam):
+    
+    sql = ("""
+           INSERT INTO man_sdg_news
+           SET newsId = '{0}',
+           sdgId = '{1}',
+           title = '{2}',
+           content = '{3}',
+           excerpt = '{4}',
+           datePublished = '{5}',
+           author = '{6}',
+           imgPath = '{7}',
+           linkPath = '{8}',
+           isActive = '{9}'
+           ON DUPLICATE KEY UPDATE
+           sdgId = '{1}',
+           title = '{2}',
+           content = '{3}',
+           excerpt = '{4}',
+           datePublished = '{5}',
+           author = '{6}',
+           imgPath = '{7}',
+           linkPath = '{8}',
+           isActive = '{9}'
+          """).format(sdgNewsParam['newsId'],
+                      sdgNewsParam['sdgId'],
+                      sdgNewsParam['title'],
+                      sdgNewsParam['content'],
+                      sdgNewsParam['excerpt'],
+                      sdgNewsParam['datePublished'],
+                      sdgNewsParam['author'],
+                      sdgNewsParam['imgPath'],
+                      sdgNewsParam['linkPath'],
+                      sdgNewsParam['isActive'])
+    return sql 
+
+
